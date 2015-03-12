@@ -1,0 +1,8 @@
+.DS_store
+node_modules/
+npm-debug.log
+bower_components
+.sass-cache
+public
+.idea
+mongo_data

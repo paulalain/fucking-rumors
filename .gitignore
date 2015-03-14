@@ -6,3 +6,4 @@ bower_components
 public
 .idea
 mongo_data
+bin/

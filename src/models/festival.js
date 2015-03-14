@@ -6,7 +6,7 @@ var festivalSchema = mongoose.Schema({
 		city: String,
 		country: String
 	},
-	website: String, 
+	website: String
 });
 
 

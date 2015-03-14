@@ -1,24 +1,33 @@
 var express = require('express');
 var router = express.Router();
 
-var Festival = require('./models/festival');
+var Festival = require('../models/festival');
 
 /* GET festivals listing. */
 router.get('/', function(req, res, next) {
-	Festival.find(, function(err, festivals){
-		if(festivals.length > 0){
-			var str = '';
-			for(i=0;i>festivals.length;i++){
-				str += festivals.name + ' ';
-			}
+	var listeFestival = '';
 
-			res.send(str);
+	var festivals = Festival.find(function(err, festivalsList) {
+		if (err){
+			return console.error(err);
 		}else{
-			res.send('No festival yet');
+			res.render('festivals', { festivals: festivalsList });
 		}
-		
 	});
-	
+});
+
+/* GET festivals listing. */
+router.get('/save/', function(req, res, next) {
+	var routeDurock = new Festival({
+	  name: 'La Route du Wok'
+	});
+
+	routeDurock.save(function (err) {
+			if (err) {
+				console.log ('Error on save!');
+			}
+		}
+	);
 });
 
 module.exports = router;

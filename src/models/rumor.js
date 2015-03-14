@@ -1,15 +1,14 @@
 var mongoose = require('mongoose');
 
-var festivalSchema = mongoose.Schema({
-	name: { type: String, required: true },
-	location: { 
-		city: String,
-		country: String
-	},
-	website: String, 
+var rumorSchema = mongoose.Schema({
+	artist: { type: String, required: true }, 
+	pourcentage: String,
+	date: Date,
+	source: String,
+	official: Boolean
 });
 
 
-var Festival = mongoose.model('Festival', festivalSchema);
+var Rumor = mongoose.model('Rumor', rumorSchema);
 
-module.exports = Festival;
+module.exports = Rumor;

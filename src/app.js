@@ -7,18 +7,18 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
-//var festivals = require('./routes/festivals');
+var festivals = require('./routes/festivals');
 
 var app = express();
 
 
 //database connection
-//mongoose.connect(process.env.MONGO_CONNECTION || 'mongodb://localhost:27017/fucking-rumors-dev');
-//process.on('SIGINT', function() {
-//  mongoose.connection.close(function () {
-//    process.exit(0);
-//  });
-//});
+mongoose.connect(process.env.MONGO_CONNECTION || 'mongodb://localhost:27017/fucking-rumors-dev');
+process.on('SIGINT', function() {
+  mongoose.connection.close(function () {
+    process.exit(0);
+  });
+});
 
 //set port
 app.set('port', process.env.PORT || 3000);
@@ -36,7 +36,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-//app.use('/festivals', festivals);
+app.use('/festivals', festivals);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -29,9 +29,13 @@ module.exports = function(grunt) {
 
     sass: {
       dist: {
-        files: {
-          'public/style/app.css': 'style/app.scss',
-        }
+        files: [{
+          "expand": true,
+          "cwd": "src/styles/",
+          "src": ["*.scss"],
+          "dest": "dist/styles/",
+          "ext": ".css"
+        }]
       }
     },
 
@@ -58,18 +62,11 @@ module.exports = function(grunt) {
         cwd: 'assets/',
         src: '**',
         dest: 'public/assets/'
-      },
-      fonts: {
-        expand: true,
-        cwd: 'node_modules/font-awesome/',
-        src: 'fonts/**',
-        dest: 'public/assets/'
       }
     }
 
   });
 
-  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
@@ -80,7 +77,8 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'concat', 'uglify', 'sass', 'cssmin', 'copy'
   ]);
-  grunt.registerTask('heroku', [
+  
+  grunt.registerTask('prod', [
     'concat', 'uglify', 'sass', 'cssmin', 'copy'
   ]);
 };

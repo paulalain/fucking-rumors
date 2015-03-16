@@ -9,7 +9,7 @@ module.exports = function(grunt) {
       },
       style: {
         files: 'stylesheets/**/*',
-        tasks: ['concat', 'sass', 'cssmin']
+        tasks: ['concat:app_style', 'sass', 'cssmin']
       },
       assets: {
         files: 'assets/**/*',
@@ -18,31 +18,39 @@ module.exports = function(grunt) {
     },
 
     concat: {
-      vendor_style: {
+      bootstrap_style: {
         src: [
           'node_modules/bootstrap/dist/css/bootstrap.min.css',
           'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
         ],
-        dest: 'public/style/bootstrap.css'
+        dest: 'public/stylesheets/bootstrap.css'
+      },
+      app_style: {
+        src: ["stylesheets/*.css"],
+        dest: 'public/stylesheets/app.css'
+      },
+      js: {
+        src: [
+          'node_modules/jquery/dist/jquery.min.js', // always jQuery before bootstrap
+          'node_modules/bootstrap/dist/js/bootstrap.min.js',
+
+        ],
+        dest: 'public/js/app.min.js'
       }
     },
 
     sass: {
       dist: {
-        files: [{
-          "expand": true,
-          "cwd": "src/styles/",
-          "src": ["*.scss"],
-          "dest": "dist/styles/",
-          "ext": ".css"
-        }]
+       files: {
+          'public/stylesheets/app.css': 'stylesheets/app.scss',
+        }
       }
     },
 
     uglify: {
       dist: {
         files: {
-          'public/scripts/app.min.js': 'public/scripts/app.js'
+          'public/js/app.min.js': 'public/js/app.min.js'
         }
       }
     },
@@ -50,8 +58,8 @@ module.exports = function(grunt) {
     cssmin: {
       dist: {
         files: {
-          'public/style/app.min.css': 'public/style/app.css',
-          'public/style/bootstrap.min.css': 'public/style/bootstrap.css',
+          'public/stylesheets/app.min.css': 'public/stylesheets/app.css',
+          'public/stylesheets/bootstrap.min.css': 'public/stylesheets/bootstrap.css',
         }
       }
     },
@@ -63,7 +71,14 @@ module.exports = function(grunt) {
         src: '**',
         dest: 'public/assets/'
       }
-    }
+    },
+
+    remove: {
+      options: {
+        trace: true
+      },
+      fileList: ['public/stylesheets/bootstrap.css', 'public/stylesheets/app.css']
+    },
 
   });
 
@@ -73,12 +88,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-remove');
 
-  grunt.registerTask('default', [
-    'concat', 'uglify', 'sass', 'cssmin', 'copy'
-  ]);
+  grunt.registerTask('default', ['sass', 'concat', 'cssmin', 'uglify',  'copy', 'remove']);
   
-  grunt.registerTask('prod', [
-    'concat', 'uglify', 'sass', 'cssmin', 'copy'
-  ]);
+  grunt.registerTask('prod', ['sass', 'concat', 'cssmin', 'uglify',  'copy', 'remove']);
 };

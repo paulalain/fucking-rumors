@@ -25,6 +25,7 @@
     "grunt-contrib-sass": "^0.8.1",
     "grunt-contrib-uglify": "^0.7.0",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-remove": "^0.1.0",
     "jade": "~1.9.2",
     "mongoose": "^3.8.24",
     "morgan": "~1.5.1",

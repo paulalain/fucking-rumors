@@ -2,7 +2,9 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href="./stylesheets/bootstrap.min.css")
+    link(rel='stylesheet', href="./stylesheets/app.min.css")
   body
    include ./nav.jade
    block content
+   script(src="./js/app.min.js")

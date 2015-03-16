@@ -1,10 +1,10 @@
 var express = require('express');
-var router = express.Router();
+var routerFestivals = express.Router();
 
 var Festival = require('../models/festival');
 
 /* GET festivals listing. */
-router.get('/', function(req, res, next) {
+routerFestivals.get('/', function(req, res, next) {
 	var listeFestival = '';
 
 	var festivals = Festival.find(function(err, festivalsList) {
@@ -16,8 +16,20 @@ router.get('/', function(req, res, next) {
 	});
 });
 
+/* GET Festival Form */
+routerFestivals.get('/ajouter', function(req, res, next) {
+	res.render('ajouterfestival', {  });
+});
+
+/* POST Create Festival */
+routerFestivals.post('/ajouter', function(req, res) {
+	console.log('Name' + req.body.inputName)
+	//res.render('ajouterfestival', {  });
+	res.send('POST request to homepage');
+});
+
 /* GET festivals listing. */
-router.get('/save/', function(req, res, next) {
+routerFestivals.get('/save/', function(req, res, next) {
 	var routeDurock = new Festival({
 	  name: 'La Route du Wok'
 	});
@@ -30,4 +42,4 @@ router.get('/save/', function(req, res, next) {
 	);
 });
 
-module.exports = router;
+module.exports = routerFestivals;

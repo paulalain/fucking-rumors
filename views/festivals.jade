@@ -1,5 +1,9 @@
 extends layout
 
 block content
+ div.page-header
+  h1 Liste des festivals 
+   small et leurs rumeurs
+ a.btn.btn-primary.btn-lg.active(href="/festivals/ajouter", role="bouton") Ajouter un festival
  each item in festivals
   li= item.name

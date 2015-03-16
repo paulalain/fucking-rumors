@@ -1,0 +1,25 @@
+extends layout
+
+block content
+ div.page-header
+  h1 Ajouter un festival 
+   small blabla
+ form(method="post", action="festivals/ajouter")
+  div.form-group
+   div.row
+    div.col-xs-4
+     label(for="inputName") Nom du festival
+     input.form-control(type="text", id="inputName", placeholder="e.g. Route du Rock")
+    div.col-xs-4
+     label(for="inputWebsite") Site Web
+     input.form-control(type="text", id="inputWebsite", placeholder="e.g. http://www.laroutedurock.com")
+   div.row
+    div.col-xs-4
+     label(for="inputCity") Ville
+     input.form-control(type="text", id="inputCity", placeholder="e.g. Saint-Malo")
+    div.col-xs-4
+     label(for="inputCountry") Pays
+     input.form-control(type="text", id="inputCountry", placeholder="e.g. France")
+   div.row
+    div.col-xs-8
+     button.btn.btn-default(type="submit") Valider

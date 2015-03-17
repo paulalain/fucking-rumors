@@ -13,6 +13,15 @@ nav.nav.nav-pills.navbar-inverse
      a(href='/') Accueil
     li
      a(href='/festivals') Liste des festivals
+   form.navbar-right.navbar-form(method="post", action="/login") 
+    div.form-group
+     label.sr-only(for="pseudoInput") Pseudo
+     input.form-control(id="pseudoInput", name="pseudoInput", type="text", placeholder="Pseudo") 
+    div.form-group
+     label.sr-only(for="passwordInput") Pseudo
+     input.form-control(id="passwordInput", name="passwordInput", type="password", placeholder="Mot de passe") 
+    div.form-group.btn-toolbar
+     button.btn.btn-default(type="submit") Se connecter
    ul.nav.navbar-nav.navbar-right
     li
      a(href="#") Notifications 

@@ -1,8 +1,32 @@
 extends layout
 
 block content
- div.jumbotron
-  h1 Hello, world!
-  p ...
-  p
-   a.btn.btn-primary.btn-lg(href="#", role="button") Learn more
+ div.row.col-md-12
+ div.row
+  div.col-md-5
+   h1 Inscription
+   form.form-horizontal(method="post", action="/user/signup")
+    div.form-group
+     label.col-sm-4.control-label(for="inputPseudoInscription") Pseudo
+     div.col-sm-6
+      input.form-control(type="text", name="inputPseudoInscription", id="inputPseudoInscription", placeholder="Pseudo")
+    div.form-group
+     label.col-sm-4.control-label(for="inputEmailInscription") Email
+     div.col-sm-6
+      input.form-control(type="email", name="inputEmailInscription", id="inputEmailInscription", placeholder="Email")
+    div.form-group
+     label.col-sm-4.control-label(for="inputPasswordInscription") Mot de passe
+     div.col-sm-6
+      input.form-control(type="password", name="inputPasswordInscription", id="inputPasswordInscription", placeholder="Password")
+    div.form-group
+     label.col-sm-4.control-label(for="inputPasswordInscriptionConfirmation") Confirmation
+     div.col-sm-6
+      input.form-control(type="password", id="inputPasswordInscriptionConfirmation", placeholder="Password")
+    div.form-group
+     div.col-sm-offset-4.col-sm-8
+      button.btn.btn-default(type="submit") S'inscrire
+  div.jumbotron.col-md-7
+   h1 Hello, world!
+   p ...
+   p
+    a.btn.btn-primary.btn-lg(href="#", role="button") Learn more

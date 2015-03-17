@@ -49,7 +49,7 @@ function displayListFestival(req, res, next) {
 
 	var festivals = Festival.find(function(err, festivalsList) {
 		if (err){
-			return console.error(err);
+			next(err);
 		}else{
 			res.render('festivals', { festivals: festivalsList });
 		}

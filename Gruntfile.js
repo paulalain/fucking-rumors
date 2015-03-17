@@ -23,11 +23,11 @@ module.exports = function(grunt) {
           'node_modules/bootstrap/dist/css/bootstrap.min.css',
           'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
         ],
-        dest: 'public/stylesheets/bootstrap.css'
+        dest: 'stylesheets/bootstrap.css'
       },
       app_style: {
         src: ["stylesheets/*.css"],
-        dest: 'public/stylesheets/app.css'
+        dest: 'stylesheets/app.css'
       },
       js: {
         src: [
@@ -42,7 +42,7 @@ module.exports = function(grunt) {
     sass: {
       dist: {
        files: {
-          'public/stylesheets/app.css': 'stylesheets/app.scss',
+          'stylesheets/app.css': 'stylesheets/app.scss',
         }
       }
     },
@@ -58,8 +58,8 @@ module.exports = function(grunt) {
     cssmin: {
       dist: {
         files: {
-          'public/stylesheets/app.min.css': 'public/stylesheets/app.css',
-          'public/stylesheets/bootstrap.min.css': 'public/stylesheets/bootstrap.css',
+          'public/stylesheets/app.min.css': 'stylesheets/app.css',
+          'public/stylesheets/bootstrap.min.css': 'stylesheets/bootstrap.css',
         }
       }
     },
@@ -73,11 +73,8 @@ module.exports = function(grunt) {
       }
     },
 
-    remove: {
-      options: {
-        trace: true
-      },
-      fileList: ['public/stylesheets/bootstrap.css', 'public/stylesheets/app.css']
+    clean: {
+      css: ['stylesheets/*.map', 'stylesheets/*.css']
     },
 
   });
@@ -88,9 +85,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-remove');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('default', ['sass', 'concat', 'cssmin', 'uglify',  'copy', 'remove']);
+  grunt.registerTask('default', ['sass', 'concat:app_style', 'concat:bootstrap_style','cssmin', 'uglify',  'copy', 'clean']);
   
-  grunt.registerTask('prod', ['sass', 'concat', 'cssmin', 'uglify',  'copy', 'remove']);
+  grunt.registerTask('prod', ['sass', 'concat:app_style', 'concat:bootstrap_style', 'cssmin', 'uglify',  'copy', 'clean']);
 };

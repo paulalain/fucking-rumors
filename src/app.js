@@ -12,7 +12,6 @@ var auth = require('./routes/auth');
 
 var app = express();
 
-
 //database connection
 mongoose.connect(process.env.MONGO_CONNECTION || 'mongodb://localhost:27017/fucking-rumors-dev');
 process.on('SIGINT', function() {
@@ -35,6 +34,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
+
+// mandatory with bootstrap
+app.locals.pretty = true;
+
+// put user information in locals
+app.get('*', function(req, res, next) {
+  // just use boolean for loggedIn
+  res.locals.loggedIn = (req.user) ? true : false;
+  res.locals.title = 'Fucking rumors baby';
+  next();
+});
 
 app.use('/user', auth);
 app.use('/', index);

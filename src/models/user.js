@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-// var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 
 var userSchema = mongoose.Schema({
@@ -19,30 +19,32 @@ var userSchema = mongoose.Schema({
 
 userSchema.pre('save', function (next) {
 	var user = this;
-    next();
-	//if (!user.isModified('password')) return next();
+    
+	if (!user.isModified('password')) return next();
 
-	// bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
-	// 	if (err) return next(err);
+	bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+		if (err) return next(err);
 
-	// 	bcrypt.hash(user.password, salt, function (err, hash) {
-	// 		if (err) return next(err);
-	// 		user.password = hash;
-	// 		next();
-	// 	});
-	// });
+		bcrypt.hash(user.password, salt, function (err, hash) {
+			if (err) return next(err);
+			user.password = hash;
+			next();
+		});
+	});
 });
 
 userSchema.methods.comparePassword = function (candidatePassword, cb) {
+	console.log(this.password);
+	console.log(candidatePassword);
 	bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
 		if (err) return cb(err);
 		cb(null, isMatch);
 	});
 };
 
-userSchema.statics.checkIfUserExists = function(email) {
+userSchema.statics.checkIfUserExists = function(username) {
 	return new Promise(function (resolve, reject) {
-		User.findOne({ email: email }, function (err, user) {
+		User.findOne({ username: username }, function (err, user) {
 			if (err) {
 				reject(err);
 			} else if (user) {
@@ -61,16 +63,15 @@ userSchema.statics.createUser = function(username, email, password) {
 			if (err) {
 				reject(err);
 			} else {
-				console.log("test4");
 				resolve(newUser);
 			}
 		});
 	});
 };
 
-userSchema.statics.checkIfValidUser = function(email, password) {
+userSchema.statics.checkIfValidUser = function(username, password) {
 	return new Promise(function (resolve, reject) {
-		User.findOne({ email: email }, function (err, user) {
+		User.findOne({ username: username }, function (err, user) {
 			if (err) {
 				reject(err);
 			} else if (user) {

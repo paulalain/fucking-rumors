@@ -1,4 +1,4 @@
-nav.nav.nav-pills.navbar-inverse
+nav.nav.navbar-inverse
  div.container-fluid
   div.navbar-header
    button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#navbar-collapse")
@@ -13,28 +13,26 @@ nav.nav.nav-pills.navbar-inverse
      a(href='/') Accueil
     li
      a(href='/festivals') Liste des festivals
-   form.navbar-right.navbar-form(method="post", action="/login") 
-    div.form-group
-     label.sr-only(for="pseudoInput") Pseudo
-     input.form-control(id="pseudoInput", name="pseudoInput", type="text", placeholder="Pseudo") 
-    div.form-group
-     label.sr-only(for="passwordInput") Pseudo
-     input.form-control(id="passwordInput", name="passwordInput", type="password", placeholder="Mot de passe") 
-    div.form-group.btn-toolbar
+   if !loggedIn
+    form.navbar-form.navbar-right(method="post", action="/user/login")
+     div.form-group
+      input.form-control(id="pseudoInputLogin", name="pseudoInputLogin", type="text", placeholder="Pseudo")
+      input.form-control(id="passwordInputLogin", name="passwordInputLogin", type="password", placeholder="Mot de passe")
      button.btn.btn-default(type="submit") Se connecter
-   ul.nav.navbar-nav.navbar-right
-    li
-     a(href="#") Notifications 
-      span.badge 42
-    li.dropdown
-     a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-expanded="false") Paul-Alain
-      span.caret
-     ul.dropdown-menu(role="menu")
-      li
-       a(href='/') Mes favoris
-      li
-       a(href='/') Mon blabla
-      li.divider
-      li
-       a(href='/logout') Se déconnecter
+   else
+    ul.nav.navbar-nav.navbar-right
+     li
+      a(href="#") Notifications
+       span.badge 42
+     li.dropdown
+      a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-expanded="false") Paul-Alain
+       span.care
+      ul.dropdown-menu(role="menu")
+       li
+        a(href='/') Mes favoris
+       li
+        a(href='/') Mon blabla
+       li.divider
+       li
+        a(href='/logout') Se déconnecter
  

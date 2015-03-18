@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+// var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 
 var userSchema = mongoose.Schema({
@@ -19,27 +19,27 @@ var userSchema = mongoose.Schema({
 
 userSchema.pre('save', function (next) {
 	var user = this;
-    
-	if (!user.isModified('password')) return next();
+    next();
+	// if (!user.isModified('password')) return next();
 
-	bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
-		if (err) return next(err);
+	// bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+	// 	if (err) return next(err);
 
-		bcrypt.hash(user.password, salt, function (err, hash) {
-			if (err) return next(err);
-			user.password = hash;
-			next();
-		});
-	});
+	// 	bcrypt.hash(user.password, salt, function (err, hash) {
+	// 		if (err) return next(err);
+	// 		user.password = hash;
+	// 		next();
+	// 	});
+	// });
 });
 
 userSchema.methods.comparePassword = function (candidatePassword, cb) {
-	console.log(this.password);
-	console.log(candidatePassword);
-	bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
-		if (err) return cb(err);
-		cb(null, isMatch);
-	});
+	isMatch = (this.password == candidatePassword);
+	cb(null, isMatch);
+	// bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
+	// 	if (err) return cb(err);
+	// 	cb(null, isMatch);
+	// });
 };
 
 userSchema.statics.checkIfUserExists = function(username) {

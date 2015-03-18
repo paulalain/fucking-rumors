@@ -1,16 +1,17 @@
 var express = require('express');
-var authRouter = express.Router();
-
+var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var jwt = require('jwt-simple');
-var moment = require('moment');
+
+var indexrouter = express.Router();
 
 var User = require('../models/user.js');
 
-authRouter.use(passport.initialize());
-authRouter.use(passport.session());
+indexrouter.use(session({ secret: 'keyboard cat' }));
+indexrouter.use(passport.initialize());
+indexrouter.use(passport.session());
 
+//PASSPORT USING
 passport.serializeUser(function (user, done) {
 	done(null, user.id);
 });
@@ -34,7 +35,8 @@ passport.use(new LocalStrategy({
 		});
 }));
 
-authRouter.post('/signup', function (req, res, next) {
+// ROUTE SIGNUP
+indexrouter.post('/signup', function (req, res, next) {
 	if(req.body.inputPasswordInscription != req.body.inputPasswordInscriptionConfirmation){
 		res.status(400).send({ error : 'La confirmation du mot de passe n\'est pas correcte' })
 		next();
@@ -48,25 +50,30 @@ authRouter.post('/signup', function (req, res, next) {
 		});
 });
 
-authRouter.post('/login', function (req, res, next) {
-	passport.authenticate('local', 
-		function (err, user, info) {
-			if (user) {
-				var expires = moment().add(7, 'days').valueOf();
-				var token = jwt.encode({
-					iss: user.id,
-					exp: expires
-				}, app.get('jwtTokenSecret'));
+// ROUTE LOGIN
+indexrouter.post('/login', 
+	passport.authenticate('local', {
+	    successRedirect: '/',
+	    failureRedirect: '/',
+	    failureFlash : true 
+}));
 
-				res.status(200).json({
-					token: token,
-					expires: expires,
-					user: user
-				});
-			} else {
-				res.status(403).send({ error: err });
-			}
-	})(req, res, next);
+// ROUTE LOGOUT
+indexrouter.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
 });
 
-module.exports = authRouter;
+// put user information in locals
+indexrouter.get('*', function(req, res, next) {
+  // just use boolean for loggedIn
+  res.locals.loggedIn = (req.user) ? true : false;
+  next();
+});
+
+//ROUTE HOME PAGE
+indexrouter.get('/', function(req, res, next) {
+  res.render('index', {  });
+});
+
+module.exports = indexrouter;

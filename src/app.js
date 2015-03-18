@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var index = require('./routes/index');
 var festivals = require('./routes/festivals');
 var auth = require('./routes/auth');
 
@@ -38,16 +37,17 @@ app.use(express.static(path.join(__dirname, '../public')));
 // mandatory with bootstrap
 app.locals.pretty = true;
 
-// put user information in locals
+
+
+// put Title
 app.get('*', function(req, res, next) {
-  // just use boolean for loggedIn
-  res.locals.loggedIn = (req.user) ? true : false;
   res.locals.title = 'Fucking rumors baby';
   next();
 });
 
-app.use('/user', auth);
-app.use('/', index);
+// create routes
+// route user + passport
+app.use('/', auth);
 app.use('/festivals', festivals);
 
 

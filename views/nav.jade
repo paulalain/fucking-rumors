@@ -14,7 +14,7 @@ nav.nav.navbar-inverse
     li
      a(href='/festivals') Liste des festivals
    if !loggedIn
-    form.navbar-form.navbar-right(method="post", action="/user/login")
+    form.navbar-form.navbar-right(method="post", action="/login")
      div.form-group
       input.form-control(id="pseudoInputLogin", name="pseudoInputLogin", type="text", placeholder="Pseudo")
       input.form-control(id="passwordInputLogin", name="passwordInputLogin", type="password", placeholder="Mot de passe")

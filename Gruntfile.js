@@ -9,7 +9,7 @@ module.exports = function(grunt) {
       },
       style: {
         files: 'stylesheets/**/*',
-        tasks: ['concat:app_style', 'sass', 'cssmin']
+        tasks: ['concat:bootstrap_style', 'concat:app_style', 'sass', 'cssmin']
       },
       assets: {
         files: 'assets/**/*',

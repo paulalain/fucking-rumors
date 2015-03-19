@@ -114,11 +114,13 @@ indexrouter.get('/logout', function(req, res){
 });
 
 // put user information in locals
-indexrouter.get('*', function(req, res, next) {
+indexrouter.use(function(req, res, next) {
   // just use boolean for loggedIn
   res.locals.loggedIn = (req.user) ? true : false;
   res.locals.admin = true;
   res.locals.user = req.user;
+  res.locals.page = 'accueil';
+  res.locals.title = 'Fucking rumors baby';
   next();
 });
 

@@ -6,19 +6,19 @@ nav.nav.navbar-inverse
     span.icon-bar
     span.icon-bar
     span.icon-bar
-   a.navbar-brand(href="#") Fucking Rumors
+   a.navbar-brand.active(href="#") Fucking Rumors
   div.collapse.navbar-collapse(id="navbar-collapse")
    ul.nav.navbar-nav
-    li.active
+    li(class=(page == 'accueil') ? 'active' : '')
      a(href='/') Accueil
-    li
+    li(class=(page == 'festival') ? 'active' : '')
      a(href='/festivals') Liste des festivals
    if !loggedIn
-    form.navbar-form.navbar-right(method="post", action="/login", autocomplete="off")
+    form.navbar-form.navbar-right(id="loginForm", name="loginForm", method="post", action="/login", autocomplete="off")
      div.form-group
-      input.input-sm.form-control(id="pseudoInputLogin", name="pseudoInputLogin", type="text", placeholder="Pseudo", required)
-      input.input-sm.form-control(id="passwordInputLogin", name="passwordInputLogin", type="password", placeholder="Mot de passe", required)
-     button.btn.btn-sm(type="submit") Se connecter
+      input.input-sm.form-control(autocomplete="off", id="pseudoInputLogin", name="pseudoInputLogin", type="text", placeholder="Pseudo", required)
+      input.input-sm.form-control(autocomplete="off", id="passwordInputLogin", name="passwordInputLogin", type="password", placeholder="Mot de passe", required)
+     button.btn.btn-sm.btn-primary(type="submit") Se connecter
    else
     ul.nav.navbar-nav.navbar-right
      li

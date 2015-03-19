@@ -1,0 +1,8 @@
+extends layout
+
+block content
+ div.page-header
+  h1= festival.name
+   small= " " + festival.location.city + " (" + festival.location.country + ")"
+ div.btn-toolbar
+  a.btn.btn-primary(id="addEditionButton", name="addEditionButton", role="bouton") Ajouter une édition

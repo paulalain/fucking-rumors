@@ -6,7 +6,7 @@ html
     link(rel='stylesheet', href="/stylesheets/app.min.css")
   body
    include ./nav.jade
-   div.container
-    div.row
+   div.container(id="container")
      block content
+     include ./footer.jade
    script(src="/js/app.min.js")

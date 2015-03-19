@@ -4,6 +4,12 @@ var routerFestivals = express.Router();
 var Festival = require('../models/festival');
 
 /* GET festivals listing. */
+routerFestivals.use(function(req, res, next) {
+	res.locals.page = 'festival';
+	next();
+});
+
+/* GET festivals listing. */
 routerFestivals.get('/', function(req, res, next) {
 	displayListFestival(req, res, next);
 });
@@ -25,12 +31,24 @@ routerFestivals.post('/ajouterFestival', function(req, res, next) {
 
 	festival.save(function (err) {
 			if (err) {
-				console.log ('Error on save!');
+				res.status(400).send({ error: err.message });
 			}else{
 				displayListFestival(req, res, next);
 			}
 		}
 	);
+});
+
+/* GET display a festival */
+routerFestivals.get('/:id', function(req, res, next) {
+	Festival.findById(req.params.id, function(err, festival){
+		if(!festival){
+			res.status(404);
+			next(err);
+		}else{
+			res.render('festival', { festival : festival })
+		}
+	});
 });
 
 /* GET delete a festival */

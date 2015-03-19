@@ -37,12 +37,6 @@ app.use(express.static(path.join(__dirname, '../public')));
 // mandatory with bootstrap
 app.locals.pretty = true;
 
-// put Title
-app.get('*', function(req, res, next) {
-  res.locals.title = 'Fucking rumors baby';
-  next();
-});
-
 // create routes
 // route user + passport
 app.use('/', auth);

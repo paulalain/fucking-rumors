@@ -5,10 +5,13 @@ block content
   h1 Liste des festivals 
    small et leurs rumeurs
  div.btn-toolbar
-  a.btn.btn-primary(href="/festivals/ajouter", role="bouton") Ajouter un festival
- div(id="addFestivalForm")
-  ul.list-group
-   each item in festivals
-    li.list-group-item.btn-toolbar= item.name 
-     a.btn.btn-primary.btn-sm(role="button", href="/festivals/modifier/#{item.id}") Modifier 
-     a.btn.btn-danger.btn-sm(role="button", href="/festivals/supprimer/#{item.id}") Supprimer 
+  a.btn.btn-primary(id="addFestivalButton", name="addFestivalButton", role="bouton") Ajouter un festival
+ div.hide(id="addFestivalForm")
+  include ./ajouterfestival.jade
+  h2 Ajouter un festival
+ ul.list-group
+  each item in festivals
+   li.list-group-item.btn-toolbar
+    a(href="/festivals/#{item.id}")= item.name 
+    a.btn.btn-primary.btn-sm(role="button", href="/festivals/modifier/#{item.id}") Modifier 
+    a.btn.btn-danger.btn-sm(role="button", href="/festivals/supprimer/#{item.id}") Supprimer 

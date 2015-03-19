@@ -14,19 +14,19 @@ nav.nav.navbar-inverse
     li
      a(href='/festivals') Liste des festivals
    if !loggedIn
-    form.navbar-form.navbar-right(method="post", action="/login")
+    form.navbar-form.navbar-right(method="post", action="/login", autocomplete="off")
      div.form-group
-      input.form-control(id="pseudoInputLogin", name="pseudoInputLogin", type="text", placeholder="Pseudo")
-      input.form-control(id="passwordInputLogin", name="passwordInputLogin", type="password", placeholder="Mot de passe")
-     button.btn.btn-default(type="submit") Se connecter
+      input.input-sm.form-control(id="pseudoInputLogin", name="pseudoInputLogin", type="text", placeholder="Pseudo", required)
+      input.input-sm.form-control(id="passwordInputLogin", name="passwordInputLogin", type="password", placeholder="Mot de passe", required)
+     button.btn.btn-sm(type="submit") Se connecter
    else
     ul.nav.navbar-nav.navbar-right
      li
-      a(href="#") Notifications
-       span.badge 42
+      a(href="#") Notifications 
+       span.badge 42 
      li.dropdown
-      a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-expanded="false") Paul-Alain
-       span.care
+      a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-expanded="false")= user.username + " "
+       span.caret
       ul.dropdown-menu(role="menu")
        li
         a(href='/') Mes favoris

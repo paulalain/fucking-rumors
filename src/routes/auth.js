@@ -37,17 +37,66 @@ passport.use(new LocalStrategy({
 
 // ROUTE SIGNUP
 indexrouter.post('/signup', function (req, res, next) {
-	if(req.body.inputPasswordInscription != req.body.inputPasswordInscriptionConfirmation){
-		res.status(400).send({ error : 'La confirmation du mot de passe n\'est pas correcte' })
-		next();
+	var username = req.body.inputPseudoInscription;
+	var mail = req.body.inputEmailInscription;
+	var password = req.body.inputPasswordInscription;
+	var passwordConfirmation = req.body.inputPasswordInscriptionConfirmation;
+	
+	var error = false;
+
+	// check if username is more than 4 caracters
+	if(!error && (!username || !(username.length > 4))){
+		res.status(400).send({ error : 'Le pseudo doit faire au minimum 5 caractères.' })
+		error = true;
 	}
-	User.checkIfUserExists(req.body.inputPseudoInscription)
-		.then(User.createUser(req.body.inputPseudoInscription, req.body.inputEmailInscription, req.body.inputPasswordInscription))
-		.then(function (user) {
-			res.status(201).send(user);
-		}).catch(function (err) {
-			res.status(400).send({ error: err.message });
-		});
+
+	// check if username is correct
+	if(!error && /[^a-zA-Z0-9]/.test(username)){
+		res.status(400).send({ error : 'Le pseudo doit être en alpha-numérique.' })
+		error = true;
+	}
+
+	// check if password is securized
+	if(!error && (!password || !(password.length > 7))){
+		res.status(400).send({ error : 'Le mot de passe saisi est trop court.' })
+		error = true;
+	}
+
+	//check if passwords are the same
+	if(!error && (password != passwordConfirmation)){
+		res.status(400).send({ error : 'Les deux mots de passes saisis sont différents.' })
+		error = true;
+	}
+
+	if(!error){
+		//check if user exists
+		User.checkIfUserExists(username)
+			.then(User.checkIfMailExists.bind(null, mail))
+			.then(User.createUser.bind(null, username, mail, password))
+			.then(function (user) {
+				// connect the user
+				req.body.pseudoInputLogin = username;
+				req.body.passwordInputLogin = password;
+				passport.authenticate('local', function(err, user, info) {
+				    if (err) { 
+				    	return next(err); 
+				    }
+				    if (!user) {
+				    	res.status(201).send(user);
+				    }
+				    req.logIn(user, function(err) {
+				    	if (err) {
+				    		return next(err); 
+				    	}
+				      	res.status(201).send(user);
+				    });
+				  })(req, res, next);
+			}).catch(function (err) {
+				res.status(400).send({ error: err.message });
+			});
+	}else{
+		next(err);
+	}
 });
 
 // ROUTE LOGIN
@@ -68,6 +117,8 @@ indexrouter.get('/logout', function(req, res){
 indexrouter.get('*', function(req, res, next) {
   // just use boolean for loggedIn
   res.locals.loggedIn = (req.user) ? true : false;
+  res.locals.admin = true;
+  res.locals.user = req.user;
   next();
 });
 

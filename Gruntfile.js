@@ -4,8 +4,8 @@ module.exports = function(grunt) {
 
     watch: {
       scripts: {
-        files: ['src/lib/**/*', 'src/client/**/*'],
-        tasks: ['uglify']
+        files: ['src/lib/**/*', 'js/*'],
+        tasks: ['concat:js']
       },
       style: {
         files: 'stylesheets/**/*',
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
         src: [
           'node_modules/jquery/dist/jquery.min.js', // always jQuery before bootstrap
           'node_modules/bootstrap/dist/js/bootstrap.min.js',
-
+          'js/*.js'
         ],
         dest: 'public/js/app.min.js'
       }
@@ -70,6 +70,12 @@ module.exports = function(grunt) {
         cwd: 'assets/',
         src: '**',
         dest: 'public/assets/'
+      },
+      fonts:{
+        expand: true,
+        cwd: 'node_modules/bootstrap/fonts/',
+        src: '**',
+        dest: 'public/fonts/'
       }
     },
 
@@ -87,7 +93,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('default', ['sass', 'concat:app_style', 'concat:bootstrap_style','cssmin', 'uglify',  'copy', 'clean']);
+  grunt.registerTask('default', ['sass', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']);
   
-  grunt.registerTask('prod', ['sass', 'concat:app_style', 'concat:bootstrap_style', 'cssmin', 'uglify',  'copy', 'clean']);
+  grunt.registerTask('prod', ['sass', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'uglify',  'copy', 'clean']);
 };

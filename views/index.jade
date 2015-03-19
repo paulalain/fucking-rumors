@@ -5,26 +5,30 @@ block content
  div.row
   div.col-md-5
    h1 Inscription
-   form.form-horizontal(method="post", action="/signup")
+   div.alert.alert-danger.hidden(id="errorSignupDiv", role="alert")
+    span.glyphicon.glyphicon-exclamation-sign(aria-hidden="true")
+    span.sr-only Error :
+    span(id='errorSignup')
+   form.form-horizontal(id="signupForm", action="javascript:void()", autocomplete="off")
     div.form-group
      label.col-sm-4.control-label(for="inputPseudoInscription") Pseudo
      div.col-sm-6
-      input.form-control(type="text", name="inputPseudoInscription", id="inputPseudoInscription", placeholder="Pseudo")
+      input.form-control(type="text", name="inputPseudoInscription", id="inputPseudoInscription", placeholder="Pseudo", required)
     div.form-group
      label.col-sm-4.control-label(for="inputEmailInscription") Email
      div.col-sm-6
-      input.form-control(type="email", name="inputEmailInscription", id="inputEmailInscription", placeholder="Email")
+      input.form-control(type="email", name="inputEmailInscription", id="inputEmailInscription", placeholder="Email", required)
     div.form-group
      label.col-sm-4.control-label(for="inputPasswordInscription") Mot de passe
      div.col-sm-6
-      input.form-control(type="password", name="inputPasswordInscription", id="inputPasswordInscription", placeholder="Password")
+      input.form-control(type="password", name="inputPasswordInscription", id="inputPasswordInscription", placeholder="Mot de passe", required)
     div.form-group
      label.col-sm-4.control-label(for="inputPasswordInscriptionConfirmation") Confirmation
      div.col-sm-6
-      input.form-control(type="password", name="inputPasswordInscriptionConfirmation", id="inputPasswordInscriptionConfirmation", placeholder="Password")
+      input.form-control(type="password", name="inputPasswordInscriptionConfirmation", id="inputPasswordInscriptionConfirmation", placeholder="Confirmer mot de passe", required)
     div.form-group
-     div.col-sm-offset-4.col-sm-8
-      button.btn.btn-default(type="submit") S'inscrire
+     div.col-sm-offset-4.col-sm-6
+      button.btn.btn-lg.btn-block.btn-primary(type="submit") S'inscrire
   div.jumbotron.col-md-7
    h1 Hello, world!
    p ...

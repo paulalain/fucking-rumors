@@ -48,7 +48,21 @@ userSchema.statics.checkIfUserExists = function(username) {
 			if (err) {
 				reject(err);
 			} else if (user) {
-				reject(new Error("User already exists."));
+				reject(new Error("L'utilisateur existe déjà."));
+			} else {
+				resolve(user);
+			}
+		});
+	});
+};
+
+userSchema.statics.checkIfMailExists = function(email) {
+	return new Promise(function (resolve, reject) {
+		User.findOne({ email: email }, function (err, user) {
+			if (err) {
+				reject(err);
+			} else if (user) {
+				reject(new Error("Le mail renseigné existe déjà."));
 			} else {
 				resolve(user);
 			}
@@ -58,9 +72,12 @@ userSchema.statics.checkIfUserExists = function(username) {
 
 userSchema.statics.createUser = function(username, email, password) {
 	return new Promise(function (resolve, reject) {
+		console.log(username);
+		console.log(password);
 		var newUser = new User({ username: username, email: email, password: password });
 		newUser.save(function (err) {
 			if (err) {
+				console.log(err);
 				reject(err);
 			} else {
 				resolve(newUser);
@@ -80,11 +97,11 @@ userSchema.statics.checkIfValidUser = function(username, password) {
 					if (isMatch) {
 						resolve(user);
 					} else {
-						reject('Invalid password');
+						reject('Le mot de passe saisi est invalide.');
 					}
 				});
 			} else {
-				reject('Unknown user');
+				reject('Utilisateur inconnu.');
 			}
 		});
 

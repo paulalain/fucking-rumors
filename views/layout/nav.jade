@@ -14,11 +14,14 @@ nav.nav.navbar-inverse
     li(class=(page == 'festival') ? 'active' : '')
      a(href='/festivals') Liste des festivals
    if !loggedIn
-    form.navbar-form.navbar-right(id="loginForm", name="loginForm", method="post", action="/login", autocomplete="off")
+    form.navbar-form.navbar-right(id="loginForm", name="loginForm", method="post", action="javascript:void(0);", autocomplete="off")
      div.form-group
       input.input-sm.form-control(autocomplete="off", id="pseudoInputLogin", name="pseudoInputLogin", type="text", placeholder="Pseudo", required)
       input.input-sm.form-control(autocomplete="off", id="passwordInputLogin", name="passwordInputLogin", type="password", placeholder="Mot de passe", required)
-     button.btn.btn-sm.btn-primary(type="submit") Se connecter
+     button.btn.btn-sm.btn-primary(id="loginButton", name="loginButton", type="submit") Se connecter
+     button.btn.btn-sm.btn-primary.hidden.disabled(id="loginButtonLoad", name="loginButtonLoad", type="submit")
+      span.glyphicon.glyphicon-refresh.glyphicon-refresh-animate 
+      span Chargement...
    else
     ul.nav.navbar-nav.navbar-right
      li
@@ -27,7 +30,7 @@ nav.nav.navbar-inverse
      li.dropdown
       a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-expanded="false")= user.username + " "
        span.caret
-      ul.dropdown-menu(role="menu")
+      ul.dropdown-menu.inverse-dropdown(role="menu")
        li
         a(href='/') Mes favoris
        li

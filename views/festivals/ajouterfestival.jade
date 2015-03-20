@@ -1,0 +1,26 @@
+form.form-horizontal(method="post", action="/festivals/ajouterFestival", autocomplete="off")
+ div.row.form-group
+  div.col-xs-12.col-sm-6.col-md-6.col-lg-6
+   label(for="inputName") Nom du festival
+   input.form-control(type="text", name="inputName", id="inputName", placeholder="e.g. Route du Rock", required)
+  div.col-xs-12.col-sm-6.col-md-6.col-lg-6
+   label(for="inputWebsite") Site Web
+   input.form-control(type="url", name="inputWebsite", id="inputWebsite", placeholder="e.g. http://www.laroutedurock.com")
+ div.row.form-group
+  div.col-xs-12.col-sm-6.col-md-6.col-lg-6
+   label(for="inputCity") Ville
+   input.form-control(type="text",name="inputCity", id="inputCity", placeholder="e.g. Saint-Malo")
+  div.col-xs-12.col-sm-6.col-md-6.col-lg-6
+   label(for="inputCountry") Pays
+   input.form-control(type="text",name="inputCountry", id="inputCountry", placeholder="e.g. France")
+ div.row.form-group
+  div.col-xs-12.col-sm-6.col-md-6.col-lg-6
+   label(for="inputFacebook") Facebook
+   input.form-control(type="text",name="inputCinputFacebookity", id="inputFacebook", placeholder="e.g. https://www.facebook.com/laroutedurock")
+  div.col-xs-12.col-sm-6.col-md-6.col-lg-6
+   label(for="inputTwitter") Twitter
+   input.form-control(type="text",name="inputTwitter", id="inputTwitter", placeholder="e.g. https://twitter.com/laroutedurock")
+ div.row.form-group
+  div.col-xs-12.col-sm-12.col-md-12.col-lg-12.btn-toolbar
+   button.btn.btn-primary.btn-sm(type="submit") Valider
+   a.btn.btn-default.btn-sm(id="cancelAddFestival", name="cancelAddFestival", role="button") Annuler

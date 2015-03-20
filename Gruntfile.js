@@ -4,16 +4,16 @@ module.exports = function(grunt) {
 
     watch: {
       scripts: {
-        files: ['src/lib/**/*', 'js/*'],
-        tasks: ['concat:js']
+        files: ['src/lib/**/*', 'src/client/*'],
+        tasks: ['sass:dist', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']
       },
       style: {
-        files: 'stylesheets/**/*',
-        tasks: ['concat:bootstrap_style', 'concat:app_style', 'sass', 'cssmin']
+        files: 'stylesheets/**/*.scss',
+        tasks: ['sass:dist', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']
       },
       assets: {
         files: 'assets/**/*',
-        tasks: ['copy']
+        tasks: ['sass:dist', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']
       }
     },
 
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
         src: [
           'node_modules/jquery/dist/jquery.min.js', // always jQuery before bootstrap
           'node_modules/bootstrap/dist/js/bootstrap.min.js',
-          'js/*.js'
+          'src/client/*.js'
         ],
         dest: 'public/js/app.min.js'
       }
@@ -41,9 +41,13 @@ module.exports = function(grunt) {
 
     sass: {
       dist: {
-       files: {
-          'stylesheets/app.css': 'stylesheets/app.scss',
-        }
+            files: [{
+            expand: true,
+            cwd: 'stylesheets/',
+            src: ['*.scss'],
+            dest: 'stylesheets/',
+            ext: '.css'
+          }]
       }
     },
 
@@ -58,8 +62,8 @@ module.exports = function(grunt) {
     cssmin: {
       dist: {
         files: {
-          'public/stylesheets/app.min.css': 'stylesheets/app.css',
-          'public/stylesheets/bootstrap.min.css': 'stylesheets/bootstrap.css',
+          'stylesheets/app.min.css': 'stylesheets/app.css',
+          'stylesheets/bootstrap.min.css': 'stylesheets/bootstrap.css',
         }
       }
     },
@@ -76,6 +80,12 @@ module.exports = function(grunt) {
         cwd: 'node_modules/bootstrap/fonts/',
         src: '**',
         dest: 'public/fonts/'
+      },
+      styles:{
+        expand: true,
+        cwd: 'stylesheets/',
+        src: '*.min.css',
+        dest: 'public/stylesheets/'
       }
     },
 
@@ -93,7 +103,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('default', ['sass', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']);
+  grunt.registerTask('default', ['sass:dist', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']);
   
   grunt.registerTask('prod', ['sass', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'uglify',  'copy', 'clean']);
 };

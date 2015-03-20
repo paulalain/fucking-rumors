@@ -16,7 +16,7 @@ routerFestivals.get('/', function(req, res, next) {
 
 /* GET Festival Form */
 routerFestivals.get('/ajouter', function(req, res, next) {
-	res.render('ajouterfestival', {  });
+	res.render('festivals/ajouterfestival', {  });
 });
 
 /* POST Create Festival */
@@ -46,7 +46,7 @@ routerFestivals.get('/:id', function(req, res, next) {
 			res.status(404);
 			next(err);
 		}else{
-			res.render('festival', { festival : festival })
+			res.render('festivals/festival', { festival : festival })
 		}
 	});
 });
@@ -69,7 +69,7 @@ function displayListFestival(req, res, next) {
 		if (err){
 			next(err);
 		}else{
-			res.render('festivals', { festivals: festivalsList });
+			res.render('festivals/festivals', { festivals: festivalsList });
 		}
 	});
 }

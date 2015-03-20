@@ -1,10 +1,10 @@
 $("#addFestivalButton").click(function() {
-	$("#addFestivalButton").prop('disabled', true);
+	$("#addFestivalButton").addClass("disabled");
 	$("#addFestivalForm").hide().removeClass('hide').slideDown();
 });
  
 $("#cancelAddFestival").click(function() {
-	$("#addFestivalButton").prop('disabled', false);
-	$("#addFestivalForm").slideUp();
+	$("#addFestivalButton").removeClass("disabled");
+	$("#addFestivalForm").slideUp(); 
 });
  

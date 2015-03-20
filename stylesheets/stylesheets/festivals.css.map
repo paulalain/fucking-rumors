@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACC,wBAAmB;EAClB,OAAO,EAAE,IAAI",
+"sources": ["../festivals.scss"],
+"names": [],
+"file": "festivals.css"
+}

@@ -1,4 +1,4 @@
-extends layout
+extends layout/layout
 
 block content
  div.row
@@ -8,7 +8,7 @@ block content
     span.glyphicon.glyphicon-exclamation-sign(aria-hidden="true")
     span.sr-only Error :
     span(id='errorSignup')
-   form.form-horizontal(id="signupForm", method="post", action="", autocomplete="off")
+   form.form-horizontal(id="signupForm", method="post", action="javascript:void(0);)", autocomplete="off")
     div.form-group
       input.form-control(type="text", name="inputPseudoInscription", id="inputPseudoInscription", placeholder="Pseudo", required)
     div.form-group
@@ -18,7 +18,10 @@ block content
     div.form-group
       input.form-control(type="password", name="inputPasswordInscriptionConfirmation", id="inputPasswordInscriptionConfirmation", placeholder="Confirmer mot de passe", required)
     div.form-group
-      button.btn.btn-lg.btn-block.btn-primary(type="submit") S'inscrire
+      button.btn.btn-lg.btn-block.btn-primary(id="signupButton", name="signupButton", type="submit") S'inscrire
+      button.btn.btn-lg.btn-block.btn-primary.hidden.disabled(id="signupButtonLoad", name="signupButtonLoad", type="submit")
+       span.glyphicon.glyphicon-refresh.glyphicon-refresh-animate 
+       span Chargement...
   div.col-md-9.col-xs-12(id="welcomeText")
    h1 Bienvenue sur Fucking Rumors Baby
    p Suivre l'actualité des festivals, les rumeurs, les annonces blabla Suivre l'actualité des festivals, les rumeurs, les annonces blablaSuivre l'actualité des festivals, les rumeurs, les annonces blablaSuivre l'actualité des festivals, les rumeurs, les annonces blablaSuivre l'actualité des festivals, les rumeurs, les annonces blablaSuivre l'actualité des festivals, les rumeurs, les annonces blablaSuivre l'actualité des festivals, les rumeurs, les annonces blablaSuivre l'actualité des festivals, les rumeurs, les annonces blabla

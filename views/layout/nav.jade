@@ -1,4 +1,4 @@
-nav.nav.navbar-inverse
+nav.navbar.navbar-inverse.navbar-fixed-top
  div.container-fluid
   div.navbar-header
    button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#navbar-collapse")
@@ -6,7 +6,7 @@ nav.nav.navbar-inverse
     span.icon-bar
     span.icon-bar
     span.icon-bar
-   a.navbar-brand.active(href="#") Fucking Rumors
+   a.navbar-brand.active(href="/") Fucking Rumors
   div.collapse.navbar-collapse(id="navbar-collapse")
    ul.nav.navbar-nav
     li(class=(page == 'accueil') ? 'active' : '')
@@ -18,8 +18,8 @@ nav.nav.navbar-inverse
      div.form-group
       input.input-sm.form-control(autocomplete="off", id="pseudoInputLogin", name="pseudoInputLogin", type="text", placeholder="Pseudo", required)
       input.input-sm.form-control(autocomplete="off", id="passwordInputLogin", name="passwordInputLogin", type="password", placeholder="Mot de passe", required)
-     button.btn.btn-sm.btn-primary(id="loginButton", name="loginButton", type="submit") Se connecter
-     button.btn.btn-sm.btn-primary.hidden.disabled(id="loginButtonLoad", name="loginButtonLoad", type="submit")
+     button.btn.btn-primary(id="loginButton", name="loginButton", type="submit") Se connecter
+     button.btn.btn-primary.hidden.disabled(id="loginButtonLoad", name="loginButtonLoad", type="submit")
       span.glyphicon.glyphicon-refresh.glyphicon-refresh-animate 
       span Chargement...
    else

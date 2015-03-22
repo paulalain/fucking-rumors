@@ -26,6 +26,7 @@ passport.use(new LocalStrategy({
     usernameField: 'pseudoInputLogin',
     passwordField: 'passwordInputLogin'
   }, function (username, password, done) {
+  	console.log(username);
 	User.checkIfValidUser(username, password)
 		.then(function (user) {
 			done(null, user, true);
@@ -92,7 +93,7 @@ indexrouter.post('/signup', function (req, res, next) {
 				    });
 				  })(req, res, next);
 			}).catch(function (err) {
-				res.status(400).send({ error: err.message });
+				res.status(401).send({ error: err.message });
 			});
 	}else{
 		next(err);
@@ -100,12 +101,20 @@ indexrouter.post('/signup', function (req, res, next) {
 });
 
 // ROUTE LOGIN
-indexrouter.post('/login', 
-	passport.authenticate('local', {
-	    successRedirect: '/',
-	    failureRedirect: '/',
-	    failureFlash : true 
-}));
+indexrouter.post('/login', function(req, res, next) {
+	passport.authenticate('local', function(err, user, info) {
+		if(user){
+			req.logIn(user, function(err) {
+		    	if (err) {
+		    		res.status(401).send({ error : 'Impossible de s\'identifier' });
+		    	}
+		      	res.status(201).send(user);
+		    });
+		}else{
+			res.status(401).send({ error : 'Impossible de s\'identifier' });
+		}
+  	})(req, res, next);
+});
 
 // ROUTE LOGOUT
 indexrouter.get('/logout', function(req, res){

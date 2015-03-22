@@ -1,10 +1,11 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'), Schema = mongoose.Schema
 
-var rumorSchema = mongoose.Schema({
-	artist: { type: String, required: true }, 
+var rumorSchema = Schema({
+	artist: { type: Schema.Types.ObjectId, ref: 'Artist' }, 
+	edition: { type: Schema.Types.ObjectId, ref: 'Edition' },
 	pourcentage: String,
 	date: Date,
-	source: String,
+	source: [{ type: String}],
 	official: Boolean
 });
 

@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'), Schema = mongoose.Schema
 // var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 
-var userSchema = mongoose.Schema({
+var userSchema = Schema({
 	signupDate: { type: Date, default: Date.now },
 	username: { type: String, required: true, unique: true },
 	email: { type: String, required: true, unique: true },

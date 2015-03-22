@@ -14,10 +14,6 @@ routerFestivals.get('/', function(req, res, next) {
 	displayListFestival(req, res, next);
 });
 
-/* GET Festival Form */
-routerFestivals.get('/ajouter', function(req, res, next) {
-	res.render('festivals/ajouterfestival', {  });
-});
 
 /* POST Create Festival */
 routerFestivals.post('/ajouterFestival', function(req, res, next) {
@@ -33,7 +29,7 @@ routerFestivals.post('/ajouterFestival', function(req, res, next) {
 			if (err) {
 				res.status(400).send({ error: err.message });
 			}else{
-				displayListFestival(req, res, next);
+				res.status(201);
 			}
 		}
 	);
@@ -41,7 +37,10 @@ routerFestivals.post('/ajouterFestival', function(req, res, next) {
 
 /* GET display a festival */
 routerFestivals.get('/:id', function(req, res, next) {
-	Festival.findById(req.params.id, function(err, festival){
+	Festival.findById(req.params.id)
+	.populate('editionInUse')
+	.populate('edition')
+	.exec(function(err, festival){
 		if(!festival){
 			res.status(404);
 			next(err);

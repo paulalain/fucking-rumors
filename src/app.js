@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 
 var festivals = require('./routes/festivals');
 var auth = require('./routes/auth');
+var editions = require('./routes/editions');
 
 var app = express();
 
@@ -41,7 +42,7 @@ app.locals.pretty = true;
 // route user + passport
 app.use('/', auth);
 app.use('/festivals', festivals);
-
+app.use('/editions', editions);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

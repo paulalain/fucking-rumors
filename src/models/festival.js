@@ -1,12 +1,14 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'), Schema = mongoose.Schema
 
-var festivalSchema = mongoose.Schema({
+var festivalSchema = Schema({
 	name: { type: String, required: true },
 	location: { 
 		city: String,
 		country: String
 	},
-	website: String
+	website: String,
+	editionInUse:  { type: Schema.Types.ObjectId, ref: 'Edition' },
+	editions : [{ type: Schema.Types.ObjectId, ref: 'Edition' }]
 });
 
 

@@ -5,4 +5,10 @@ block content
   h1= festival.name
    small= " " + festival.location.city + " (" + festival.location.country + ")"
  div.btn-toolbar
-  a.btn.btn-primary(id="addEditionButton", name="addEditionButton", role="bouton") Ajouter une édition
+   a.btn.btn-primary(id="addEditionButton", name="addEditionButton", role="bouton") Ajouter une édition
+ div.hide(id="addEditionDiv", name-"addEditionDiv")
+  include ../edition/ajouteredition.jade
+ div
+  h2 Liste des editions
+  each item in festival.editions
+   span= edition.year

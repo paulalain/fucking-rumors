@@ -11,15 +11,26 @@ routerFestivals.use(function(req, res, next) {
 
 /* GET festivals listing. */
 routerFestivals.get('/', function(req, res, next) {
-	displayListFestival(req, res, next);
+	console.log("Route /festivals/ -- Début");
+
+	var festivals = Festival.find(function(err, festivalsList) {
+		if (err){
+			console.log("Route /festivals/ -- Erreur -- Fin");
+			return next(err);
+		}else{
+			console.log("Route /festivals/ -- Fin");
+			res.render('festivals/festivals', { festivals: festivalsList });
+		}
+	});
 });
 
 
 /* POST Create Festival */
 routerFestivals.post('/ajouterFestival', function(req, res, next) {
+	console.log("Route /festivals/ajouterFestival/ -- Début");
+
 	if(!res.locals.admin){
 		res.status(401).send({ error: "Accès non authorisé." });
-		return next();
 	}
 
 	var festival = new Festival({
@@ -31,11 +42,11 @@ routerFestivals.post('/ajouterFestival', function(req, res, next) {
 
 	festival.save(function (err) {
 			if (err) {
+				console.log("Route /festivals/ajouterFestival/ --  Erreur -- Fin");
 				res.status(400).send({ error: err.message });
-				return next();
 			}else{
-				res.status(201);
-				return;
+				console.log("Route /festivals/ajouterFestival/ -- Fin");
+				res.status(201).send();
 			}
 		}
 	);
@@ -43,67 +54,58 @@ routerFestivals.post('/ajouterFestival', function(req, res, next) {
 
 /* GET delete a festival */
 routerFestivals.get('/supprimer/:id', function(req, res, next) {
+	console.log("Route /festivals/supprimer/id -- Fin");
+
 	if(!res.locals.admin){
 		res.status(401).send({ error: "Accès non authorisé." });
-		return next();
 	}
 	Festival.findById(req.params.id, function(err, festival){
 		if(err || !festival){
-			res.status(400).send({ error : "Le festival demandée est introuvable." });
-			return next();
+			console.log("Route /festivals/supprimer/id -- Erreur -- Fin");
+			res.status(404).send({ error : "Le festival demandée est introuvable." });
+		}else{
+			festival.remove(function(err, next){
+				console.log("Route /festivals/supprimer/id -- Fin");
+				res.status(201).send();
+			});
 		}
-		festival.remove(function(err, next){
-			displayListFestival(req, res, next);
-		})
 	});
-
-	//TODO delete editions
 });
 
 /* GET display a festival with his current edition*/
 routerFestivals.get('/:id/*', function(req, res, next) {
+	console.log("Route /festivals/id/ -- Début");
+
 	Festival.findById(req.params.id)
 	.populate('editionInUse')
 	.populate('editions')
 	.exec(function(err, festival){
 		if(!festival){
-			res.status(404);
-			return next(err);
+			console.log("Route /festivals/id/ -- Erreur -- Fin");
+			res.status(404).send();
 		}else{
+			console.log("Route /festivals/id/ -- Fin");
 			res.render('festivals/festival', { festival : festival });
-			return;
 		}
 	});
 });
 
 /* GET display a festival with a previous edition*/
 routerFestivals.get('/:id/*/:idEdition', function(req, res, next) {
+	console.log("Route /festivals/id/name/idedition -- Début");
+
 	Festival.findById(req.params.id)
 	.populate('editionInUse')
 	.populate('editions')
 	.exec(function(err, festival){
 		if(!festival){
-			res.status(404);
-			return next(err);
+			console.log("Route /festivals/id/name/idedition -- Erreur -- Fin");
+			res.status(404).send;
 		}else{
+			console.log("Route /festivals/id/name/idedition -- Fin");
 			res.render('festivals/festival', { festival : festival });
-			return;
 		}
 	});
 });
-
-// function to fisplay festival list
-function displayListFestival(req, res, next) {
-	// get festival list
-	var listeFestival = '';
-
-	var festivals = Festival.find(function(err, festivalsList) {
-		if (err){
-			return next(err);
-		}else{
-			res.render('festivals/festivals', { festivals: festivalsList });
-		}
-	});
-}
 
 module.exports = routerFestivals;

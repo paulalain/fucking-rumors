@@ -26,7 +26,6 @@ passport.use(new LocalStrategy({
     usernameField: 'pseudoInputLogin',
     passwordField: 'passwordInputLogin'
   }, function (username, password, done) {
-  	console.log(username);
 	User.checkIfValidUser(username, password)
 		.then(function (user) {
 			done(null, user, true);

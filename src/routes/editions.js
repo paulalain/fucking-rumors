@@ -12,70 +12,52 @@ routerEdition.use(function(req, res, next) {
 
 /* POST Create Edition */
 routerEdition.post('/ajouterEdition', function(req, res, next) {
+	console.log("Route /editions/ajouterEdition -- Début");
+
+	//check if the user is admin
 	if(!res.locals.admin){
 		res.status(401).send({ error: "Accès non authorisé." });
 		return next();
 	}
-	//check if date exists
-	if(!req.body.inputYear){
-		res.status(400).send({ error : 'Le libellé de l\'édition est obligatoire.' });
-		return next();
-	}
 
-	if(!req.body.inputDateStart){
-		res.status(400).send({ error : 'La date de début est obligatoire.' });
-		return next();
-	}
+	var idFestival = req.body.idFestival;
+	var inputYear = req.body.inputYear;
+	var inputDateStart = req.body.inputDateStart;
+	var inputDateEnd = req.body.inputDateEnd;
+	var inputInUse = req.body.inputInUse;
 
-	if(!req.body.inputDateEnd){
-		res.status(400).send({ error : 'La date de fin est obligatoire.' });
-		return next();
-	}
-
-	if(req.body.inputDateStart > req.body.inputDateEnd){
-		res.status(400).send({ error : 'La date de fin doit être supérieure à la date de début.' });
-		return next();
-	}
-
-	// check if id festival exists
-	Festival.findById(req.body.idFestival)
-	.exec(function(err, festival){
-		if(!festival){
-			res.status(400).send({ error : 'Le festival n\'est pas connu.' });
-			return next();
-		}else{
-			var edition = new Edition({
-			  festival : req.body.idFestival,
-			  year: req.body.inputYear,
-			  date: { 
-			  	start : req.body.inputDateStart,
-			  	end: req.body.inputDateEnd 
-			  }
+	Edition.checkEditionValues(inputYear, inputDateStart, inputDateEnd)
+		.then(Festival.findByIdFestival.bind(null, idFestival))
+		.then(function(festival){
+			Edition.createEdition(festival, inputYear, inputDateStart, inputDateEnd)
+			.then(function (edition) {
+				Festival.addEdition(festival, edition, inputInUse)
+					.then(function(festival){
+						console.log("Route /editions/ajouterEdition -- Fin");
+						res.status(201).send();
+					})
+					.catch(function (err) {
+						console.log("Route /editions/ajouterEdition -- Catch 1");
+						console.log("Erreur : " + err);
+						res.status(400).send({ error: err.message });
 			});
-
-			edition.save(function (err) {
-				if (err) {
-					res.status(400).send({ error: "L'édition n'a pu être sauvegardée." });
-					return next();
-				}else{
-					// Save the festival
-					festival.editions.push(edition);
-					// If edition in use
-					console.log(req.body.inputInUse);
-					if(req.body.inputInUse){
-						festival.editionInUse = edition;
-					}
-					festival.save();
-					res.status(201).send();
-					return;
-				}
+			}).catch(function (err) {
+				console.log("Route /editions/ajouterEdition -- Catch 2");
+				console.log("Erreur : " + err);
+				res.status(400).send({ error: err.message });
 			});
-		}
-	});
+		})
+		.catch(function (err) {
+			console.log("Route /editions/ajouterEdition -- Catch 3");
+			console.log("Erreur : " + err);
+			res.status(400).send({ error: err.message });
+		});
 });
 
 /* GET delete an edition */
 routerEdition.get('/supprimer/:id', function(req, res, next) {
+	console.log("Route /editions/supprimer/id -- Début");
+
 	if(!res.locals.admin){
 		res.status(401).send({ error: "Accès non authorisé." });
 		return next();
@@ -83,10 +65,12 @@ routerEdition.get('/supprimer/:id', function(req, res, next) {
 
 	Edition.findById(req.params.id, function(err, edition){
 		if(err || !edition){
+			console.log("Route /editions/supprimer/id -- Erreur -- Fin");
 			res.status(400).send({ error : "L'édition demandée est introuvable." });
 			return next();
 		}
 		edition.remove(function(err, next){
+			console.log("Route /editions/supprimer/id -- Fin");
 			res.status(201).send();
 			return;
 		})

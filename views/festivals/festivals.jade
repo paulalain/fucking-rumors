@@ -4,15 +4,17 @@ block content
  div.page-header
   h1 Liste des festivals 
    small et leurs rumeurs
- div.btn-toolbar
-  a.btn.btn-primary(id="addFestivalButton", name="addFestivalButton", role="bouton") Ajouter un festival
- div.hide(id="addFestivalForm")
-  include ./ajouterfestival.jade
+ if admin && loggedIn
+  div.btn-toolbar
+   a.btn.btn-sm.btn-primary(id="addFestivalButton", name="addFestivalButton", role="bouton") Ajouter un festival
+  div.hide(id="addFestivalForm")
+   include ./ajouterfestival.jade
  ul.list-group(id="festivalList")
   each item in festivals
    li.list-group-item.row
     div.col-xs-6.col-sm-8.col-md-9.col-lg-10
-     a(href="/festivals/#{item.id}")= item.name 
+     a(href="/festivals/#{item.id}/#{item.name}")= item.name 
     div.col-xs-6.col-sm-4.col-md-3.col-lg-2.btn-toolbar
-     a.btn.btn-danger.btn-sm.pull-right(role="button", href="/festivals/supprimer/#{item.id}") Supprimer
-     a.btn.btn-primary.btn-sm.pull-right(role="button", href="/festivals/modifier/#{item.id}") Modifier
+     if admin && loggedIn
+      a.btn.btn-danger.btn-sm.pull-right(role="button", href="/festivals/supprimer/#{item.id}") Supprimer
+      a.btn.btn-primary.btn-sm.pull-right(role="button", href="/festivals/modifier/#{item.id}") Modifier

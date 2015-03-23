@@ -27,7 +27,7 @@ $("#loginForm").submit(function(){
     url: '/login',
     data: $(this).serialize(),
     success: function(data){
-        window.location.href = "/";
+        window.location.reload();
     },
     error: function(data){
         $('#errorSignup').html(data.responseJSON.error);

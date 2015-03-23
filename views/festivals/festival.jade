@@ -4,11 +4,25 @@ block content
  div.page-header
   h1= festival.name
    small= " " + festival.location.city + " (" + festival.location.country + ")"
- div.btn-toolbar
-   a.btn.btn-primary(id="addEditionButton", name="addEditionButton", role="bouton") Ajouter une édition
- div.hide(id="addEditionDiv", name-"addEditionDiv")
-  include ../edition/ajouteredition.jade
+ if admin && loggedIn
+  div.btn-toolbar
+   a.btn.btn-sm.btn-primary(id="updateFestivalButton", name="updateFestivalButton", role="bouton") Modifier le festival
+   a.btn.btn-sm.btn-primary(id="addEditionButton", name="addEditionButton", role="bouton") Ajouter une édition
+   a.btn.btn-sm.btn-primary(id="addRumeurButton", name="addRumeurButton", role="bouton") Ajouter une rumeur à l'édition courante
+  div.hide(id="addEditionDiv", name="addEditionDiv")
+   include ../edition/ajouteredition.jade
+  div.hide(id="addFestivalForm")
+   include ./ajouterfestival.jade
  div
-  h2 Liste des editions
-  each item in festival.editions
-   span= edition.year
+  h2 Les rumeurs
+  span TODO
+ div
+  h2 Liste des éditions
+  ul.list-group(id="editionList")
+   each item in festival.editions
+     li.list-group-item.row
+      div.col-xs-6.col-sm-8.col-md-9.col-lg-10
+       a(href="/festivals/#{festival.id}/#{festival.name}/#{item.id}/")= item.year 
+      div.col-xs-6.col-sm-4.col-md-3.col-lg-2.btn-toolbar
+       if admin && loggedIn
+        a.btn.btn-danger.btn-sm.pull-right.delete-edition(role="button", href="/editions/supprimer/#{item.id}") Supprimer

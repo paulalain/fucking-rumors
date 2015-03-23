@@ -1,7 +1,6 @@
 var mongoose = require('mongoose'), Schema = mongoose.Schema
 
 var artistSchema = Schema({
-	_id: Number,
 	name: { type: String, required: true},
 	img: String,
 	website: String,

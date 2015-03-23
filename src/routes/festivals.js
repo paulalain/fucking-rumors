@@ -6,7 +6,7 @@ var Festival = require('../models/festival');
 /* GET festivals listing. */
 routerFestivals.use(function(req, res, next) {
 	res.locals.page = 'festival';
-	next();
+	return next();
 });
 
 /* GET festivals listing. */
@@ -17,7 +17,11 @@ routerFestivals.get('/', function(req, res, next) {
 
 /* POST Create Festival */
 routerFestivals.post('/ajouterFestival', function(req, res, next) {
-	
+	if(!res.locals.admin){
+		res.status(401).send({ error: "Accès non authorisé." });
+		return next();
+	}
+
 	var festival = new Festival({
 	  name: req.body.inputName,
 	  city: req.body.inputCity,
@@ -28,34 +32,63 @@ routerFestivals.post('/ajouterFestival', function(req, res, next) {
 	festival.save(function (err) {
 			if (err) {
 				res.status(400).send({ error: err.message });
+				return next();
 			}else{
 				res.status(201);
+				return;
 			}
 		}
 	);
 });
 
-/* GET display a festival */
-routerFestivals.get('/:id', function(req, res, next) {
+/* GET delete a festival */
+routerFestivals.get('/supprimer/:id', function(req, res, next) {
+	if(!res.locals.admin){
+		res.status(401).send({ error: "Accès non authorisé." });
+		return next();
+	}
+	Festival.findById(req.params.id, function(err, festival){
+		if(err || !festival){
+			res.status(400).send({ error : "Le festival demandée est introuvable." });
+			return next();
+		}
+		festival.remove(function(err, next){
+			displayListFestival(req, res, next);
+		})
+	});
+
+	//TODO delete editions
+});
+
+/* GET display a festival with his current edition*/
+routerFestivals.get('/:id/*', function(req, res, next) {
 	Festival.findById(req.params.id)
 	.populate('editionInUse')
-	.populate('edition')
+	.populate('editions')
 	.exec(function(err, festival){
 		if(!festival){
 			res.status(404);
-			next(err);
+			return next(err);
 		}else{
-			res.render('festivals/festival', { festival : festival })
+			res.render('festivals/festival', { festival : festival });
+			return;
 		}
 	});
 });
 
-/* GET delete a festival */
-routerFestivals.get('/supprimer/:id', function(req, res, next) {
-	Festival.findById(req.params.id, function(err, festival){
-		festival.remove(function(err, next){
-			displayListFestival(req, res, next);
-		})
+/* GET display a festival with a previous edition*/
+routerFestivals.get('/:id/*/:idEdition', function(req, res, next) {
+	Festival.findById(req.params.id)
+	.populate('editionInUse')
+	.populate('editions')
+	.exec(function(err, festival){
+		if(!festival){
+			res.status(404);
+			return next(err);
+		}else{
+			res.render('festivals/festival', { festival : festival });
+			return;
+		}
 	});
 });
 
@@ -66,7 +99,7 @@ function displayListFestival(req, res, next) {
 
 	var festivals = Festival.find(function(err, festivalsList) {
 		if (err){
-			next(err);
+			return next(err);
 		}else{
 			res.render('festivals/festivals', { festivals: festivalsList });
 		}

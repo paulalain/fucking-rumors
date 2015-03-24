@@ -1,4 +1,5 @@
 var express = require('express');
+var commons = require('../commons');
 var routerEdition = express.Router();
 
 var Festival = require('../models/festival');
@@ -11,14 +12,8 @@ routerEdition.use(function(req, res, next) {
 });
 
 /* POST Create Edition */
-routerEdition.post('/ajouterEdition', function(req, res, next) {
+routerEdition.post('/ajouterEdition', commons.requireRole('moderateur'), function(req, res, next) {
 	console.log("Route /editions/ajouterEdition -- Début");
-
-	//check if the user is admin
-	if(!res.locals.admin){
-		res.status(401).send({ error: "Accès non authorisé." });
-		return next();
-	}
 
 	var idFestival = req.body.idFestival;
 	var inputYear = req.body.inputYear;
@@ -40,7 +35,7 @@ routerEdition.post('/ajouterEdition', function(req, res, next) {
 						console.log("Route /editions/ajouterEdition -- Catch 1");
 						console.log("Erreur : " + err);
 						res.status(400).send({ error: err.message });
-			});
+					});
 			}).catch(function (err) {
 				console.log("Route /editions/ajouterEdition -- Catch 2");
 				console.log("Erreur : " + err);
@@ -55,13 +50,8 @@ routerEdition.post('/ajouterEdition', function(req, res, next) {
 });
 
 /* GET delete an edition */
-routerEdition.get('/supprimer/:id', function(req, res, next) {
+routerEdition.get('/supprimer/:id', commons.requireRole('moderateur'), function(req, res, next) {
 	console.log("Route /editions/supprimer/id -- Début");
-
-	if(!res.locals.admin){
-		res.status(401).send({ error: "Accès non authorisé." });
-		return next();
-	}
 
 	Edition.findById(req.params.id, function(err, edition){
 		if(err || !edition){

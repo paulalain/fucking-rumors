@@ -33,6 +33,8 @@ module.exports = function(grunt) {
         src: [
           'node_modules/jquery/dist/jquery.min.js', // always jQuery before bootstrap
           'node_modules/bootstrap/dist/js/bootstrap.min.js',
+          'node_modules/angular/angular.min.js',
+          'node_modules/angular/angular-route.min.js',
           'src/client/*.js'
         ],
         dest: 'public/js/app.min.js'

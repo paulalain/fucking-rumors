@@ -1,6 +1,0 @@
-fucking-rumors.Sequences.insert(
-   {
-      _id: "seq_festival",
-      seq: 0
-   }
-)

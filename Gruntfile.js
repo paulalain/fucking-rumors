@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 
     watch: {
       scripts: {
-        files: ['src/lib/**/*', 'src/client/*'],
+        files: ['src/lib/**/*', 'src/client/*', 'src/client/*/*'],
         tasks: ['sass:dist', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']
       },
       style: {
@@ -35,7 +35,11 @@ module.exports = function(grunt) {
           'node_modules/bootstrap/dist/js/bootstrap.min.js',
           'node_modules/angular/angular.min.js',
           'node_modules/angular/angular-route.min.js',
-          'src/client/*.js'
+          'src/client/app.js',
+          'src/client/controllers/*.js',
+          'src/client/directives/*.js',
+          'src/client/filters/*.js',
+          'src/client/services/*.js',
         ],
         dest: 'public/js/app.min.js'
       }

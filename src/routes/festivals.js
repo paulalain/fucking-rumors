@@ -10,12 +10,13 @@ routerFestivals.use(function(req, res, next) {
 	return next();
 });
 
-/* GET festivals listing. */
+/* GET festivals listing template. */
 routerFestivals.get('/', function(req, res, next) {
-	console.log("Route /festivals/ -- Début");
-	console.log("Route /festivals/ -- Fin");
+	console.log("Route /templates/festivals -- Début");
+	console.log("Route /templates/festivals -- Fin");
 	res.render('festivals/festivals');
 });
+
 
 /* GET festivals listing. */
 routerFestivals.get('/list', function(req, res, next) {

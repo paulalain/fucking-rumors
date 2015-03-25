@@ -20,12 +20,12 @@ nav.navbar.navbar-default(id="navbar-menu")
     li(class=(page == 'festival') ? 'active' : '')
      a(href='/festivals') Liste des festivals
    if !loggedIn
-    form.navbar-form.navbar-right(id="loginForm", name="loginForm", method="post", action="javascript:void(0);", autocomplete="off")
+    form.navbar-form.navbar-right(ng-controller="connexionController", noValidate)
      div.form-group
-      input.input-sm.form-control(autocomplete="off", id="pseudoInputLogin", name="pseudoInputLogin", type="text", placeholder="Pseudo", required)
-      input.input-sm.form-control(autocomplete="off", id="passwordInputLogin", name="passwordInputLogin", type="password", placeholder="Mot de passe", required)
-     button.btn.btn-primary(id="loginButton", name="loginButton", type="submit") Se connecter
-     button.btn.btn-primary.hidden.disabled(id="loginButtonLoad", name="loginButtonLoad", type="submit")
+      input.input-sm.form-control(ng-model="login", autocomplete="off", type="text", placeholder="Pseudo", required)
+      input.input-sm.form-control(ng-model="password", autocomplete="off", type="password", placeholder="Mot de passe", required)
+     button.btn.btn-primary(ng-show="!waiting", ng-click="doLogin()" type="submit") Se connecter
+     button.btn.btn-primary.disabled(ng-show="waiting" , type="submit")
       span.glyphicon.glyphicon-refresh.glyphicon-refresh-animate 
       span Chargement...
    else

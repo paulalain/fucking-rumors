@@ -2,24 +2,24 @@ extends layout/layout
 
 block content
  div.row
-  div.col-md-3.col-xs-12(id="signupFormDiv")
+  div.col-md-3.col-xs-12(ng-controller="signupController", id="signupFormDiv")
    h3 Nouveau ? Inscrivez-vous maintenant
-   div.alert.alert-danger.hidden(id="errorSignupDiv", role="alert")
+   div.alert.alert-danger(ng-show="displayError" id="errorSignupDiv", role="alert")
     span.glyphicon.glyphicon-exclamation-sign(aria-hidden="true")
     span.sr-only Error :
-    span(id='errorSignup')
-   form.form-horizontal(id="signupForm", method="post", action="javascript:void(0);)", autocomplete="off")
+    span(ng-bind="error")
+   form.form-horizontal(id="signupForm", autocomplete="off", novalidate)
     div.form-group
-      input.form-control(type="text", name="inputPseudoInscription", id="inputPseudoInscription", placeholder="Pseudo", required)
+      input.form-control(ng-model="pseudo", type="text", placeholder="Pseudo")
     div.form-group
-      input.form-control(type="email", name="inputEmailInscription", id="inputEmailInscription", placeholder="Email", required)
+      input.form-control(ng-model="mail", type="email", placeholder="Email")
     div.form-group
-      input.form-control(type="password", name="inputPasswordInscription", id="inputPasswordInscription", placeholder="Mot de passe", required)
+      input.form-control(ng-model="password", type="password", placeholder="Mot de passe")
     div.form-group
-      input.form-control(type="password", name="inputPasswordInscriptionConfirmation", id="inputPasswordInscriptionConfirmation", placeholder="Confirmer mot de passe", required)
+      input.form-control(ng-model="passwordConfirmation", type="password", placeholder="Confirmer mot de passe")
     div.form-group
-      button.btn.btn-lg.btn-block.btn-primary(id="signupButton", name="signupButton", type="submit") S'inscrire
-      button.btn.btn-lg.btn-block.btn-primary.hidden.disabled(id="signupButtonLoad", name="signupButtonLoad", type="submit")
+      button.btn.btn-lg.btn-block.btn-primary(ng-click="doSignup()", ng-show="!waiting", type="submit") S'inscrire
+      button.btn.btn-lg.btn-block.btn-primary.disabled(ng-show="waiting", type="submit")
        span.glyphicon.glyphicon-refresh.glyphicon-refresh-animate 
        span Chargement...
   div.col-md-9.col-xs-12(id="welcomeText")

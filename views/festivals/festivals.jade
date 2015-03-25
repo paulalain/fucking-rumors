@@ -6,10 +6,11 @@ block content
    h1 Liste des festivals 
     small et leurs rumeurs
   if admin && loggedIn
-   div.btn-toolbar
-    a.btn.btn-sm.btn-primary(id="addFestivalButton", name="addFestivalButton", role="bouton") Ajouter un festival
-   div.hide(id="addFestivalForm")
-    include ./ajouterfestival.jade
+   div(ng-controller="addFestivalController")
+    div.btn-toolbar
+     a.btn.btn-sm.btn-primary(ng-click="toggle()", role="bouton") Ajouter un festival
+    div(bn-slide-show="isVisible" id="addFestivalForm")
+     include ./ajouterfestival.jade
   ul.list-group(id="festivalList")
     li.list-group-item.row(ng-repeat="item in festivals")
      div.col-xs-6.col-sm-8.col-md-9.col-lg-10

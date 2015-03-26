@@ -1,15 +1,55 @@
+$color_fb: 			#3b5998;
+$color_twitter:		#55acee;
+$color_instagram :	#3f729b;
+$duration: .2s;
+
 body{
 	nav#navbar-top{
-		min-height: 30px;
-		/*background-image: linear-gradient(to bottom,#222 0, #0d0d0d 100%);*/
-		color: #fff;
+		min-height: 40px;
+		background-image: linear-gradient(to bottom,#4C4C4C 20%,#353535 100%);
 		margin: 0;
 		border-radius: 0;
-		padding-right: 20px;
-		padding-left: 20px;
+		border: 0;
+
+		.navbar-right{
+			margin-top: 10px;
+			margin-right: 0px;
+
+			a{
+				margin: 4px;
+				font-size: 20px;
+				color: #9E9E9E;
+				text-decoration: none;
+				-webkit-transition: color $duration ease-in;
+			    -moz-transition: color $duration ease-in;
+			    -o-transition: color $duration ease-in;
+			    transition: color $duration ease-in;
+			}
+
+			a:hover{
+				text-decoration: none;
+				color: #fff;
+			}
+		}
 	}
 
 	nav#navbar-menu{
 		border-radius: 0;
+		border: 0;
+		min-height: 40px;
+		margin-top: 20px;
+
+		a{
+			color: #fff;
+		}
+
+		.navbar-nav{
+			a:hover{
+				color: #222;
+				border-radius: 5px;
+			}
+		}
+
+
 	}
 }

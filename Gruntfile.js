@@ -8,7 +8,7 @@ module.exports = function(grunt) {
         tasks: ['sass:dist', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']
       },
       style: {
-        files: 'stylesheets/**/*.scss',
+        files: 'stylesheets/*.scss',
         tasks: ['sass:dist', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']
       },
       assets: {

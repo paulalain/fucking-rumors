@@ -1,11 +1,11 @@
-nav.navbar.navbar-inverse(id="navbar-top")
+nav.navbar(id="navbar-top")
  div.container-fluid
   div.navbar-right
-   span FB
-   span TW
-   span IS
-nav.navbar.navbar-default(id="navbar-menu")
- div.container-fluid
+   a.icon-moon-facebook2(href="http://wwww.facebook.com")
+   a.icon-moon-twitter2(href="http://wwww.twitter.com")
+   a.icon-moon-instagram(href="http://wwww.instagram.com")
+nav.navbar(id="navbar-menu")
+ div.container
   div.navbar-header
    button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#navbar-collapse")
     span.sr-only Toggle navigation
@@ -24,8 +24,8 @@ nav.navbar.navbar-default(id="navbar-menu")
      div.form-group
       input.input-sm.form-control(ng-model="login", autocomplete="off", type="text", placeholder="Pseudo", required)
       input.input-sm.form-control(ng-model="password", autocomplete="off", type="password", placeholder="Mot de passe", required)
-     button.btn.btn-primary(ng-show="!waiting", ng-click="doLogin()" type="submit") Se connecter
-     button.btn.btn-primary.disabled(ng-show="waiting" , type="submit")
+     button.btn.btn-sm(ng-show="!waiting", ng-click="doLogin()" type="submit") Se connecter
+     button.btn.btn-sm.disabled(ng-show="waiting" , type="submit")
       span.glyphicon.glyphicon-refresh.glyphicon-refresh-animate 
       span Chargement...
    else

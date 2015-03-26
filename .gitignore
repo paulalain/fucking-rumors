@@ -8,3 +8,4 @@ public
 mongo_data
 bin/
 !/public/fonts
+!/public/assets

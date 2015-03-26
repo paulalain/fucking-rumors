@@ -20,25 +20,11 @@ body{
 	div#containerPrincipal{
 		margin-bottom: 20px;
 
-		/* Small devices (tablets, 768px and up) */
-		@media (min-width: 768px) {
-			padding-left: 0;
-			padding-right: 0;
-		}
-
 		/* Medium devices (desktops, 992px and up) */
-		@media (min-width:  992px) { 
-			padding-left: 50px;
-			padding-right: 50px;
-			
+		@media (min-width:  768px) { 
 			div#container{
 				border-radius: 3px;
 			}
-		}
-
-		@media (min-width: 1200px) {
-			padding-left: 100px;
-			padding-right: 100px;
 		}
 	}
 

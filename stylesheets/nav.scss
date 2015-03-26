@@ -37,16 +37,21 @@ body{
 		border-radius: 0;
 		border: 0;
 		min-height: 40px;
-		margin-top: 20px;
+		margin-top: 10px;
 		padding-left: 10px;
-		padding-right: 10px;
 
 		a{
 			color: #fff;
 		}
 
-		.collapse{
-			margin-top: 10px;
+		@media (max-width: 768px) {
+			.collapse{
+				margin-top: 10px;
+			}
+
+			.navbar-collapse{
+				margin-right: 10px;
+			}
 		}
 
 		button.navbar-toggle{
@@ -59,19 +64,35 @@ body{
 
 		.navbar-header{
 			margin-bottom: 10px;
+			margin-top: 20px;
 		}
 
 		.navbar-nav{
-			margin-left: 10px;
+			margin-left: 20px;
 
 			a{
-				font-family: 'Lato', serif;
-				font-size: 24px;
+				font-family: 'Lato', sans serif;
+				font-size: 18px;
+				text-shadow: none;
+			}
+
+			li{
+				margin: 2px;
+				border-radius: 0;
+			}
+
+			.active{
+				a{
+					color: #fff;
+					border-bottom: 3px solid rgb(255, 103, 103);
+				}
+				
 			}
 
 			a:hover{
-				color: #222;
+				color: #fff;
 				border-radius: 5px;
+				background-color: rgb(255, 103, 103);
 			}
 		}
 

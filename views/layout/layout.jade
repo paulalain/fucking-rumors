@@ -4,11 +4,11 @@ html(ng-app="fuckingRumorsApp")
     title= title
     link(rel='stylesheet', href="/stylesheets/bootstrap.min.css")
     link(rel='stylesheet', href="/stylesheets/app.min.css")
-    link(href='http://fonts.googleapis.com/css?family=Lato:300', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Lato', rel='stylesheet', type='text/css')
   body
    include ./nav.jade
    div(id="containerPrincipal")
-    div.container(id="container")
+    div.container-fluid(id="container")
       block content
       include ./footer.jade
     script(src="/js/app.min.js")

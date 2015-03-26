@@ -81,12 +81,14 @@ body{
 				border-radius: 0;
 			}
 
-			.active{
-				a{
-					color: #fff;
-					border-bottom: 3px solid rgb(255, 103, 103);
+			@media (max-width: 768px) {
+				.active{
+					a{
+						color: #fff;
+						border-bottom: 3px solid rgb(255, 103, 103);
+					}
+					
 				}
-				
 			}
 
 			a:hover{

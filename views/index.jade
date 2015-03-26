@@ -18,8 +18,8 @@ block content
     div.form-group
       input.form-control(ng-model="passwordConfirmation", type="password", placeholder="Confirmer mot de passe")
     div.form-group
-      button.btn.btn-lg.btn-block.btn-primary(ng-click="doSignup()", ng-show="!waiting", type="submit") S'inscrire
-      button.btn.btn-lg.btn-block.btn-primary.disabled(ng-show="waiting", type="submit")
+      button.btn.btn-lg.btn-block.btn-default(ng-click="doSignup()", ng-show="!waiting", type="submit") S'inscrire
+      button.btn.btn-lg.btn-block.btn-default.disabled(ng-show="waiting", type="submit")
        span.glyphicon.glyphicon-refresh.glyphicon-refresh-animate 
        span Chargement...
   div.col-md-9.col-xs-12(id="welcomeText")

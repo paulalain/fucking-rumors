@@ -1,14 +1,14 @@
 fuckingRumorsApp
 .directive("bnSlideShow", function() {
-    function link( $scope, element, attributes ) {
+    function link(scope, element, attributes ) {
         var expression = attributes.bnSlideShow;
         var duration = (attributes.slideShowDuration || "fast");
 
-        if (!$scope.$eval(expression)) {
+        if (!scope.$eval(expression)) {
             element.hide();
         }
 
-        $scope.$watch(expression, function(newValue, oldValue) {
+        scope.$watch(expression, function(newValue, oldValue) {
             if (newValue === oldValue) {
                 return;
             }

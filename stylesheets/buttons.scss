@@ -1,0 +1,30 @@
+$color_button: #ff6767;
+$color_button_focus: #E53737;
+$color_button_hover: #F44F4F;
+
+body{
+	.btn-default{
+		background-color: $color_button;
+		border-color: $color_button;
+		color: #fff;
+		text-shadow: none;
+		background-image: none;
+	}
+
+	.btn-default:focus{
+		background-color: $color_button_focus;
+		border-color: $color_button_focus;
+		color: #fff;
+		text-shadow: none;
+		background-image: none;
+	}
+
+	.btn-default:hover{
+		background-color: $color_button_hover;
+		border-color: $color_button_hover;
+		color: #fff;
+		text-shadow: none;
+		background-image: none;
+	}
+
+}

@@ -13,6 +13,8 @@ fuckingRumorsApp.controller('connexionController', ['$scope', '$http', '$window'
 				    	// todo display error
 				    	$scope.waiting = false;
 				    });
+	    	 }else{
+	    	 	$scope.waiting = false;
 	    	 }
 	    };
 }]);

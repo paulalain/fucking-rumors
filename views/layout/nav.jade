@@ -5,7 +5,7 @@ nav.navbar(id="navbar-top")
    a.icon-moon-twitter2(href="http://wwww.twitter.com")
    a.icon-moon-instagram(href="http://wwww.instagram.com")
 nav.navbar(id="navbar-menu")
- div.container-fluid
+ div.container
   div.navbar-header
    button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#navbar-collapse")
     span.sr-only Toggle navigation
@@ -15,17 +15,17 @@ nav.navbar(id="navbar-menu")
    a.navbar-brand.active(href="/")
   div.collapse.navbar-collapse(id="navbar-collapse")
    ul.nav.navbar-nav
+    li(class=(page == 'articles') ? 'active' : '')
+     a(href='/articles') Les fuckin' news
     li(class=(page == 'festival') ? 'active' : '')
      a(href='/festivals') Liste des festivals
-    li(class=(page == 'concerts') ? 'active' : '')
-     a(href='/festivals') Concerts reports
    if !loggedIn
     form.navbar-form.navbar-right(ng-controller="connexionController", noValidate)
      div.form-group
       input.input-sm.form-control(ng-model="login", autocomplete="off", type="text", placeholder="Pseudo", required)
       input.input-sm.form-control(ng-model="password", autocomplete="off", type="password", placeholder="Mot de passe", required)
-     button.btn.btn-sm(ng-show="!waiting", ng-click="doLogin()" type="submit") Se connecter
-     button.btn.btn-sm.disabled(ng-show="waiting" , type="submit")
+     button.btn.btn-sm.btn-default(ng-show="!waiting", ng-click="doLogin()" type="submit") Se connecter
+     button.btn.btn-sm.btn.default.disabled(ng-show="waiting" , type="submit")
       span.glyphicon.glyphicon-refresh.glyphicon-refresh-animate 
       span Chargement...
    else

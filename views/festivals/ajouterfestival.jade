@@ -1,26 +1,32 @@
-form.form-horizontal(method="post", action="/festivals/ajouterFestival", autocomplete="off")
+form.form-horizontal(novalidate)
+ div.row
+  div.alert.alert-danger(ng-show="displayError", role="alert")
+   span.glyphicon.glyphicon-exclamation-sign(aria-hidden="true")
+   span.sr-only Error :
+   span(ng-bind="error")
  div.row.form-group
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputName") Nom du festival
-   input.form-control(type="text", name="inputName", id="inputName", placeholder="e.g. Route du Rock", required)
+   input.form-control(type="text", ng-model="name", name="inputName", id="inputName", placeholder="e.g. Route du Rock", required)
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputWebsite") Site Web
-   input.form-control(type="url", name="inputWebsite", id="inputWebsite", placeholder="e.g. http://www.laroutedurock.com")
+   input.form-control(type="url", ng-model="website", name="inputWebsite", id="inputWebsite", placeholder="e.g. http://www.laroutedurock.com")
  div.row.form-group
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputCity") Ville
-   input.form-control(type="text",name="inputCity", id="inputCity", placeholder="e.g. Saint-Malo")
+   input.form-control(type="text", ng-model="city", name="inputCity", id="inputCity", placeholder="e.g. Saint-Malo")
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputCountry") Pays
-   input.form-control(type="text",name="inputCountry", id="inputCountry", placeholder="e.g. France")
+   input.form-control(type="text", ng-model="country", name="inputCountry", id="inputCountry", placeholder="e.g. France")
  div.row.form-group
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputFacebook") Facebook
-   input.form-control(type="text",name="inputCinputFacebookity", id="inputFacebook", placeholder="e.g. https://www.facebook.com/laroutedurock")
+   input.form-control(type="text", ng-model="facebook", name="inputFacebook", id="inputFacebook", placeholder="e.g. https://www.facebook.com/laroutedurock")
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputTwitter") Twitter
-   input.form-control(type="text",name="inputTwitter", id="inputTwitter", placeholder="e.g. https://twitter.com/laroutedurock")
+   input.form-control(type="text", ng-model="twitter", name="inputTwitter", id="inputTwitter", placeholder="e.g. https://twitter.com/laroutedurock")
  div.row.form-group
   div.col-xs-12.col-sm-12.col-md-12.col-lg-12.btn-toolbar
    a.btn.btn-default.btn-sm.pull-right(ng-click="toggle()", role="button") Annuler
-   button.btn.btn-primary.btn-sm.pull-right(type="submit") Valider
+   div(btn-loading="waiting", btn-label-loading="Chargement...", btn-class-loading="btn btn-primary btn-sm pull-right")
+    button.btn.btn-primary.btn-sm.pull-right(ng-click="addFestival()") Valider

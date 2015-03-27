@@ -18,7 +18,7 @@ block content
       div.input-group-addon Rechercher
       input.form-control(type="text", placeholder="Nom du festival", ng-model="$parent.filterValue")
    ul.list-group(id="festivalList")
-     li.list-group-item.row(ng-repeat="item in $parent.festivals | slice: ($parent.currentPage-1)*$parent.pageSize: $parent.pageSize | filter: $parent.filterValue ")
+     li.list-group-item.row(ng-repeat="item in $parent.festivals | filter: $parent.filterValue | slice: ($parent.currentPage-1)*$parent.pageSize: $parent.pageSize ")
       div.col-xs-6.col-sm-8.col-md-9.col-lg-10
        a(href="/festivals/{{item._id}}/{{item.name}}") {{item.name}}
       if admin && loggedIn

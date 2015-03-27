@@ -2,7 +2,7 @@ fuckingRumorsApp
 .directive("bnSlideShow", function() {
     function link(scope, element, attributes ) {
         var expression = attributes.bnSlideShow;
-        var duration = (attributes.slideShowDuration || "fast");
+        var duration = (attributes.slideShowDuration || "slow");
 
         if (!scope.$eval(expression)) {
             element.hide();

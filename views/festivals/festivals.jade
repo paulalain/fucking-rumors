@@ -11,11 +11,18 @@ block content
      a.btn.btn-sm.btn-primary(ng-click="toggle()", role="bouton") Ajouter un festival
     div(bn-slide-show="isVisible" id="addFestivalForm")
      include ./ajouterfestival.jade
-  ul.list-group(id="festivalList")
-    li.list-group-item.row(ng-repeat="item in festivals")
-     div.col-xs-6.col-sm-8.col-md-9.col-lg-10
-      a(href="/festivals/{{item._id}}/{{item.name}}") {{item.name}}
-     if admin && loggedIn
-      div.col-xs-6.col-sm-4.col-md-3.col-lg-2.btn-toolbar
-       a.btn.btn-danger.btn-sm.pull-right(role="button" ng-click="deleteFestival(item._id)") Supprimer
-       a.btn.btn-primary.btn-sm.pull-right(role="button" href="/festivals/modifier/{{item._id}}") Modifier
+  div-loading(div-loading="waiting")
+   div.row
+    div.col-xs-12.col-sm-6.col-md-6.col-lg-5
+     div.input-group
+      div.input-group-addon Rechercher
+      input.form-control(type="text", placeholder="e.g. La Route du R*", ng-model="filterValue")
+   ul.list-group(id="festivalList")
+     li.list-group-item.row(ng-repeat="item in festivals | slice: (currentPage-1)*pageSize: pageSize | filter: filterValue ")
+      div.col-xs-6.col-sm-8.col-md-9.col-lg-10
+       a(href="/festivals/{{item._id}}/{{item.name}}") {{item.name}}
+      if admin && loggedIn
+       div.col-xs-6.col-sm-4.col-md-3.col-lg-2.btn-toolbar
+        a.btn.btn-danger.btn-sm.pull-right(role="button" ng-click="deleteFestival(item._id)") Supprimer
+        a.btn.btn-primary.btn-sm.pull-right(role="button" href="/festivals/modifier/{{item._id}}") Modifier
+   paging.small(page="currentPage", page-size="pageSize", total="total", scroll-top="true", hide-if-empty="true", show-prev-next="false", paging-action="goToPage(page)")

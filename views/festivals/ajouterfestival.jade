@@ -28,5 +28,4 @@ form.form-horizontal(novalidate)
  div.row.form-group
   div.col-xs-12.col-sm-12.col-md-12.col-lg-12.btn-toolbar
    a.btn.btn-default.btn-sm.pull-right(ng-click="toggle()", role="button") Annuler
-   div(btn-loading="waiting", btn-label-loading="Chargement...", btn-class-loading="btn btn-primary btn-sm pull-right")
-    button.btn.btn-primary.btn-sm.pull-right(ng-click="addFestival()") Valider
+   btn-loading(btn-loading="waiting", btn-label-loading="Chargement...", btn-class-loading="btn btn-primary btn-sm pull-right", ng-click="addFestival()") Valider

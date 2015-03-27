@@ -24,10 +24,7 @@ nav.navbar(id="navbar-menu")
      div.form-group
       input.input-sm.form-control(ng-model="login", autocomplete="off", type="text", placeholder="Pseudo", required)
       input.input-sm.form-control(ng-model="password", autocomplete="off", type="password", placeholder="Mot de passe", required)
-     button.btn.btn-sm.btn-default(ng-show="!waiting", ng-click="doLogin()" type="submit") Se connecter
-     button.btn.btn-sm.btn.default.disabled(ng-show="waiting" , type="submit")
-      span.glyphicon.glyphicon-refresh.glyphicon-refresh-animate 
-      span Chargement...
+     btn-loading(btn-loading="waiting", btn-label-loading="Chargement...", btn-class-loading="btn btn-sm btn-default", ng-click="doLogin()") Se connecter
    else
     ul.nav.navbar-nav.navbar-right
      li

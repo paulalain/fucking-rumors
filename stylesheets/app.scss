@@ -17,6 +17,14 @@ body{
 		}
 	}
 
+	/* For directive div-loading */
+	.loading{
+	    width: 100%;
+	    text-align: center;
+	    padding: 50px;
+	    color: $footer-color;
+	}
+
 	div#containerPrincipal{
 		margin-bottom: 20px;
 

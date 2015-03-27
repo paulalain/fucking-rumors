@@ -1,2 +1,2 @@
-var fuckingRumorsApp = angular.module('fuckingRumorsApp', []);
+var fuckingRumorsApp = angular.module('fuckingRumorsApp', ["brantwills.paging"]);
 

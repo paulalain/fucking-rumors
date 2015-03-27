@@ -35,35 +35,34 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 		};
 
 		$scope.addFestival = function(){
-			$scope.waiting = true;
-			
-			var validate = validateFields();
-			
-			if(validate){
-				$http.post('/festivals/ajouterFestival', { 
-													inputName: $scope.name,
-													inputCity : $scope.city,
-													inputCountry: $scope.country,
-													inputWebsite: $scope.website,
-													inputFacebook: $scope.facebook,
-													inputTwitter: $scope.twitter
-												})
-					.success(function(data) {
-						$scope.waiting = false;
-						$scope.displayError = false;
-						$scope.error = "";
-						$scope.isVisible = false;
-						emptyFields();
-						$rootScope.$broadcast('refreshFestivalList');
-					})
-					.error(function(data){
-						$scope.error = data.error;
-						$scope.displayError = true;
-						$scope.waiting = false;
-					});
-			}else{
-				//$scope.waiting = false;
-				$scope.displayError = true;
-			}	
+			if(!$scope.waiting){
+				var validate = validateFields();
+				if(validate){
+					$http.post('/festivals/ajouterFestival', { 
+														inputName: $scope.name,
+														inputCity : $scope.city,
+														inputCountry: $scope.country,
+														inputWebsite: $scope.website,
+														inputFacebook: $scope.facebook,
+														inputTwitter: $scope.twitter
+													})
+						.success(function(data) {
+							$scope.waiting = false;
+							$scope.displayError = false;
+							$scope.error = "";
+							$scope.isVisible = false;
+							emptyFields();
+							$rootScope.$broadcast('refreshFestivalList');
+						})
+						.error(function(data){
+							$scope.error = data.error;
+							$scope.displayError = true;
+							$scope.waiting = false;
+						});
+				}else{
+					$scope.waiting = false;
+					$scope.displayError = true;
+				}
+			}
 		};
 	}]);

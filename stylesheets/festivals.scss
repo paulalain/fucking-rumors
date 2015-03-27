@@ -1,6 +1,10 @@
 body{
-	div#addFestivalForm{
+
+	div#addFestivalGlobalDiv{
 		margin-top: 10px;
+	}
+	
+	div#addFestivalForm{
 		margin-bottom: 10px;
 		padding: 20px;
 		background-color: #e6e6e6;
@@ -17,6 +21,6 @@ body{
 
 	.btn-toolbar-right{
 		float: right;
-		margin-top: -40px;
+		margin-top: -50px;
 	}
 }

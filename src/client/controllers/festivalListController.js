@@ -1,16 +1,15 @@
-fuckingRumorsApp.controller('festivalListController', ['$scope', '$http', '$timeout',
-	function ($scope, $http, $timeout) {
-		$scope.data = [];
+fuckingRumorsApp.controller('festivalListController', ['$scope', '$http', 
+	function ($scope, $http) {
+		$scope.festivals = [];
 		$scope.waiting = true;
         $scope.currentPage = 1;
         $scope.total = 0;
         $scope.pageSize = 10;
         $scope.filterValue = "";
 
-		function reCalculateTotal(newValue, oldValue, scope){
-			console.log("toto");
-        	$scope.total = $scope.data.filter(function(elem){ return elem.indexOf($scope.filterValue) > -1; }).length;
-		};
+		$scope.$watch("filterValue", function (newValue){
+        	$scope.total = $scope.festivals.filter(function(elem){ return elem.name.indexOf($scope.filterValue) > -1; }).length;
+		});
 
 		$scope.refresh = function(){
 			$scope.waiting = true;
@@ -41,6 +40,6 @@ fuckingRumorsApp.controller('festivalListController', ['$scope', '$http', '$time
 
 		// get the list when page is loaded
 		$scope.refresh();
-        $scope.$watch($scope.filterValue, reCalculateTotal);
+        
 
 	}]);

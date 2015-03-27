@@ -7,9 +7,11 @@ html(ng-app="fuckingRumorsApp")
     link(href='http://fonts.googleapis.com/css?family=Lato', rel='stylesheet', type='text/css')
     meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
   body
-   include ./nav.jade
-   div(id="containerPrincipal")
-    div.container(id="container")
-      block content
-      include ./footer.jade
-    script(src="/js/app.min.js")
+   div(id="wrap")
+    div.clearfix(id="main")
+     include ./nav.jade
+     div(id="containerPrincipal")
+      div.container(id="container")
+       block content
+   include ./footer.jade
+   script(src="/js/app.min.js")

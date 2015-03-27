@@ -1,7 +1,14 @@
+
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+$screen-lg-min: 1200px;
+
 $font-stack:    	'Lato', sans-serif;
 $background-color:  #3179B5;
 $footer-color: 		#2E2E2E;
 $container_bg_color: #F0F0F0;
+
+$color_red: #ff6767;
 
 body{
 	font-family: $font-stack;
@@ -10,14 +17,12 @@ body{
 	background-image: radial-gradient(circle, #269, #274256);
 	background-image: -webkit-radial-gradient(circle, #269, #274256);
 
-	/* Small devices (tablets, 768px and up) */
-	@media (min-width: 992px) {
+	@media (min-width: $screen-sm-min) {
 		div#signupFormDiv{
 			border-right: 1px dashed #C5C5C5;
 		}
 	}
 
-	/* For directive div-loading */
 	.loading{
 	    width: 100%;
 	    text-align: center;
@@ -28,8 +33,7 @@ body{
 	div#containerPrincipal{
 		margin-bottom: 20px;
 
-		/* Medium devices (desktops, 992px and up) */
-		@media (min-width:  768px) { 
+		@media (min-width:  $screen-sm-min) { 
 			div#container{
 				border-radius: 3px;
 			}
@@ -63,22 +67,24 @@ body{
 	  }
 	}
 
-	.glyphicon-refresh-animate {
-    -animation: spin .7s infinite linear;
-    -webkit-animation: spin2 .7s infinite linear;
+	h1{
+		margin-top: 10px;
 	}
 
-	@-webkit-keyframes spin2 {
-	    from { -webkit-transform: rotate(0deg);}
-	    to { -webkit-transform: rotate(360deg);}
-	}
+	.page-header{
+    	background-color: $color_red;
+	    color: #fff;
+	    padding: 20px;
+	    margin: 0 -15px 0px -15px;
+	    border-top-left-radius: 3px;
+	    border-top-right-radius: 3px;
 
-	@keyframes spin {
-	    from { transform: scale(1) rotate(0deg);}
-	    to { transform: scale(1) rotate(360deg);}
-	}
+	    h1::before{
+    		content: "// ";
+	    }
 
-	.glyphicon{
-		margin-right: 5px;
+	    small{
+	    	color: #fff;
+	    }
 	}
 }

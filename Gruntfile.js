@@ -5,15 +5,15 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: ['src/lib/**/*', 'src/client/*', 'src/client/*/*'],
-        tasks: ['sass:dist', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']
+        tasks: ['concat:app_style', 'sass:dist', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']
       },
       style: {
         files: 'stylesheets/*.scss',
-        tasks: ['sass:dist', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']
+        tasks: ['concat:app_style', 'sass:dist', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']
       },
       assets: {
         files: 'assets/**/*',
-        tasks: ['sass:dist', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']
+        tasks: ['concat:app_style', 'sass:dist', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']
       }
     },
 
@@ -26,8 +26,8 @@ module.exports = function(grunt) {
         dest: 'stylesheets/bootstrap.css'
       },
       app_style: {
-        src: ["stylesheets/*.css"],
-        dest: 'stylesheets/app.css'
+        src: ["stylesheets/*.scss"],
+        dest: 'stylesheets/appconcat.scss'
       },
       js: {
         src: [
@@ -50,7 +50,7 @@ module.exports = function(grunt) {
             files: [{
             expand: true,
             cwd: 'stylesheets/',
-            src: ['*.scss'],
+            src: ['appconcat.scss'],
             dest: 'stylesheets/',
             ext: '.css'
           }]
@@ -68,7 +68,7 @@ module.exports = function(grunt) {
     cssmin: {
       dist: {
         files: {
-          'stylesheets/app.min.css': 'stylesheets/app.css',
+          'stylesheets/app.min.css': 'stylesheets/appconcat.css',
           'stylesheets/bootstrap.min.css': 'stylesheets/bootstrap.css',
         }
       }
@@ -96,7 +96,7 @@ module.exports = function(grunt) {
     },
 
     clean: {
-      css: ['stylesheets/*.map', 'stylesheets/*.css']
+      css: ['stylesheets/*.map', 'stylesheets/*.css', 'stylesheets/appconcat.scss']
     },
 
   });
@@ -109,7 +109,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('default', ['sass:dist', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']);
+  grunt.registerTask('default', ['concat:app_style','sass:dist',  'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']);
   
   grunt.registerTask('prod', ['sass', 'concat:app_style', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'uglify',  'copy', 'clean']);
 };

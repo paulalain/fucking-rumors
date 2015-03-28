@@ -45,6 +45,82 @@ artistSchema.pre('save', function (next) {
 	}
 });
 
+
+artistSchema.statics.checkArtistValues = function (name) {
+	console.log("checkArtistValues -- Début méthode");
+
+	return new Promise(function (resolve, reject) {
+		if(!name){
+			console.log("checkArtistValues -- Reject -- Fin méthode");
+			reject(new Error("Le nom de l'artiste est obligatoire."));
+		}else{
+			artistSchema.findOne({ name : name}, function(err, artist){
+				if(!artist){
+					resolve(null);
+				}else{
+					reject(new Error("Un artiste existe déjà avec ce nom là."));
+				}
+			});
+		}
+	});
+};
+
+artistSchema.statics.addRumor = function (artist, rumor) {
+	console.log("addRumor -- Début méthode");
+
+	return new Promise(function (resolve, reject) {
+		if(!rumor){
+			reject(new Error("La rumeur n'existe pas."));
+		}else{
+			artist.rumors.push(rumor._id);
+
+			artist.save(function(err){
+				if(err){
+					console.log("addRumor -- Reject -- Fin méthode");
+					console.log(err);
+					reject(new Error("La rumeur n'a pu être rajoutée à l'artiste."));
+				}else{
+					console.log("addRumor -- Resolve -- Fin méthode");
+					resolve(festival);
+				}
+			});
+		}
+	});
+};
+
+artistSchema.statics.createArtist = function (name, website, facebook, instagram, twitter, img) {
+	console.log("artist -- Début méthode");
+	
+	var name = name;
+	var website = (website || "");
+	var facebook = (facebook || "");
+	var instagram = (instagram || "");
+	var twitter = (twitter || "");
+	var img = (img || "TODO DEFAULT IMAGE");
+
+	return new Promise(function (resolve, reject) {
+		var artist = new Artist({
+					name: name,
+					website: website,
+					facebook: facebook,
+					instagram: instagram,
+					twitter: twitter,
+					img: img
+				});
+
+		artist.save(function (err, artist) {
+			if (err) {
+				console.log("createArtist -- Erreur -- Fin méthode");
+				console.log(err);
+				reject(new Error(err.message));
+			}else{
+				console.log("createArtist -- Fin méthode");
+				resolve(artist);
+			}
+		});
+	});
+};
+
 var Artist = mongoose.model('Artist', artistSchema);
 
 module.exports = Artist;

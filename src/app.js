@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 var festivals = require('./routes/festivals');
 var index = require('./routes/index');
 var editions = require('./routes/editions');
+var artists = require('./routes/artists');
 
 var app = express();
 
@@ -49,6 +50,7 @@ app.locals.pretty = true;
 app.use('/', index);
 app.use('/festivals', festivals);
 app.use('/editions', editions);
+app.use('/artists', artists);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -55,11 +55,11 @@ festivalSchema.statics.findByIdFestival = function (idFestival) {
 		Festival.findById(idFestival)
 		.exec(function(err, festival){
 			if(err || !festival){
-				console.log("findByIdFestival -- Fin méthode");
+				console.log("findByIdFestival -- Reject -- Fin méthode");
 				console.log(err);
 				reject(new Error("Le festival n'est pas connu."))
 			}else{
-				console.log("findByIdFestival -- Fin méthode");
+				console.log("findByIdFestival -- Resolve -- Fin méthode");
 				resolve(festival);
 			}
 		});

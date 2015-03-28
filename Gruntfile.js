@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 
     watch: {
       scripts: {
-        files: ['src/lib/**/*', 'src/client/*', 'src/client/*/*'],
+        files: ['src/lib/**/*', 'src/client/*', 'src/client/**/*'],
         tasks: ['concat:app_style', 'sass:dist', 'concat:bootstrap_style', 'concat:js', 'cssmin', 'copy', 'clean']
       },
       style: {

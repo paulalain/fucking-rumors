@@ -23,7 +23,7 @@ fuckingRumorsApp.controller('festivalListController', ['$scope', '$http',
 
 		$scope.deleteFestival = function(id){
 			if(id){
-				$http.get('/festivals/supprimer/' + id)
+				$http.get('/festival/supprimer/' + id)
 					.success(function(data) {
 						$scope.refresh();
 					});
@@ -40,6 +40,4 @@ fuckingRumorsApp.controller('festivalListController', ['$scope', '$http',
 
 		// get the list when page is loaded
 		$scope.refresh();
-        
-
 	}]);

@@ -303,7 +303,7 @@ angular.module('brantwills.paging', []).directive('paging', function () {
 				'ng-class="Item.liClass" ' +
 				'ng-click="Item.action()" ' +
 				'ng-repeat="Item in List"> ' +
-				'<a ng-bind="Item.value" href="#"></a> ' +
+				'<a ng-bind="Item.value" href="javascript:void(0)"></a> ' +
             '</ul>',
         link: function (scope, element, attrs) {
             

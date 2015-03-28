@@ -1,27 +1,24 @@
-div.alert.alert-danger.hidden(id="errorAddEditionDiv", role="alert")
+div.alert.alert-danger(ng-show="displayError", role="alert")
  span.glyphicon.glyphicon-exclamation-sign(aria-hidden="true")
  span.sr-only Error :
- span(id="errorAddEdition", name="errorAddEdition")
-form.form-horizontal(id="addEditionForm", name="addEditionForm" method="post", action="javascript:void(0)", autocomplete="off")
- input(type="hidden", id="idFestival", name="idFestival" value="#{festival._id}")
+ span(ng-bind="error")
+form.form-horizontal(autocomplete="off", novalidate)
+ input(type="hidden", id="idFestival", name="idFestival" value="{{festival._id}}")
  div.row.form-group
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputYear") Libellé édition
-   input.form-control(type="text", name="inputYear", id="inputYear", placeholder="e.g. 2015", required)
+   input.form-control(type="text", ng-model="inputYear", name="inputYear", id="inputYear", placeholder="e.g. 2015", required)
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label Edition en cours
-    input.checkbox(type="checkbox", name="inputInUse", id="inputInUse")
+    input.checkbox(type="checkbox", ng-model="inputInUse",  name="inputInUse", id="inputInUse")
  div.row.form-group
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputDateStart") Date de début
-   input.form-control(type="date", name="inputDateStart", id="inputDateStart", placeholder="e.g. 14/08/2015", required)
+   input.form-control(type="date", ng-model="inputDateStart", name="inputDateStart", id="inputDateStart", placeholder="e.g. 14/08/2015", required)
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputDateEnd") Date de fin
-   input.form-control(type="date",name="inputDateEnd", id="inputDateEnd", placeholder="e.g. 16/08/2015", required)
+   input.form-control(type="date", ng-model="inputDateEnd", name="inputDateEnd", id="inputDateEnd", placeholder="e.g. 16/08/2015", required)
  div.row.form-group
   div.col-xs-12.col-sm-12.col-md-12.col-lg-12.btn-toolbar
-   a.btn.btn-default.btn-sm.pull-right(id="cancelAddEdition", name="cancelAddEdition", role="button") Annuler
-   button.btn.btn-primary.btn-sm.pull-right(type="submit", id="addEditionButtonSubmit", name="addEditionButtonSubmit") Valider
-   button.btn.btn-primary.btn-sm.pull-right.hidden.disabled(id="addEditionButtonLoad", name="addEditionButtonLoad", type="submit")
-    span.glyphicon.glyphicon-refresh.glyphicon-refresh-animate 
-    span Chargement...
+   a.btn.btn-default.btn-sm.pull-right(ng-click="toggle()", role="button") Annuler
+   btn-loading(btn-loading="waiting", btn-label-loading="Chargement...", btn-class-loading="btn btn-primary btn-sm pull-right", ng-click="addEdition()") Valider

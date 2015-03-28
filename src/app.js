@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 var festivals = require('./routes/festivals');
+var festival = require('./routes/festival');
 var index = require('./routes/index');
 var editions = require('./routes/editions');
 var artists = require('./routes/artists');
@@ -49,6 +50,7 @@ app.locals.pretty = true;
 // route user + passport
 app.use('/', index);
 app.use('/festivals', festivals);
+app.use('/festival', festival);
 app.use('/editions', editions);
 app.use('/artists', artists);
 

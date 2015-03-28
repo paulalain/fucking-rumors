@@ -1,4 +1,4 @@
-fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$http', 
+fuckingRumorsApp.controller('addEditionController', ['$rootScope', '$scope', '$http', 
 	function ($rootScope, $scope, $http) {
 
 		$scope.isVisible = false;
@@ -7,12 +7,10 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 		$scope.error = "";
 
 		emptyFields = function(){
-			$scope.name = "";
-			$scope.city = "";
-			$scope.country = "";
-			$scope.website = "";
-			$scope.facebook = "";
-			$scope.twitter = "";
+			$scope.inputYear = "";
+			$scope.inputDateStart = "";
+			$scope.inputDateEnd = "";
+			$scope.inputInUse = false;
 		};
 
 		$scope.toggle = function(){
@@ -27,33 +25,34 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 		};
 
 		validateFields = function(){
-			if(!$scope.name){
-				$scope.error = "Le nom du festival est obligatoire."
+			if(!$scope.inputYear){
+				$scope.error = "Le libellé de l'édition est obligatoire."
 				return false;
 			}
-			if(!$scope.city){
-				$scope.error = "La ville du festival est obligatoire."
+			
+			if(!$scope.inputDateStart){
+				$scope.error = "La date de début de l'édition est obligatoire."
 				return false;
 			}
-			if(!$scope.country){
-				$scope.error = "Le pays du festival est obligatoire."
+			
+			if(!$scope.inputDateEnd){
+				$scope.error = "La date de fin de l'édition est obligatoire."
 				return false;
 			}
 
 			return true;
 		};
 
-		$scope.addFestival = function(){
+
+		$scope.addEdition = function(){
 			if(!$scope.waiting){
 				var validate = validateFields();
 				if(validate){
-					$http.post('/festival/ajouter', { 
-														inputName: $scope.name,
-														inputCity : $scope.city,
-														inputCountry: $scope.country,
-														inputWebsite: $scope.website,
-														inputFacebook: $scope.facebook,
-														inputTwitter: $scope.twitter
+					$http.post('/editions/ajouterEdition', { 
+														inputYear: $scope.inputYear,
+														inputDateStart : $scope.inputDateStart,
+														inputDateEnd: $scope.inputDateEnd,
+														inputInUse: $scope.inputInUse
 													})
 						.success(function(data) {
 							$scope.waiting = false;
@@ -61,7 +60,7 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 							$scope.error = "";
 							$scope.isVisible = false;
 							emptyFields();
-							$rootScope.$broadcast('refreshFestivalList');
+							$rootScope.$broadcast('refreshFestival');
 						})
 						.error(function(data){
 							$scope.error = data.error;

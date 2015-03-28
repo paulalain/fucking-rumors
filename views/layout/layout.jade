@@ -7,6 +7,7 @@ html(ng-app="fuckingRumorsApp")
     link(href='http://fonts.googleapis.com/css?family=Lato', rel='stylesheet', type='text/css')
     meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
     base(href="/")
+    script(src="/js/app.min.js")
   body
    div(id="wrap")
     div.clearfix(id="main")
@@ -15,4 +16,4 @@ html(ng-app="fuckingRumorsApp")
       div.container(id="container")
        block content
    include ./footer.jade
-   script(src="/js/app.min.js")
+   

@@ -34,6 +34,22 @@ routerFestival.post('/ajouter', commons.requireRole('moderateur'), function(req,
 		});
 });
 
+/* POST Create Festival */
+routerFestival.post('/modifier', commons.requireRole('moderateur'), function(req, res, next) {
+	console.log("Route /festival/modifier/ -- Début");
+
+	Festival.updateFestival(req.body.inputIdFestival, req.body.inputName, req.body.inputCity, req.body.inputCountry,  
+		req.body.inputWebSite, req.body.inputFacebook, req.body.inputInstagram, req.body.inputTwitter)
+		.then(function(festival){
+			console.log("Route /festival/modifier  -- Fin");
+			res.status(201).send();
+		})
+		.catch(function(err){
+			console.log("Route /festival/modifier/ --  Erreur -- Fin");
+				res.status(400).send({ error: err.message });
+		});
+});
+
 /* GET delete a festival */
 routerFestival.get('/supprimer/:id', commons.requireRole('moderateur'), function(req, res, next) {
 	console.log("Route /festival/supprimer/id -- Fin");
@@ -58,6 +74,7 @@ routerFestival.get('/id/:id', function(req, res, next) {
 	Festival.findById(req.params.id)
 	.populate('editionInUse')
 	.populate('editions')
+	.sort([['editions.year', 'descending']])
 	.exec(function(err, festival){
 		if(err || !festival){
 			console.log("Route /festival/id/ -- Erreur -- Fin");

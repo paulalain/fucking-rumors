@@ -17,11 +17,17 @@ block content
       div.input-group-addon Rechercher
       input.form-control(type="text", placeholder="Nom du festival", ng-model="$parent.filterValue")
    ul.list-group(id="festivalList")
-     li.list-group-item.row(ng-repeat="item in $parent.festivals | filter: $parent.filterValue | slice: ($parent.currentPage-1)*$parent.pageSize: $parent.pageSize ")
-      div.col-xs-6.col-sm-8.col-md-9.col-lg-10
-       a(href="/festival/{{item._id}}/{{ item.name | urlEncode }}") {{item.name}}, du {{item.editionInUse.date.start}} au {{item.editionInUse.date.end}}, à {{item.city}} ({{item.country}})
-      if admin && loggedIn
-       div.col-xs-6.col-sm-4.col-md-3.col-lg-2.btn-toolbar
-        a.btn.btn-danger.btn-sm.pull-right(role="button" ng-click="deleteFestival(item._id)") Supprimer
-        a.btn.btn-primary.btn-sm.pull-right(role="button" href="/festivals/modifier/{{item._id}}") Modifier
-   paging.small(page="$parent.currentPage", page-size="$parent.pageSize", total="$parent.total", scroll-top="true", hide-if-empty="true", show-prev-next="false", paging-action="goToPage(page)")
+     li.list-group-item-festival.col-xs-12.col-sm-12.col-md-6.col-lg-6(ng-repeat="item in $parent.festivals | filter: $parent.filterValue | slice: ($parent.currentPage-1)*$parent.pageSize: $parent.pageSize ")
+      div.group-festival.col-xs-12.col-sm-12.col-md-12.col-lg-12
+       div.col-xs-6.col-sm-6.col-md-7.col-lg-6
+        a.festival-name(href="/festival/{{item._id}}/{{ item.name | urlEncode }}") {{item.name}}
+        br
+        span Du {{ item.editionInUse.date.start | date: 'dd/MM/yyyy' }} au {{ item.editionInUse.date.end | date: 'dd/MM/yyyy' }}
+        br
+        span A {{item.location.city}} ({{item.location.country}})
+       if admin && loggedIn
+        div.col-xs-6.col-sm-6.col-md-5.col-lg-6.btn-toolbar
+         a.btn.btn-danger.btn-sm.pull-right(role="button" ng-click="deleteFestival(item._id)") Supprimer
+         a.btn.btn-primary.btn-sm.pull-right(role="button" ng-click="updateFestival(item._id)") Modifier
+   div.col-xs-12.col-sm-12.col-md-12.col-lg-12
+    paging.small(page="$parent.currentPage", page-size="$parent.pageSize", total="$parent.total", scroll-top="true", hide-if-empty="true", show-prev-next="false", paging-action="goToPage(page)")

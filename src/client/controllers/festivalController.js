@@ -25,7 +25,7 @@ fuckingRumorsApp.controller('festivalController', ['$scope', '$http',
 						//goto festivals
 					});
 			}
-		}
+		};
 
 		$scope.$on("refreshFestival", function (event, args) {
 			$scope.refresh();
@@ -33,7 +33,7 @@ fuckingRumorsApp.controller('festivalController', ['$scope', '$http',
 
 		$scope.goToPage = function(page){
 			$scope.currentPage = parseInt(page);
-		}
+		};
 
 		// get the list when page is loaded
 		if(urlSplitted.length > 1 && urlSplitted[2]){

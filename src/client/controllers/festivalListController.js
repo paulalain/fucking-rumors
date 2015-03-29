@@ -1,5 +1,5 @@
-fuckingRumorsApp.controller('festivalListController', ['$scope', '$http', 
-	function ($scope, $http) {
+fuckingRumorsApp.controller('festivalListController', ['$rootScope', '$scope', '$http', 
+	function ($rootScope, $scope, $http) {
 		$scope.festivals = [];
 		$scope.waiting = true;
         $scope.currentPage = 1;
@@ -28,7 +28,11 @@ fuckingRumorsApp.controller('festivalListController', ['$scope', '$http',
 						$scope.refresh();
 					});
 			}
-		}
+		};
+
+		$scope.updateFestival = function(id){
+			$rootScope.$broadcast('openUpdateFestival', { id: id });
+		};
 
 		$scope.$on("refreshFestivalList", function (event, args) {
 			$scope.refresh();
@@ -36,7 +40,7 @@ fuckingRumorsApp.controller('festivalListController', ['$scope', '$http',
 
 		$scope.goToPage = function(page){
 			$scope.currentPage = parseInt(page);
-		}
+		};
 
 		// get the list when page is loaded
 		$scope.refresh();

@@ -70,8 +70,6 @@ festivalSchema.statics.addEdition = function (festival, edition, inputInUse) {
 	console.log("addEdition -- Début méthode");
 
 	return new Promise(function (resolve, reject) {
-		console.log(festival);
-		console.log(edition);
 		festival.editions.push(edition._id);
 
 		// If edition in use
@@ -99,8 +97,10 @@ festivalSchema.statics.createFestival = function (inputName, inputCity, inputCou
 	return new Promise(function (resolve, reject) {
 		var festival = new Festival({
 		  name: inputName,
-		  city: inputCity,
-		  country: inputCountry,
+		  location:{
+		  	city: inputCity,
+		  	country: inputCountry
+		  },
 		  website: inputWebSite,
 		  facebook: inputFacebook,
 		  twitter: inputTwitter,
@@ -117,6 +117,38 @@ festivalSchema.statics.createFestival = function (inputName, inputCity, inputCou
 				resolve(festival);
 			}
 		});
+	});
+};
+
+festivalSchema.statics.updateFestival = function (idFestival, inputName, inputCity, inputCountry, inputWebSite, inputFacebook, 
+	inputInstagram, inputTwitter) {
+	console.log("updateFestival -- Début méthode");
+	
+	return new Promise(function (resolve, reject) {
+		Festival.findByIdFestival(idFestival)
+				.then(function(festival){
+					festival.name = inputName;
+					festival.location = { city: inputCity, country: inputCountry};
+					festival.website = inputWebSite;
+					festival.facebook = inputFacebook;
+					festival.instagram = inputInstagram;
+					festival.twitter = inputTwitter;
+
+					festival.save(function (err, festival) {
+						if (err) {
+							console.log("updateFestival -- Erreur -- Fin méthode");
+							console.log(err);
+							reject(new Error(err.message));
+						}else{
+							console.log("updateFestival -- Fin méthode");
+							resolve(festival);
+						}
+					});
+				}).catch(function(err){
+					console.log("updateFestival --  Erreur -- Reject");
+						reject(err);
+				});
+		
 	});
 };
 

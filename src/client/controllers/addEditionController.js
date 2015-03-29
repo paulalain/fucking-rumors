@@ -52,7 +52,8 @@ fuckingRumorsApp.controller('addEditionController', ['$rootScope', '$scope', '$h
 														inputYear: $scope.inputYear,
 														inputDateStart : $scope.inputDateStart,
 														inputDateEnd: $scope.inputDateEnd,
-														inputInUse: $scope.inputInUse
+														inputInUse: $scope.inputInUse,
+														idFestival: $scope.festival._id
 													})
 						.success(function(data) {
 							$scope.waiting = false;

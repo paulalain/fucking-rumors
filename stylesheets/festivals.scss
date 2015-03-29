@@ -23,4 +23,21 @@ body{
 		float: right;
 		margin-top: -50px;
 	}
+
+	li.list-group-item-festival{
+		padding: 5px;
+		border-radius: 0;
+		list-style-type: none;
+	}
+
+	.group-festival{
+		padding: 5px;
+		width: 100%;
+		background-color: #fff;
+		border-radius: 2px;
+		
+		.festival-name{
+			font-size: 18px;
+		}
+	}
 }

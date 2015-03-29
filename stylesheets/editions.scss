@@ -5,4 +5,22 @@ body{
 		padding: 20px;
 		background-color: #e6e6e6;
 	}
+
+	#festivalDiv{
+		h1{
+			margin-bottom: 30px;
+			small{
+				display:block;
+				margin-left: 35px;
+				font-size: 16px;
+				margin-top: 5px;
+			}
+		}
+
+		.page-header{
+			a{
+				color: #fff;
+			}
+		}
+	}
 }

@@ -7,7 +7,7 @@ fuckingRumorsApp.controller('connexionController', ['$scope', '$http', '$window'
 	    	 	$http.post('/login', { pseudoInputLogin: $scope.login, passwordInputLogin : $scope.password})
 	    	 		.success(function(data) {
 				       //todo redirect
-				        $window.location.href = "/"
+				        $window.location.href = window.location.href;
 				    })
 				    .error(function(data){
 				    	// todo display error

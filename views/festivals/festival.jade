@@ -1,12 +1,15 @@
 extends ../layout/layout
 
 block content
- div(ng-controller="festivalController")
+ div(id="festivalDiv", ng-controller="festivalController")
   div-loading(div-loading="waiting")
    div.page-header
-    h1 {{festival.name}}
+    h1 {{festival.name}} 
+     small {{ festival.editionInUse.date.start | date: 'dd/MM/yyyy' }} au {{ festival.editionInUse.date.end | date: 'dd/MM/yyyy' }}
      small {{festival.location.city}}  ({{festival.location.country}})
-    a(href="/festivals") <- Revenir à la liste des festivals
+    a(href="/festivals")
+     span.glyphicon.glyphicon-arrow-left
+     span Revenir à la liste des festivals
    if admin && loggedIn
     div(ng-controller="addEditionController")
      div.btn-toolbar.btn-toolbar-right
@@ -18,15 +21,14 @@ block content
      div.hide(id="addFestivalForm")
       include ./ajouterfestival.jade
    div
-    h2 Les rumeurs
+    h2 Les artistes
     span TODO
    div
     h2 Liste des éditions
     ul.list-group(id="editionList")
      li.list-group-item.row(ng-repeat="item in festival.editions")
-       li.list-group-item.row
-        div.col-xs-6.col-sm-8.col-md-9.col-lg-10
-         a(href="/festivals/{{id}}/{{festival.name}}/{{item.id}}/") {{item.year}}
-        div.col-xs-6.col-sm-4.col-md-3.col-lg-2.btn-toolbar
-         if admin && loggedIn
-          a.btn.btn-danger.btn-sm.pull-right.delete-edition(role="button", href="/editions/supprimer/{{item.id}}") Supprimer
+      div.col-xs-6.col-sm-8.col-md-9.col-lg-10
+        a(href="/festivals/{{id}}/{{festival.name}}/{{item.id}}/") {{item.year}}
+      div.col-xs-6.col-sm-4.col-md-3.col-lg-2.btn-toolbar
+       if admin && loggedIn
+        a.btn.btn-danger.btn-sm.pull-right.delete-edition(role="button", href="/editions/supprimer/{{item.id}}") Supprimer

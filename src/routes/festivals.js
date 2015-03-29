@@ -22,15 +22,18 @@ routerFestivals.get('/', function(req, res, next) {
 routerFestivals.get('/list', function(req, res, next) {
 	console.log("Route /festivals/list -- Début");
 
-	var festivals = Festival.find(function(err, festivalsList) {
-		if (err){
-			console.log("Route /festivals/list -- Erreur -- Fin");
-			return next(err);
-		}else{
-			console.log("Route /festivals/list -- Fin");
-			res.json(festivalsList);
-		}
-	});
+	var festivals = Festival.find({})
+					.sort([['name', 'ascending']])
+					.populate('editionInUse')
+					.exec(function(err, festivalsList) {
+						if (err){
+							console.log("Route /festivals/list -- Erreur -- Fin");
+							return next(err);
+						}else{
+							console.log("Route /festivals/list -- Fin");
+							res.json(festivalsList);
+						}
+					});
 });
 
 module.exports = routerFestivals;

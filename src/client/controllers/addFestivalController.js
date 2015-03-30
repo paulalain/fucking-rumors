@@ -6,6 +6,12 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 		$scope.displayError = false;
 		$scope.error = "";
 		$scope.isUpdate = false;
+		$scope.name = "";
+		$scope.city = "";
+		$scope.country = "";
+		$scope.website = "";
+		$scope.facebook = "";
+		$scope.twitter = "";
 
 		emptyFields = function(){
 			$scope.name = "";
@@ -103,9 +109,12 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 			$scope.isUpdate = true;
 			$http.get('/festival/id/' + $scope.idFestival)
 				.success(function(fest) {
-					if(fest.location){
+					if(!!fest.location){
 						$scope.city = fest.location.city;
 						$scope.country = fest.location.country;
+					}else{
+						$scope.city = "";
+						$scope.country = "";
 					}
 					$scope.website = fest.website;
 					$scope.facebook = fest.facebook;

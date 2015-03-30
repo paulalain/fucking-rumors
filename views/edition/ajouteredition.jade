@@ -7,9 +7,10 @@ form.form-horizontal(autocomplete="off", novalidate)
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputYear") Libellé édition
    input.form-control(type="text", ng-model="inputYear", name="inputYear", id="inputYear", placeholder="e.g. 2015", required)
-  div.col-xs-12.col-sm-6.col-md-6.col-lg-6
-   label Edition en cours
-    input.checkbox(type="checkbox", ng-model="inputInUse",  name="inputInUse", id="inputInUse")
+  div.col-xs-12.col-sm-6.col-md-6.col-lg-6.form-inline
+   label
+    input.checkbox(type="checkbox", ng-model="inputInUse",  name="inputInUse", id="inputInUse") 
+    span Edition en cours 
  div.row.form-group
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputDateStart") Date de début

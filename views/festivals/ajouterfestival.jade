@@ -17,7 +17,7 @@ form.form-horizontal(novalidate)
    input.form-control(type="text", ng-model="city", name="inputCity", id="inputCity", placeholder="e.g. Saint-Malo")
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputCountry") Pays
-   input.form-control(type="text", ng-model="country", name="inputCountry", id="inputCountry", placeholder="e.g. France")
+   country-select(id="inputCountry", country-model="country")
  div.row.form-group
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputFacebook") Facebook

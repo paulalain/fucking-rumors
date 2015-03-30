@@ -4,9 +4,9 @@ form.form-horizontal(ng-controller="addRumorController", autocomplete="off", nov
   span.sr-only Error :
   span(ng-bind="error")
  div.row.form-group
-  div.col-xs-12.col-sm-6.col-md-6.col-lg-6
-   label(for="inputYear") Libellé édition
-   input.form-control(type="text", ng-model="artist", placeholder="e.g. James Blake", required)
+  div.col-xs-12.col-sm-12.col-md-12.col-lg-12
+   label() Artiste
+   autocomplete(attr-input-class="form-control", attr-placeholder="e.g. James Blake", ng-model="artist", data="listArtists", on-type="updateListArtists")
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6.form-inline
    label
     input.checkbox(type="checkbox", ng-model="inputInUse",  name="inputInUse", id="inputInUse") 

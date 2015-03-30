@@ -10,18 +10,27 @@ block content
     a(href="/festivals")
      span.glyphicon.glyphicon-arrow-left
      span Revenir à la liste des festivals
-   if admin && loggedIn
+   div(id="addFestivalGlobalDiv")
     div
+     div.btn-toolbar.btn-toolbar-right.social-links
+      a.icon-moon-earth(ng-if="!!festival.website", href="{{festival.website}}")
+      a.icon-moon-facebook2(ng-if="!!festival.facebook", href="http://wwww.facebook.com/{{festival.facebook}}")
+      a.icon-moon-twitter2(ng-if="!!festival.twitter", href="http://wwww.twitter.com/{{festival.twitter}}")
+      a.icon-moon-instagram(ng-if="!!festival.instagram", href="http://wwww.instagram.com/{{festival.instagram}}")
      div.btn-toolbar.btn-toolbar-right
-      a.btn.btn-sm.btn-white(ng-click="toggleUpdateFestival()", role="bouton") Modifier le festival
-      a.btn.btn-sm.btn-white(ng-click="toggleAddEdition()", role="bouton") Ajouter une édition
-      a.btn.btn-sm.btn-white(ng-click="toggleAddRumor()", role="bouton") Ajouter une rumeur à l'édition courante
-     div(bn-slide-show="isVisibleAddEdition" id="addEditionDiv")
-      include ../edition/ajouteredition.jade
-     div.hide(bn-slide-show="isVisibleUpdateFestival" id="addFestivalForm")
-      include ./ajouterfestival.jade
-     div.hide(bn-slide-show="isVisibleAddRumor" id="addRumorForm")
-      include ../rumors/addRumor.jade
+      if (admin)
+       a.btn.btn-sm.btn-white(ng-click="toggleUpdateFestival()", role="bouton") Modifier le festival
+       a.btn.btn-sm.btn-white(ng-click="toggleAddEdition()", role="bouton") Ajouter une édition
+      if (loggedIn)
+       a.btn.btn-sm.btn-white(ng-click="toggleAddRumor()", role="bouton") Ajouter une rumeur
+     if (admin)
+      div(bn-slide-show="isVisibleAddEdition", id="addEditionDiv")
+       include ../edition/ajouteredition.jade
+      div(bn-slide-show="isVisibleUpdateFestival", id="addFestivalForm")
+       include ./ajouterfestival.jade
+     if (loggedIn)
+      div(bn-slide-show="isVisibleAddRumor", id="addRumorForm")
+       include ../rumors/addRumor.jade
    div
     h2 Les artistes
     span TODO

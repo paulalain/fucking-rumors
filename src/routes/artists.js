@@ -20,12 +20,12 @@ routerArtists.get('/', function(req, res, next) {
 			res.status(400).send({ error : "L'artiste demandé est introuvable." });
 		}else{
 			console.log("Route /artists -- Fin");
-			return res.status(200).send({ artists : artists });
+			return res.status(200).send(artists);
 		}
 	});
 });
 
-/* GET All artists */
+/* GET artist by id */
 routerArtists.get('/:id', function(req, res, next) {
 	console.log("Route /artistes/id -- Début");
 
@@ -35,22 +35,22 @@ routerArtists.get('/:id', function(req, res, next) {
 			res.status(400).send({ error : "L'artiste demandé est introuvable." });
 		}else{
 			console.log("Route /artistes/id -- Fin");
-			return res.status(200).send({ artist : artist });
+			return res.status(200).send(artist);
 		}
 	});
 });
 
-/* GET All artists */
+/* GET artists with name */
 routerArtists.get('/search/:name', function(req, res, next) {
 	console.log("Route /artistes/search/name -- Début");
 
-	Artist.find({ name: new RegExp('^' + req.params.name + '$', "i") }, function(err, artists){
+	Artist.find({ name: "/.*" + req.params.name + ".*/" }, function(err, artists){
 		if(err || !artists){
 			console.log("Route /artistes/search/name -- Erreur -- Fin");
 			res.status(400).send({ error : "L'artiste demandé est introuvable." });
 		}else{
 			console.log("Route /artistes/search/name -- Fin");
-			return res.status(200).send({ artists : artists });
+			return res.status(200).send(artists);
 		}
 	});
 });

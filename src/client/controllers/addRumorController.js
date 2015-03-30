@@ -1,15 +1,27 @@
 fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$http', 
 	function ($rootScope, $scope, $http) {
 
-		$scope.waiting = false;
+		$scope.waiting = true;
 		$scope.displayError = false;
 		$scope.error = "";
+		$scope.artist = "";
+		$scope.listArtists = [];
+
+		$scope.loadArtist = function(){
+			$http.get('/artists/')
+				.success(function(data) {
+					$scope.listArtists = data;
+					$scope.waiting = false;
+				})
+				.error(function(data){
+					$scope.error = data.error;
+					$scope.displayError = true;
+					$scope.waiting = false;
+				});
+		}
 
 		$scope.emptyFields = function(){
-			$scope.inputYear = "";
-			$scope.inputDateStart = "";
-			$scope.inputDateEnd = "";
-			$scope.inputInUse = false;
+			$scope.artist = "";
 			$scope.displayError = false;
 			$scope.error = "";
 		};
@@ -19,23 +31,25 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 		});
 
 		$scope.validateFields = function(){
-			if(!$scope.inputYear){
-				$scope.error = "Le libellé de l'édition est obligatoire."
-				return false;
-			}
-			
-			if(!$scope.inputDateStart){
-				$scope.error = "La date de début de l'édition est obligatoire."
-				return false;
-			}
-			
-			if(!$scope.inputDateEnd){
-				$scope.error = "La date de fin de l'édition est obligatoire."
+			if(!$scope.artist){
+				$scope.error = "L'artiste est obligatoire."
 				return false;
 			}
 
 			return true;
 		};
+
+		$scope.updateListArtists = function(typed){
+			$http.get('/artists/search/' + typed)
+				.success(function(data) {
+					$scope.listArtists = data;
+				})
+				.error(function(data){
+					$scope.error = data.error;
+					$scope.displayError = true;
+					$scope.waiting = false;
+				});
+		}
 
 
 		$scope.addRumor = function(){
@@ -65,4 +79,7 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 				}
 			}
 		};
+
+		// load artists
+		$scope.loadArtist();
 	}]);

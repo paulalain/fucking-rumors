@@ -1,1 +1,1 @@
-var fuckingRumorsApp = angular.module('fuckingRumorsApp', ["brantwills.paging"]) ;
+var fuckingRumorsApp = angular.module('fuckingRumorsApp', ["brantwills.paging", "autocomplete"]) ;

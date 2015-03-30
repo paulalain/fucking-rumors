@@ -11,7 +11,8 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 		$scope.website = "";
 		$scope.facebook = "";
 		$scope.twitter = "";
-
+		$scope.instagram = "";
+		
 		$scope.emptyFields = function(){
 			$scope.name = "";
 			$scope.city = "";
@@ -19,6 +20,7 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 			$scope.website = "";
 			$scope.facebook = "";
 			$scope.twitter = "";
+			$scope.instagram = "";
 		};
 
 		$scope.$on("emptyFieldsAddFestival", function (event, args) {
@@ -69,9 +71,10 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 														inputName: $scope.name,
 														inputCity : $scope.city,
 														inputCountry: $scope.country,
-														inputWebsite: $scope.website,
+														inputWebSite: $scope.website,
 														inputFacebook: $scope.facebook,
-														inputTwitter: $scope.twitter
+														inputTwitter: $scope.twitter,
+														inputInstagram: $scope.instagram,
 													})
 						.success(function(data) {
 							$rootScope.$broadcast('refreshFestivalList');
@@ -110,6 +113,7 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 					$scope.website = fest.website;
 					$scope.facebook = fest.facebook;
 					$scope.twitter = fest.twitter;
+					$scope.instagram = fest.instagram;
 					$scope.name = fest.name;
 				})
 				.error(function(data){
@@ -126,9 +130,10 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 														inputName: $scope.name,
 														inputCity : $scope.city,
 														inputCountry: $scope.country,
-														inputWebsite: $scope.website,
+														inputWebSite: $scope.website,
 														inputFacebook: $scope.facebook,
-														inputTwitter: $scope.twitter
+														inputTwitter: $scope.twitter,
+														inputInstagram: $scope.instagram
 													})
 						.success(function(data) {
 							$rootScope.$broadcast('refreshFestivalList');

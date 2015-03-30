@@ -1,8 +1,8 @@
-div.alert.alert-danger(ng-show="displayError", role="alert")
- span.glyphicon.glyphicon-exclamation-sign(aria-hidden="true")
- span.sr-only Error :
- span(ng-bind="error")
 form.form-horizontal(ng-controller="addEditionController", autocomplete="off", novalidate)
+ div.alert.alert-danger(ng-show="displayError", role="alert")
+  span.glyphicon.glyphicon-exclamation-sign(aria-hidden="true")
+  span.sr-only Error :
+  span(ng-bind="error")
  div.row.form-group
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputYear") Libellé édition

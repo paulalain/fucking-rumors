@@ -15,6 +15,8 @@ fuckingRumorsApp.controller('festivalController', ['$rootScope', '$scope', '$htt
 				$scope.isVisibleAddEdition = false;
 			}else{
 				$rootScope.$broadcast("emptyFieldsAddEdition");
+				$scope.isVisibleAddRumor = false;
+				$scope.isVisibleUpdateFestival = false;
 				$scope.isVisibleAddEdition = true;
 			}
 		};
@@ -24,15 +26,19 @@ fuckingRumorsApp.controller('festivalController', ['$rootScope', '$scope', '$htt
 		});
 
 		$scope.toggleAddRumor = function(){
-/*			emptyFields();
 			if($scope.isVisibleAddRumor){
 				$scope.isVisibleAddRumor = false;
-				$scope.displayError = false;
-				$scope.error = "";
 			}else{
+				$rootScope.$broadcast("emptyFieldsAddRumor");
+				$scope.isVisibleAddEdition = false;
+				$scope.isVisibleUpdateFestival = false;
 				$scope.isVisibleAddRumor = true;
-			}*/
+			}
 		};
+
+		$scope.$on("toggleAddRumor", function (event, args) {
+			$scope.toggleAddRumor();
+		});
 
 		$scope.toggleUpdateFestival = function(){
 			//broadcast empty fields

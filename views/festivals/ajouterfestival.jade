@@ -1,4 +1,4 @@
-form.form-horizontal(novalidate)
+form.form-horizontal(ng-controller="addFestivalController", novalidate)
  div.row
   div.alert.alert-danger(ng-show="displayError", role="alert")
    span.glyphicon.glyphicon-exclamation-sign(aria-hidden="true")
@@ -27,5 +27,5 @@ form.form-horizontal(novalidate)
    input.form-control(type="text", ng-model="twitter", name="inputTwitter", id="inputTwitter", placeholder="e.g. https://twitter.com/laroutedurock")
  div.row.form-group
   div.col-xs-12.col-sm-12.col-md-12.col-lg-12.btn-toolbar
-   a.btn.btn-default.btn-sm.pull-right(ng-click="toggle()", role="button") Annuler
+   a.btn.btn-default.btn-sm.pull-right(ng-click="toggleAddFestival()", role="button") Annuler
    btn-loading(btn-loading="waiting", btn-label-loading="Chargement...", btn-class-loading="btn btn-primary btn-sm pull-right", ng-click="submit()") Valider

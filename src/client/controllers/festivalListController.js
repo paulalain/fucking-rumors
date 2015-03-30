@@ -6,10 +6,25 @@ fuckingRumorsApp.controller('festivalListController', ['$rootScope', '$scope', '
         $scope.total = 0;
         $scope.pageSize = 10;
         $scope.filterValue = "";
+        $scope.isVisibleAddFestival = false;
 
 		$scope.$watch("filterValue", function (newValue){
         	$scope.total = $scope.festivals.filter(function(elem){ return elem.name.indexOf($scope.filterValue) > -1; }).length;
 		});
+
+		$scope.toggleAddFestival = function(){
+			if($scope.isVisibleAddFestival){
+				$scope.isVisibleAddFestival = false;
+			}else{
+				$rootScope.$broadcast("emptyFieldsAddFestival");
+				$scope.isVisibleAddFestival = true;
+			}
+		};
+
+		$scope.$on("toggleAddFestival", function (newValue){
+        	$scope.toggleAddFestival();
+		});
+
 
 		$scope.refresh = function(){
 			$scope.waiting = true;

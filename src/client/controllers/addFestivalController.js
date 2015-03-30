@@ -1,7 +1,6 @@
 fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$http', 
 	function ($rootScope, $scope, $http) {
 
-		$scope.isVisible = false;
 		$scope.waiting = false;
 		$scope.displayError = false;
 		$scope.error = "";
@@ -13,7 +12,7 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 		$scope.facebook = "";
 		$scope.twitter = "";
 
-		emptyFields = function(){
+		$scope.emptyFields = function(){
 			$scope.name = "";
 			$scope.city = "";
 			$scope.country = "";
@@ -22,18 +21,12 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 			$scope.twitter = "";
 		};
 
-		$scope.toggle = function(){
-			emptyFields();
-			if($scope.isVisible){
-				$scope.isVisible = false;
-				$scope.displayError = false;
-				$scope.error = "";
-			}else{
-				$scope.isVisible = true;
-			}
-		};
+		$scope.$on("emptyFieldsAddFestival", function (event, args) {
+			$scope.emptyFields();
+		});
 
-		validateFieldsAddFestival = function(){
+
+		$scope.validateFieldsAddFestival = function(){
 			if(!$scope.name){
 				$scope.error = "Le nom du festival est obligatoire."
 				return false;
@@ -50,14 +43,14 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 			return true;
 		};
 
-		validateFieldsUpdateFestival = function(){
+		$scope.validateFieldsUpdateFestival = function(){
 			if(!$scope.idFestival){
 				$scope.error = "L'id du festival est obligatoire."
 				return false;
 			}
 			
 
-			return validateFieldsAddFestival();
+			return $scope.validateFieldsAddFestival();
 		};
 
 		$scope.submit = function(){
@@ -70,7 +63,7 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 
 		$scope.addFestival = function(){
 			if(!$scope.waiting){
-				var validate = validateFieldsAddFestival();
+				var validate = $scope.validateFieldsAddFestival();
 				if(validate){
 					$http.post('/festival/ajouter', { 
 														inputName: $scope.name,
@@ -81,12 +74,9 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 														inputTwitter: $scope.twitter
 													})
 						.success(function(data) {
-							$scope.waiting = false;
-							$scope.displayError = false;
-							$scope.error = "";
-							$scope.isVisible = false;
 							$rootScope.$broadcast('refreshFestivalList');
-							emptyFields();
+							$rootScope.$broadcast('toggleAddFestival');
+							$scope.waiting = false;
 						})
 						.error(function(data){
 							$scope.error = data.error;
@@ -102,6 +92,7 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 		
 		$scope.$on("openUpdateFestival", function (event, args) {
 			$scope.openUpdateFestival(args.id);
+			$rootScope.$broadcast('toggleAddFestival');
 		});
 
 		$scope.openUpdateFestival = function(id){
@@ -120,9 +111,6 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 					$scope.facebook = fest.facebook;
 					$scope.twitter = fest.twitter;
 					$scope.name = fest.name;
-
-					//open form
-					$scope.isVisible = true;
 				})
 				.error(function(data){
 					//redirect 404
@@ -131,7 +119,7 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 
 		$scope.launchUpdateFestival = function(){
 			if(!$scope.waiting){
-				var validate = validateFieldsUpdateFestival();
+				var validate = $scope.validateFieldsUpdateFestival();
 				if(validate){
 					$http.post('/festival/modifier', { 
 														inputIdFestival: $scope.idFestival,
@@ -143,12 +131,9 @@ fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$
 														inputTwitter: $scope.twitter
 													})
 						.success(function(data) {
-							$scope.waiting = false;
-							$scope.displayError = false;
-							$scope.error = "";
-							$scope.isVisible = false;
 							$rootScope.$broadcast('refreshFestivalList');
-							emptyFields();
+							$rootScope.$broadcast('toggleAddFestival');
+							$scope.waiting = false;
 						})
 						.error(function(data){
 							$scope.error = data.error;

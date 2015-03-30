@@ -1,30 +1,24 @@
 fuckingRumorsApp.controller('addEditionController', ['$rootScope', '$scope', '$http', 
 	function ($rootScope, $scope, $http) {
 
-		$scope.isVisible = false;
 		$scope.waiting = false;
 		$scope.displayError = false;
 		$scope.error = "";
 
-		emptyFields = function(){
+		$scope.emptyFields = function(){
 			$scope.inputYear = "";
 			$scope.inputDateStart = "";
 			$scope.inputDateEnd = "";
 			$scope.inputInUse = false;
+			$scope.displayError = false;
+			$scope.error = "";
 		};
 
-		$scope.toggle = function(){
-			emptyFields();
-			if($scope.isVisible){
-				$scope.isVisible = false;
-				$scope.displayError = false;
-				$scope.error = "";
-			}else{
-				$scope.isVisible = true;
-			}
-		};
+		$scope.$on("emptyFieldsAddEdition", function (event, args) {
+			$scope.emptyFields();
+		});
 
-		validateFields = function(){
+		$scope.validateFields = function(){
 			if(!$scope.inputYear){
 				$scope.error = "Le libellé de l'édition est obligatoire."
 				return false;
@@ -46,7 +40,7 @@ fuckingRumorsApp.controller('addEditionController', ['$rootScope', '$scope', '$h
 
 		$scope.addEdition = function(){
 			if(!$scope.waiting){
-				var validate = validateFields();
+				var validate = $scope.validateFields();
 				if(validate){
 					$http.post('/editions/ajouterEdition', { 
 														inputYear: $scope.inputYear,
@@ -56,12 +50,9 @@ fuckingRumorsApp.controller('addEditionController', ['$rootScope', '$scope', '$h
 														idFestival: $scope.festival._id
 													})
 						.success(function(data) {
-							$scope.waiting = false;
-							$scope.displayError = false;
-							$scope.error = "";
-							$scope.isVisible = false;
-							emptyFields();
+							$rootScope.$broadcast('toggleAddEdition');
 							$rootScope.$broadcast('refreshFestival');
+							$scope.waiting = false;
 						})
 						.error(function(data){
 							$scope.error = data.error;

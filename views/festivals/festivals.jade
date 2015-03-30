@@ -5,17 +5,17 @@ block content
   div.page-header
    h1 Liste des festivals 
   if admin && loggedIn
-   div(id="addFestivalGlobalDiv", ng-controller="addFestivalController")
+   div(id="addFestivalGlobalDiv")
     div.btn-toolbar.btn-toolbar-right
-     a.btn.btn-sm.btn-white(ng-click="toggle()", role="bouton") Ajouter un festival
-    div(bn-slide-show="isVisible" id="addFestivalForm")
+     a.btn.btn-sm.btn-white(ng-click="toggleAddFestival()", role="bouton") Ajouter un festival
+    div(bn-slide-show="isVisibleAddFestival" id="addFestivalForm")
      include ./ajouterfestival.jade
   div-loading(div-loading="waiting")
    div.row
     div.col-xs-12.col-sm-6.col-md-6.col-lg-5
      div.input-group(id="rechercheFestival")
       div.input-group-addon Rechercher
-      input.form-control(type="text", placeholder="Nom du festival", ng-model="$parent.filterValue")
+      input.form-control(type="text", placeholder="Nom du festival, date, lieux, artistes...", ng-model="$parent.filterValue")
    ul.list-group(id="festivalList")
      li.list-group-item-festival.col-xs-12.col-sm-12.col-md-6.col-lg-6(ng-repeat="item in $parent.festivals | filter: $parent.filterValue | slice: ($parent.currentPage-1)*$parent.pageSize: $parent.pageSize ")
       div.group-festival.col-xs-12.col-sm-12.col-md-12.col-lg-12

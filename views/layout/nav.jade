@@ -15,10 +15,10 @@ nav.navbar(id="navbar-menu")
    a.navbar-brand.active(href="/")
   div.collapse.navbar-collapse(id="navbar-collapse")
    ul.nav.navbar-nav
-    li(class=(page == 'articles') ? 'active' : '')
-     a(href='/articles') Les fuckin' news
     li(class=(page == 'festival') ? 'active' : '')
-     a(href='/festivals') Liste des festivals
+     a(href='/festivals') Les festivals
+    li(class=(page == 'artiste') ? 'active' : '')
+     a(href='/artistes') Les artistes
    if !loggedIn
     form.navbar-form.navbar-right(ng-controller="connexionController", noValidate)
      div.form-group

@@ -1,10 +1,47 @@
-fuckingRumorsApp.controller('festivalController', ['$scope', '$http', 
-	function ($scope, $http) {
+fuckingRumorsApp.controller('festivalController', ['$rootScope', '$scope', '$http', 
+	function ($rootScope, $scope, $http) {
 		$scope.id = "";
 		$scope.festival = "";
 		$scope.waiting = true;
 
+		$scope.isVisibleAddEdition = false;
+		$scope.isVisibleAddRumor = false;
+		$scope.isVisibleUpdateFestival = false;
+
 		var urlSplitted = window.location.pathname.split("/");
+
+		$scope.toggleAddEdition = function(){
+			if($scope.isVisibleAddEdition){
+				$scope.isVisibleAddEdition = false;
+			}else{
+				$rootScope.$broadcast("emptyFieldsAddEdition");
+				$scope.isVisibleAddEdition = true;
+			}
+		};
+
+		$scope.$on("toggleAddEdition", function (event, args) {
+			$scope.toggleAddEdition();
+		});
+
+		$scope.toggleAddRumor = function(){
+/*			emptyFields();
+			if($scope.isVisibleAddRumor){
+				$scope.isVisibleAddRumor = false;
+				$scope.displayError = false;
+				$scope.error = "";
+			}else{
+				$scope.isVisibleAddRumor = true;
+			}*/
+		};
+
+		$scope.toggleUpdateFestival = function(){
+			//broadcast empty fields
+/*			if($scope.isVisibleUpdateFestival){
+				$scope.isVisibleUpdateFestival = false;
+			}else{
+				$scope.isVisibleUpdateFestival = true;
+			}*/
+		};
 
 		$scope.refresh = function(){
 			$scope.waiting = true;

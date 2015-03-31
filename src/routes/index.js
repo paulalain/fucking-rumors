@@ -115,8 +115,8 @@ indexrouter.use(function(req, res, next) {
 	// just use boolean for loggedIn
 	console.log("Route use -- Locals vars -- Début");
 	res.locals.loggedIn = (req.user) ? true : false;
-	res.locals.admin = true;
-	res.locals.moderateur = true;
+	res.locals.admin = res.locals.loggedIn && true;
+	res.locals.moderateur = res.locals.loggedIn && true;
 	res.locals.user = req.user;
 	res.locals.page = 'accueil';
 	res.locals.title = 'Fucking rumors baby';

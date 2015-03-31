@@ -1,17 +1,19 @@
 var express = require('express');
 var commons = require('../commons');
-var routerArtists = express.Router();
+var routerRumors = express.Router();
 
+var Rumor = require('../models/rumor');
+var Edition = require('../models/edition');
 var Artist = require('../models/artist');
 
 /* GET Page in use. */
-routerArtists.use(function(req, res, next) {
+routerRumors.use(function(req, res, next) {
 	res.locals.page = 'artiste';
 	return next();
 });
 
 /* GET render artists listing template. */
-routerArtists.get('/', function(req, res, next) {
+routerRumors.get('/', function(req, res, next) {
 	console.log("Route /artists/ -- Début");
 	console.log("Route /artists/ -- Fin");
 	res.render('artists/artists');
@@ -19,7 +21,7 @@ routerArtists.get('/', function(req, res, next) {
 
 
 /* GET All artists */
-routerArtists.get('/list', function(req, res, next) {
+routerRumors.get('/list', function(req, res, next) {
 	console.log("Route /artistes-- Début");
 
 	Artist.find({}, function(err, artists){
@@ -34,7 +36,7 @@ routerArtists.get('/list', function(req, res, next) {
 });
 
 /* GET artist by id */
-routerArtists.get('/:id', function(req, res, next) {
+routerRumors.get('/:id', function(req, res, next) {
 	console.log("Route /artistes/id -- Début");
 
 	Artist.findbyId(req.params.id, function(err, artist){
@@ -49,7 +51,7 @@ routerArtists.get('/:id', function(req, res, next) {
 });
 
 /* GET artists with name */
-routerArtists.get('/search/:name', function(req, res, next) {
+routerRumors.get('/search/:name', function(req, res, next) {
 	console.log("Route /artistes/search/name -- Début");
 
 	var r = new RegExp(req.params.name, 'i');
@@ -65,7 +67,7 @@ routerArtists.get('/search/:name', function(req, res, next) {
 });
 
 /* GET delete an artist */
-routerArtists.get('/supprimer/:id', commons.requireRole('moderateur'), function(req, res, next) {
+routerRumors.get('/supprimer/:id', commons.requireRole('moderateur'), function(req, res, next) {
 	console.log("Route /artistes/supprimer/id -- Début");
 
 	Artist.findById(req.params.id, function(err, artist){
@@ -82,30 +84,66 @@ routerArtists.get('/supprimer/:id', commons.requireRole('moderateur'), function(
 });
 
 /* POST Create artist */
-routerArtists.post('/ajouter', commons.requireRole('moderateur'), function(req, res, next) {
-	console.log("Route /artistes/ajouter -- Début");
+routerRumors.post('/ajouter', commons.requireRole('moderateur'), function(req, res, next) {
+	console.log("Route /rumeurs/ajouter -- Début");
 
-	Artist.checkArtistValues(req.body.name)
-		.then(function(artistFind){
-			if(!artistFind){
-				//create a new artist
-				Artist.createArtist(req.body.name, req.body.website, req.body.facebook, req.body.instagram, req.body.twitter, req.body.img)
-				.then(function(artist){
-					console.log("Route /artistes/ajouter  -- Fin");
-					res.status(201).send(artist);
+	Rumor.checkArtistAlreadyRumoredOnEdition(req.body.idArtist, req.body.idEdition)
+		.then(function(rumorFind){
+			if(!rumorFind){
+				//create a new rumor
+				Rumor.createRumor(req.body.idArtist, req.body.idEdition, req.body.rumors, req.body.official)
+				.then(function(rumor){
+					//add rumor to edition
+					Edition.findById(req.body.idEdition, function(err, edition){
+						if(err || !edition){
+							//remove rumor
+							rumor.remove(function(err, next){
+								if(err){
+									console.log("Erreur fatale : " + err);
+									res.status(400).send({ error : err });
+								}
+							})
+							console.log("Route /rumeurs/ajouter -- Erreur -- Fin");
+							res.status(400).send({ error : "L'édition demandée est introuvable." });
+							return;
+						}else{
+							Edition.addRumor(edition, rumor);
+						}
+					});
+
+					//add rumor to artist
+					Artist.findById(req.body.idArtist, function(err, artist){
+						if(err || !artist){
+							//remove rumor
+							rumor.remove(function(err, next){
+								if(err){
+									console.log("Erreur fatale : " + err);
+									res.status(400).send({ error : err });
+								}
+							})
+							console.log("Route /rumeurs/ajouter -- Erreur -- Fin");
+							res.status(400).send({ error : "L'artiste demandé est introuvable." });
+							return;
+						}else{
+							Artist.addRumor(artist, rumor);
+						}
+					});
+
+					console.log("Route /rumeurs/ajouter  -- Fin");
+					res.status(201).send(rumor);
 				}).catch(function (err) {
-					console.log("Route /artistes/ajouter -- Catch 1");
+					console.log("Route /rumeurs/ajouter -- Catch 1");
 					console.log("Erreur : " + err);
 					res.status(400).send({ error: err.message });
 				});
 			}
 		})
 		.catch(function (err) {
-			console.log("Route /artistes/ajouter -- Catch 2");
+			console.log("Route /rumeurs/ajouter -- Catch 2");
 			console.log("Erreur : " + err);
 			res.status(400).send({ error: err.message });
 		});
 });
 
 
-module.exports = routerArtists;
+module.exports = routerRumors;

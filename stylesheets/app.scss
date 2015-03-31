@@ -100,6 +100,12 @@ html, body{
 	    }
 	}
 
+	.list-group-item-custom{
+		padding: 5px;
+		border-radius: 0;
+		list-style-type: none;
+	}
+
 	/* Signup Fix */
 	@media (min-width: $screen-sm-min) {
 		div#signupFormDiv{

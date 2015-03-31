@@ -1,3 +1,4 @@
+var deepPopulate = require('mongoose-deep-populate');
 var mongoose = require('mongoose'), Schema = mongoose.Schema
 var Sequences = require('./sequences');
 
@@ -17,6 +18,9 @@ var festivalSchema = Schema({
 	editionInUse:  { type: Number, ref: 'Edition' },
 	editions : [{ type: Number, ref: 'Edition' }]
 });
+
+//deep populate
+festivalSchema.plugin(deepPopulate, {});
 
 // Generate id
 festivalSchema.pre('save', function (next) {
@@ -153,5 +157,4 @@ festivalSchema.statics.updateFestival = function (idFestival, inputName, inputCi
 };
 
 var Festival = mongoose.model('Festival', festivalSchema);
-
 module.exports = Festival;

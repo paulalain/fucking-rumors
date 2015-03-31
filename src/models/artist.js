@@ -11,7 +11,7 @@ var artistSchema = Schema({
 	facebook: String,
 	instagram: String,
 	twitter: String,
-	rumors: [{ type: Schema.Types.ObjectId, ref: 'Rumor' }]
+	rumors: [{ type: Number, ref: 'Rumor' }]
 });
 
 // Generate id
@@ -56,8 +56,10 @@ artistSchema.statics.checkArtistValues = function (name) {
 		}else{
 			Artist.findOne({ name : name }, function(err, artist){
 				if(!artist){
+					console.log("checkArtistValues -- Resolve -- Fin méthode");
 					resolve(null);
 				}else{
+					console.log("checkArtistValues -- Reject -- Fin méthode");
 					reject(new Error("Un artiste existe déjà avec ce nom là."));
 				}
 			});
@@ -81,7 +83,7 @@ artistSchema.statics.addRumor = function (artist, rumor) {
 					reject(new Error("La rumeur n'a pu être rajoutée à l'artiste."));
 				}else{
 					console.log("addRumor -- Resolve -- Fin méthode");
-					resolve(festival);
+					resolve(artist);
 				}
 			});
 		}

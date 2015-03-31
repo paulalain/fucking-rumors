@@ -31,13 +31,21 @@ block content
      if (loggedIn)
       div(bn-slide-show="isVisibleAddRumor", id="addRumorForm")
        include ../rumors/addRumor.jade
-   div
-    h2 Les artistes
-    span TODO
-   div
+   div.row
+    ul.list-group(id="artistList")
+     li.list-group-item-custom.col-xs-12.col-sm-12.col-md-6.col-lg-6(ng-repeat="item in festival.editionInUse.rumors")
+      div.group-artist.col-xs-12.col-sm-12.col-md-12.col-lg-12
+       div.col-xs-6.col-sm-6.col-md-7.col-lg-6
+        a.artist-name(href="/artistes/id/{{item.artist._id}}/{{item.artist.name | urlEncode }}") {{item.artist.name}}
+        br
+        div(ng-repeat="rumors in item.rumors") 
+         span {{rumors.percentage}} %
+         br
+         span Sources : {{rumors.sources}}
+   div.row
     h2 Liste des éditions
     ul.list-group(id="editionList")
-     li.list-group-item.row(ng-repeat="item in festival.editions")
+     li.list-group-item-custom(ng-repeat="item in festival.editions")
       div.col-xs-6.col-sm-8.col-md-9.col-lg-10
         a(href="/festivals/{{id}}/{{festival.name}}/{{item.id}}/") {{item.year}}
       div.col-xs-6.col-sm-4.col-md-3.col-lg-2.btn-toolbar

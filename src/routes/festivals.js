@@ -24,7 +24,7 @@ routerFestivals.get('/list', function(req, res, next) {
 
 	var festivals = Festival.find({})
 					.sort([['name', 'ascending']])
-					.populate('editionInUse')
+					.deepPopulate('editionInUse editionInUse.rumors editionInUse.rumors.artist')
 					.exec(function(err, festivalsList) {
 						if (err){
 							console.log("Route /festivals/list -- Erreur -- Fin");

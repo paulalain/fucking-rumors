@@ -64,8 +64,7 @@ routerFestival.get('/id/:id', function(req, res, next) {
 	console.log("Route /festival/id/ -- Début");
 
 	Festival.findById(req.params.id)
-	.populate('editionInUse')
-	.populate('editions')
+	.deepPopulate('editionInUse editionInUse.rumors editionInUse.rumors.artist editions')
 	.sort([['editions.year', 'descending']])
 	.exec(function(err, festival){
 		if(err || !festival){

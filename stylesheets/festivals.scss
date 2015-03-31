@@ -10,7 +10,7 @@ body{
 		background-color: #e6e6e6;
 	}
 
-	ul#festivalList{
+	ul#festivalList, ul#artistList{
 		margin: 10px;
 	}
 
@@ -24,12 +24,6 @@ body{
 		margin-top: -50px;
 	}
 
-	li.list-group-item-festival{
-		padding: 5px;
-		border-radius: 0;
-		list-style-type: none;
-	}
-
 	.group-festival{
 		padding: 5px;
 		width: 100%;
@@ -37,6 +31,13 @@ body{
 		border-radius: 2px;
 		
 		.festival-name{
+			font-size: 18px;
+		}
+	}
+
+	.group-artist{
+		@extend .group-festival;
+		.artist-name{
 			font-size: 18px;
 		}
 	}

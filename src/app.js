@@ -11,6 +11,7 @@ var festival = require('./routes/festival');
 var index = require('./routes/index');
 var editions = require('./routes/editions');
 var artists = require('./routes/artists');
+var rumors = require('./routes/rumors');
 
 var app = express();
 
@@ -53,6 +54,7 @@ app.use('/festivals', festivals);
 app.use('/festival', festival);
 app.use('/editions', editions);
 app.use('/artistes', artists);
+app.use('/rumeurs', rumors);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

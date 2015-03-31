@@ -9,6 +9,7 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 		$scope.artistChoosen = false;
 		$scope.datePossible = true;
 		$scope.rumors = [];
+		$scope.official = false;
 
 		$scope.loadArtist = function(){
 			$http.get('/artistes/list')
@@ -25,6 +26,9 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 
 		$scope.emptyFields = function(){
 			$scope.artist = "";
+			$scope.official = false;
+			$scope.rumors = [];
+			$scope.listArtists = [];
 			$scope.artistChoosen = false;
 			$scope.displayError = false;
 			$scope.error = "";
@@ -63,12 +67,11 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 			if(!$scope.waiting){
 				var validate = $scope.validateFields();
 				if(validate){
-					$http.post('/editions/ajouterEdition', { 
-														inputYear: $scope.inputYear,
-														inputDateStart : $scope.inputDateStart,
-														inputDateEnd: $scope.inputDateEnd,
-														inputInUse: $scope.inputInUse,
-														idFestival: $scope.festival._id
+					$http.post('/rumeurs/ajouter', { 
+														idArtist: $scope.artist._id,
+														idEdition : $scope.$parent.festival.editionInUse._id,
+														rumors: $scope.rumors,
+														official: $scope.official
 													})
 						.success(function(data) {
 							$rootScope.$broadcast('toggleAddEdition');
@@ -89,11 +92,12 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 
 		$scope.selectArtist = function(artist){
 			console.log(artist.name);
+			console.log(artist._id);
 			$scope.artistChoosen = true;
 		};
 
 		$scope.addDate = function(){
-			$scope.rumors.push({date: "", percentage: "", sources: []});
+			$scope.rumors.push({date: "", percentage: "", sources: ""});
 		};
 
 		$scope.listAvailableDates = function(){

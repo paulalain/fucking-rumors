@@ -46,6 +46,29 @@ editionSchema.pre('save', function (next) {
 	
 });
 
+editionSchema.statics.addRumor = function (edition, rumor) {
+	console.log("addRumor -- Début méthode");
+
+	return new Promise(function (resolve, reject) {
+		if(!rumor){
+			reject(new Error("La rumeur n'existe pas."));
+		}else{
+			edition.rumors.push(rumor._id);
+
+			edition.save(function(err){
+				if(err){
+					console.log("addRumor -- Reject -- Fin méthode");
+					console.log(err);
+					reject(new Error("La rumeur n'a pu être rajoutée à l'édition."));
+				}else{
+					console.log("addRumor -- Resolve -- Fin méthode");
+					resolve(edition);
+				}
+			});
+		}
+	});
+};
+
 editionSchema.statics.checkEditionValues = function (inputYear, inputDateStart, inputDateEnd) {
 	console.log("checkEditionValues -- Début méthode");
 

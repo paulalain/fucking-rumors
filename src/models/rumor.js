@@ -10,7 +10,7 @@ var rumorSchema = Schema({
 	rumor: [{
 		pourcentage: String,
 		date: Date,
-		source: [{ type: String}]
+		source: { type: String }
 	}],
 	official: Boolean
 });

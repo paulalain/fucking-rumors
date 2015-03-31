@@ -10,14 +10,6 @@ routerFestival.use(function(req, res, next) {
 	return next();
 });
 
-/* GET festivals listing template. */
-routerFestival.get('/', function(req, res, next) {
-	console.log("Route /templates/festivals -- Début");
-	console.log("Route /templates/festivals -- Fin");
-	res.render('festivals/festivals');
-});
-
-
 /* POST Create Festival */
 routerFestival.post('/ajouter', commons.requireRole('moderateur'), function(req, res, next) {
 	console.log("Route /festival/ajouter/ -- Début");

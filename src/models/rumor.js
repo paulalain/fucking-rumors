@@ -7,9 +7,11 @@ var rumorSchema = Schema({
 	_id: Number,
 	artist: { type: Number, ref: 'Artist' }, 
 	edition: { type: Number, ref: 'Edition' },
-	pourcentage: String,
-	date: Date,
-	source: [{ type: String}],
+	rumor: [{
+		pourcentage: String,
+		date: Date,
+		source: [{ type: String}]
+	}],
 	official: Boolean
 });
 

@@ -6,12 +6,20 @@ var Artist = require('../models/artist');
 
 /* GET Page in use. */
 routerArtists.use(function(req, res, next) {
-	res.locals.page = 'festival';
+	res.locals.page = 'artiste';
 	return next();
 });
 
-/* GET All artists */
+/* GET render artists listing template. */
 routerArtists.get('/', function(req, res, next) {
+	console.log("Route /artists/ -- Début");
+	console.log("Route /artists/ -- Fin");
+	res.render('artists/artists');
+});
+
+
+/* GET All artists */
+routerArtists.get('/list', function(req, res, next) {
 	console.log("Route /artistes-- Début");
 
 	Artist.find({}, function(err, artists){
@@ -44,7 +52,8 @@ routerArtists.get('/:id', function(req, res, next) {
 routerArtists.get('/search/:name', function(req, res, next) {
 	console.log("Route /artistes/search/name -- Début");
 
-	Artist.find({ name: "/.*" + req.params.name + ".*/" }, function(err, artists){
+	var r = new RegExp(req.params.name, 'i');
+	Artist.find({ name:  { $regex:r }}, function(err, artists){
 		if(err || !artists){
 			console.log("Route /artistes/search/name -- Erreur -- Fin");
 			res.status(400).send({ error : "L'artiste demandé est introuvable." });
@@ -76,7 +85,7 @@ routerArtists.get('/supprimer/:id', commons.requireRole('moderateur'), function(
 routerArtists.post('/ajouter', commons.requireRole('moderateur'), function(req, res, next) {
 	console.log("Route /artistes/ajouter -- Début");
 
-	Artist.checkArtistValues(name)
+	Artist.checkArtistValues(req.body.name)
 		.then(function(artistFind){
 			if(!artistFind){
 				//create a new artist

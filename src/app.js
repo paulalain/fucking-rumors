@@ -52,7 +52,7 @@ app.use('/', index);
 app.use('/festivals', festivals);
 app.use('/festival', festival);
 app.use('/editions', editions);
-app.use('/artists', artists);
+app.use('/artistes', artists);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

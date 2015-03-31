@@ -6,9 +6,12 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 		$scope.error = "";
 		$scope.artist = "";
 		$scope.listArtists = [];
+		$scope.artistChoosen = false;
+		$scope.datePossible = true;
+		$scope.rumors = [];
 
 		$scope.loadArtist = function(){
-			$http.get('/artists/')
+			$http.get('/artistes/list')
 				.success(function(data) {
 					$scope.listArtists = data;
 					$scope.waiting = false;
@@ -22,6 +25,7 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 
 		$scope.emptyFields = function(){
 			$scope.artist = "";
+			$scope.artistChoosen = false;
 			$scope.displayError = false;
 			$scope.error = "";
 		};
@@ -40,7 +44,8 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 		};
 
 		$scope.updateListArtists = function(typed){
-			$http.get('/artists/search/' + typed)
+			if(typed && typed != ""){
+				$http.get('/artistes/search/' + typed)
 				.success(function(data) {
 					$scope.listArtists = data;
 				})
@@ -49,8 +54,10 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 					$scope.displayError = true;
 					$scope.waiting = false;
 				});
-		}
-
+			}else{
+				$scope.loadArtist();
+			}
+		};
 
 		$scope.addRumor = function(){
 			if(!$scope.waiting){
@@ -78,6 +85,19 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 					$scope.displayError = true;
 				}
 			}
+		};
+
+		$scope.selectArtist = function(artist){
+			console.log(artist.name);
+			$scope.artistChoosen = true;
+		};
+
+		$scope.addDate = function(){
+			$scope.rumors.push({date: "", percentage: "", sources: []});
+		};
+
+		$scope.listAvailableDates = function(){
+			return ["bla", "bli", "blo"];
 		};
 
 		// load artists

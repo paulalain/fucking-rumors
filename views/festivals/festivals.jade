@@ -16,6 +16,8 @@ block content
      div.input-group(id="rechercheFestival")
       div.input-group-addon Rechercher
       input.form-control(type="text", placeholder="Nom du festival, date, lieux, artistes...", ng-model="$parent.filterValue")
+   div.no-result(ng-hide="($parent.festivals | filter: $parent.filterValue | slice: ($parent.currentPage-1)*$parent.pageSize: $parent.pageSize).length")
+    span Aucun festival
    ul.list-group(id="festivalList")
      li.list-group-item-festival.col-xs-12.col-sm-12.col-md-6.col-lg-6(ng-repeat="item in $parent.festivals | filter: $parent.filterValue | slice: ($parent.currentPage-1)*$parent.pageSize: $parent.pageSize ")
       div.group-festival.col-xs-12.col-sm-12.col-md-12.col-lg-12

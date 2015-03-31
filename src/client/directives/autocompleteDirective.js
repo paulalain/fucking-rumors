@@ -251,13 +251,12 @@ app.directive('autocomplete', function() {
             ng-required="{{ autocompleteRequired }}" />\
           <ul ng-show="completing && (suggestions | filter:searchFilter).length > 0">\
             <li\
-              suggestion\
               ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\' track by $index"\
               index="{{ $index }}"\
-              val="{{ suggestion }}"\
+              val="{{ suggestion.name }}"\
               ng-class="{ active: ($index === selectedIndex) }"\
               ng-click="select(suggestion)"\
-              ng-bind-html="suggestion | highlight:searchParam"></li>\
+              ng-bind-html="suggestion | highlight:searchParam">{{suggestion.name}}</li>\
           </ul>\
         </div>'
   };

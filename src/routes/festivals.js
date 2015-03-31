@@ -12,8 +12,8 @@ routerFestivals.use(function(req, res, next) {
 
 /* GET festivals listing template. */
 routerFestivals.get('/', function(req, res, next) {
-	console.log("Route /templates/festivals -- Début");
-	console.log("Route /templates/festivals -- Fin");
+	console.log("Route /festivals/ -- Début");
+	console.log("Route /festivals/ -- Fin");
 	res.render('festivals/festivals');
 });
 

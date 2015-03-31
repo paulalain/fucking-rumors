@@ -4,20 +4,41 @@ form.form-horizontal(ng-controller="addRumorController", autocomplete="off", nov
   span.sr-only Error :
   span(ng-bind="error")
  div.row.form-group
+  div.col-xs-12.col-sm-12.col-md-6.col-lg-6
+   label Artiste
+   div(ng-show="!artistChoosen")
+    autocomplete(attr-input-class="form-control", attr-placeholder="e.g. James Blake", ng-model="artist", data="listArtists", on-type="updateListArtists", on-select="selectArtist")
+   div(ng-show="artistChoosen")
+    span {{artist.name}}
+  div.col-xs-12.col-sm-12.col-md-6.col-lg-6
+   label(ng-show="artistChoosen") Planning de l'artiste
+   table.table.table-striped(ng-id="artist", ng-show="artistChoosen")
+    tr
+     th Date
+     th Lieu
+     th %
+     th Officiel
+    tr.no-result(ng-hide="(artist.rumors).length")
+     td(colspan="4") Aucune date de prévue
+    tr(ng-repeat="item in artist.rumors")
+     td {{item.date}}
+     td RRR à RRR (rrr)
+     td 80%
+     td X
+ div.row.form-group(ng-show="artistChoosen", ng-repeat="rumor in rumors")
+  div.col-xs-6.col-sm-3.col-md-3.col-lg-3
+   label(for="inputDate") Date
+   select.form-control
+    option(ng-repeat="item in listAvailableDates()") {{item}}
+  div.col-xs-6.col-sm-3.col-md-3.col-lg-3
+   label(for="inputPercentage") Pourcentage
+   input.form-control(id="inputPercentage", type="range", min="0", max="100", ng-model="rumor.percentage", required, class="")
+  div.col-xs-12.col-sm-6.col-md-6.col-lg-6
+   label(for="inputSources") Sources
+   textarea.form-control(id="inputSources", ng-model="rumor.sources", class="")
+ div.row.form-group(ng-show="artistChoosen")
   div.col-xs-12.col-sm-12.col-md-12.col-lg-12
-   label() Artiste
-   autocomplete(attr-input-class="form-control", attr-placeholder="e.g. James Blake", ng-model="artist", data="listArtists", on-type="updateListArtists")
-  div.col-xs-12.col-sm-6.col-md-6.col-lg-6.form-inline
-   label
-    input.checkbox(type="checkbox", ng-model="inputInUse",  name="inputInUse", id="inputInUse") 
-    span Edition en cours 
- div.row.form-group
-  div.col-xs-12.col-sm-6.col-md-6.col-lg-6
-   label(for="inputDateStart") Date de début
-   input.form-control(type="date", ng-model="inputDateStart", name="inputDateStart", id="inputDateStart", placeholder="e.g. 14/08/2015", required)
-  div.col-xs-12.col-sm-6.col-md-6.col-lg-6
-   label(for="inputDateEnd") Date de fin
-   input.form-control(type="date", ng-model="inputDateEnd", name="inputDateEnd", id="inputDateEnd", placeholder="e.g. 16/08/2015", required)
+   a.btn.btn-default.btn-sm(ng-show="listAvailableDates().length", ng-click="addDate()", role="button") Ajouter une date
  div.row.form-group
   div.col-xs-12.col-sm-12.col-md-12.col-lg-12.btn-toolbar
    a.btn.btn-default.btn-sm.pull-right(ng-click="toggleAddRumor()", role="button") Annuler

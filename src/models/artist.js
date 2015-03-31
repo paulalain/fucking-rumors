@@ -54,7 +54,7 @@ artistSchema.statics.checkArtistValues = function (name) {
 			console.log("checkArtistValues -- Reject -- Fin méthode");
 			reject(new Error("Le nom de l'artiste est obligatoire."));
 		}else{
-			artistSchema.findOne({ name : name}, function(err, artist){
+			Artist.findOne({ name : name }, function(err, artist){
 				if(!artist){
 					resolve(null);
 				}else{

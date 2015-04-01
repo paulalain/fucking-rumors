@@ -32,18 +32,24 @@ block content
       div(bn-slide-show="isVisibleAddRumor", id="addRumorForm")
        include ../rumors/addRumor.jade
    div.row
+    label Filtrer les annonces officielles
+     input(ng-model="filterOnOfficial", type="checkbox")
+    label Filtrer par jour
+     input(ng-model="filterDay", type="text")
+    label Filtrer par pourcentage
+     input(ng-model="filterPercentage", type="number", value="0")
+   div.row
     ul.list-group(id="artistList")
-     li.list-group-item-custom.col-xs-12.col-sm-12.col-md-6.col-lg-6(ng-repeat="item in festival.editionInUse.rumors")
+     li.list-group-item-custom.col-xs-12.col-sm-12.col-md-6.col-lg-6(ng-repeat="item in festival.editionInUse.rumors | filter : { official: filterOnOfficial ? true : false} | filter : greaterThan('rumors.percentage', filterPercentage)")
       div.group-artist.col-xs-12.col-sm-12.col-md-12.col-lg-12
        div.col-xs-2.col-sm-2.col-md-2.col-lg-2
         img.avatar-medium(src="{{item.artist.img}}")
        div.col-xs-10.col-sm-10.col-md-10.col-lg-10
         a.artist-name(href="/artistes/id/{{item.artist._id}}/{{item.artist.name | urlEncode }}") {{item.artist.name}}
-        br
-        div(ng-repeat="rumors in item.rumors") 
-         span {{rumors.percentage}} %
-         br
-         span Sources : {{rumors.sources}}
+        div.date-list
+          div(ng-repeat="rumors in item.rumors | orderBy : 'date'") 
+           span.date {{rumors.date | date : "EEE. dd/MM/yyyy"}}
+           span.percentage(ng-class="{bad: (rumors.percentage < 20), quitebad: (rumors.percentage >=20 && rumors.percentage < 50), good: (rumors.percentage >=50 && rumors.percentage < 70), verygood: (rumors.percentage >=70 && rumors.percentage < 90), excellent: (rumors.percentage >= 90)}") {{rumors.percentage}} %
    div.row
     h2 Liste des éditions
     ul.list-group(id="editionList")

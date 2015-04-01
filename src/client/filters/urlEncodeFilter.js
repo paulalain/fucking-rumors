@@ -1,3 +1,5 @@
-fuckingRumorsApp.filter('urlEncode', function($window) {
-  return $window.encodeURIComponent;
+fuckingRumorsApp.filter('urlEncode', function() {
+	return function(input) {
+  		return encodeURIComponent(input.replace(new RegExp(' ', 'g'), '-'));
+  	}
 });

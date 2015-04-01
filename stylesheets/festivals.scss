@@ -41,4 +41,37 @@ body{
 			font-size: 18px;
 		}
 	}
+
+	.date-list{
+		width: 100%;
+
+		.date{
+			font-style: italic;
+			margin-right: 10px;
+		}
+
+		.percentage{
+			font-weight: bold;
+		}
+
+		.bad{
+			color: red;
+		}
+
+		.quitebad{
+			color: orange;
+		} 
+
+		.good{
+			color: black;
+		}
+
+		.verygood{
+			color: blue;
+		}
+
+		.excellent{
+			color: green;
+		}
+	}
 }

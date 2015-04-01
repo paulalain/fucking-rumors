@@ -79,10 +79,20 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 			}
 		};
 
+		function convertDate(){
+			var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+			
+			for(var i=0; i<$scope.rumors.length; i++){
+				$scope.rumors[i].date = new Date($scope.rumors[i].date.replace(pattern,'$3-$2-$1'));
+			}
+		}
+
 		$scope.addRumor = function(){
 			if(!$scope.waiting){
 				var validate = $scope.validateFields();
 				if(validate){
+					//convert string dates to Date
+					convertDate();
 					$http.post('/rumeurs/ajouter', { 
 														idArtist: $scope.artist._id,
 														idEdition : $scope.$parent.festival.editionInUse._id,
@@ -136,9 +146,7 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 		listAvailableDatesCalculate = function(startDate, endDate, usedDates){
 			//get possibles dates from festival edition dates
 			var listDates = []
-			console.log(usedDates);
 			for (var d = new Date(startDate); d <= new Date(endDate); d.setDate(d.getDate() + 1)) {
-				console.log($filter('date')(d, "dd/MM/yyyy"));
 			    if(usedDates.indexOf($filter('date')(d, "dd/MM/yyyy")) == -1){
 			    	listDates.push(new Date(d));
 			    }
@@ -146,6 +154,12 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 
 			return listDates;
 		};
+
+		$scope.greaterThan = function(prop, val){
+		    return function(item){
+		      return item[prop] > val;
+		    }
+		}
 
 		// load artists
 		$scope.loadArtist();

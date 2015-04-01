@@ -30,8 +30,8 @@ form.form-horizontal(ng-controller="addRumorController", autocomplete="off", nov
  div.row.form-group(ng-show="artistChoosen", ng-repeat="rumor in rumors")
   div.col-xs-6.col-sm-3.col-md-3.col-lg-3
    label(for="inputDate") Date
-   select.form-control(ng-model="rumor.date", ng-disabled="rumor.disabled")
-    option(ng-repeat="item in rumor.listAvailableDates") {{item | date: "dd/MM/yyyy"}}
+   select.form-control(ng-model="rumor.date", ng-disabled="rumor.disabled", type="date")
+    option(ng-repeat="item in rumor.listAvailableDates", type="date") {{item | date: "dd/MM/yyyy"}}
   div.col-xs-6.col-sm-3.col-md-3.col-lg-3
    label(for="inputPercentage") Pourcentage
    input.form-control(id="inputPercentage", type="range", min="0", max="100", ng-model="rumor.percentage", ng-disabled="rumor.disabled")

@@ -44,8 +44,8 @@ fuckingRumorsApp.controller('addArtistController', ['$rootScope', '$scope', '$ht
 														img: $scope.img
 													})
 						.success(function(data) {
-							$rootScope.$broadcast('toggleAddRumor');
-							$rootScope.$broadcast('refreshListArtists');
+							$rootScope.$broadcast('toggleAddArtist');
+							$rootScope.$broadcast('refreshArtistsList');
 							$scope.waiting = false;
 						})
 						.error(function(data){

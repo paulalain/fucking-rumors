@@ -1,0 +1,19 @@
+body{
+	.avatar-medium {
+	    width: 50px;
+	    margin: 5px;
+	    border: 5px solid white;
+	    border-radius: 50px;
+	    -webkit-border-radius: 50px;
+	    -moz-border-radius: 50px;
+	}	
+
+	.avatar-small {
+	    width:25px;
+	    margin: 2px;
+	    border:2px solid white;
+	    border-radius: 20px;
+	    -webkit-border-radius: 20px;
+	    -moz-border-radius: 20px;
+	}	
+}

@@ -1,3 +1,4 @@
+var deepPopulate = require('mongoose-deep-populate');
 var mongoose = require('mongoose'), Schema = mongoose.Schema
 var Sequences = require('./sequences');
 
@@ -13,6 +14,9 @@ var artistSchema = Schema({
 	twitter: String,
 	rumors: [{ type: Number, ref: 'Rumor' }]
 });
+
+//deep populate
+artistSchema.plugin(deepPopulate, {});
 
 // Generate id
 artistSchema.pre('save', function (next) {
@@ -98,7 +102,7 @@ artistSchema.statics.createArtist = function (name, website, facebook, instagram
 	var facebook = (facebook || "");
 	var instagram = (instagram || "");
 	var twitter = (twitter || "");
-	var img = (img || "TODO DEFAULT IMAGE");
+	var img = (img || "http://a1.mzstatic.com/eu/r30/Purple3/v4/19/07/b5/1907b5f3-ef53-97d1-04d4-1109a477f451/icon100x100.jpeg");
 
 	return new Promise(function (resolve, reject) {
 		var artist = new Artist({

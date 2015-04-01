@@ -28,10 +28,12 @@ body{
 			    transition: color $duration ease-in;
 			}
 
-			a:hover{
+			a:hover, a:active, a:focus{
 				text-decoration: none;
 				color: #fff;
 			}
+
+
 		}
 	}
 
@@ -96,7 +98,7 @@ body{
 				}
 			}
 
-			a:hover{
+			a:hover, a:active, a:focus{
 				color: #fff;
 				border-radius: 5px;
 				background-color: $color_menu_hover;

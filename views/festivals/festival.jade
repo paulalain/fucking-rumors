@@ -14,15 +14,15 @@ block content
     div
      div.btn-toolbar.btn-toolbar-right.social-links
       a.icon-moon-earth(ng-if="!!festival.website", href="{{festival.website}}")
-      a.icon-moon-facebook2(ng-if="!!festival.facebook", href="http://wwww.facebook.com/{{festival.facebook}}")
-      a.icon-moon-twitter2(ng-if="!!festival.twitter", href="http://wwww.twitter.com/{{festival.twitter}}")
-      a.icon-moon-instagram(ng-if="!!festival.instagram", href="http://wwww.instagram.com/{{festival.instagram}}")
+      a.icon-moon-facebook2(ng-if="!!festival.facebook", href="http://www.facebook.com/{{festival.facebook}}")
+      a.icon-moon-twitter2(ng-if="!!festival.twitter", href="http://www.twitter.com/{{festival.twitter}}")
+      a.icon-moon-instagram(ng-if="!!festival.instagram", href="http://www.instagram.com/{{festival.instagram}}")
      div.btn-toolbar.btn-toolbar-right
       if (admin)
-       a.btn.btn-sm.btn-white(ng-click="toggleUpdateFestival()", role="bouton") Modifier le festival
-       a.btn.btn-sm.btn-white(ng-click="toggleAddEdition()", role="bouton") Ajouter une édition
+       a.btn.btn-sm.btn-white(ng-click="toggleUpdateFestival()", role="bouton", ng-class="{ disabled : isVisibleAddEdition || isVisibleUpdateFestival || isVisibleAddRumor }") Modifier le festival
+       a.btn.btn-sm.btn-white(ng-click="toggleAddEdition()", role="bouton", ng-class="{ disabled : isVisibleAddEdition || isVisibleUpdateFestival || isVisibleAddRumor }") Ajouter une édition
       if (loggedIn)
-       a.btn.btn-sm.btn-white(ng-click="toggleAddRumor()", role="bouton") Ajouter une rumeur
+       a.btn.btn-sm.btn-white(ng-click="toggleAddRumor()", role="bouton", ng-class="{ disabled : isVisibleAddEdition || isVisibleUpdateFestival || isVisibleAddRumor }") Ajouter une rumeur
      if (admin)
       div(bn-slide-show="isVisibleAddEdition", id="addEditionDiv")
        include ../edition/ajouteredition.jade
@@ -35,7 +35,9 @@ block content
     ul.list-group(id="artistList")
      li.list-group-item-custom.col-xs-12.col-sm-12.col-md-6.col-lg-6(ng-repeat="item in festival.editionInUse.rumors")
       div.group-artist.col-xs-12.col-sm-12.col-md-12.col-lg-12
-       div.col-xs-6.col-sm-6.col-md-7.col-lg-6
+       div.col-xs-2.col-sm-2.col-md-2.col-lg-2
+        img.avatar-medium(src="{{item.artist.img}}")
+       div.col-xs-10.col-sm-10.col-md-10.col-lg-10
         a.artist-name(href="/artistes/id/{{item.artist._id}}/{{item.artist.name | urlEncode }}") {{item.artist.name}}
         br
         div(ng-repeat="rumors in item.rumors") 

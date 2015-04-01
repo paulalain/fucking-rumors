@@ -22,7 +22,9 @@ routerArtists.get('/', function(req, res, next) {
 routerArtists.get('/list', function(req, res, next) {
 	console.log("Route /artistes-- Début");
 
-	Artist.find({}, function(err, artists){
+	Artist.find({})
+		.deepPopulate('rumors rumors.edition rumors.edition.festival rumors.rumors')
+		.exec(function(err, artists){
 		if(err || !artists){
 			console.log("Route /artistes -- Erreur -- Fin");
 			res.status(400).send({ error : "L'artiste demandé est introuvable." });
@@ -53,15 +55,17 @@ routerArtists.get('/search/:name', function(req, res, next) {
 	console.log("Route /artistes/search/name -- Début");
 
 	var r = new RegExp(req.params.name, 'i');
-	Artist.find({ name:  { $regex:r }}, function(err, artists){
-		if(err || !artists){
-			console.log("Route /artistes/search/name -- Erreur -- Fin");
-			res.status(400).send({ error : "L'artiste demandé est introuvable." });
-		}else{
-			console.log("Route /artistes/search/name -- Fin");
-			return res.status(200).send(artists);
-		}
-	});
+	Artist.find({ name:  { $regex:r }})
+		.deepPopulate('rumors rumors.edition rumors.edition.festival rumors.rumors')
+		.exec(function(err, artists){
+			if(err || !artists){
+				console.log("Route /artistes/search/name -- Erreur -- Fin");
+				res.status(400).send({ error : "L'artiste demandé est introuvable." });
+			}else{
+				console.log("Route /artistes/search/name -- Fin");
+				return res.status(200).send(artists);
+			}
+		});
 });
 
 /* GET delete an artist */

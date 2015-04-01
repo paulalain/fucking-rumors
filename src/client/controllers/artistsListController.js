@@ -21,8 +21,8 @@ fuckingRumorsApp.controller('artistsListController', ['$rootScope', '$scope', '$
 			}
 		};
 
-		$scope.$on("toggleAddFestival", function (newValue){
-        	$scope.toggleAddFestival();
+		$scope.$on("toggleAddArtist", function (newValue){
+        	$scope.toggleAddArtist();
 		});
 
 
@@ -36,6 +36,10 @@ fuckingRumorsApp.controller('artistsListController', ['$rootScope', '$scope', '$
 			});
 		};
 
+		$scope.$on("refreshArtistsList", function (newValue){
+        	$scope.refresh();
+		});
+
 		$scope.deleteArtist = function(id){
 			if(id){
 				$http.get('/artistes/supprimer/' + id)
@@ -48,10 +52,6 @@ fuckingRumorsApp.controller('artistsListController', ['$rootScope', '$scope', '$
 		$scope.updateArtist = function(id){
 			$rootScope.$broadcast('openUpdateArtist', { id: id });
 		};
-
-		$scope.$on("refreshArtistsList", function (event, args) {
-			$scope.refresh();
-		});
 
 		$scope.goToPage = function(page){
 			$scope.currentPage = parseInt(page);

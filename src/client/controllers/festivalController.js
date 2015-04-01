@@ -10,6 +10,10 @@ fuckingRumorsApp.controller('festivalController', ['$rootScope', '$scope', '$htt
 
 		var urlSplitted = window.location.pathname.split("/");
 
+		$scope.classButtonsDisabled = function(){
+			return ($scope.isVisibleAddEdition || $scope.isVisibleUpdateFestival || $scope.isVisibleAddRumor);
+		}
+
 		$scope.toggleAddEdition = function(){
 			if($scope.isVisibleAddEdition){
 				$scope.isVisibleAddEdition = false;

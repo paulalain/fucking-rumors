@@ -1,5 +1,5 @@
-fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$http', 
-	function ($rootScope, $scope, $http) {
+fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$http', '$filter',
+	function ($rootScope, $scope, $http, $filter) {
 
 		$scope.waiting = true;
 		$scope.displayError = false;
@@ -10,6 +10,7 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 		$scope.datePossible = true;
 		$scope.rumors = [];
 		$scope.official = false;
+		$scope.listAvailableDates = [];
 
 		$scope.loadArtist = function(){
 			$http.get('/artistes/list')
@@ -31,6 +32,7 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 			$scope.listArtists = [];
 			$scope.artistChoosen = false;
 			$scope.displayError = false;
+			$scope.listAvailableDates = [];
 			$scope.error = "";
 		};
 
@@ -42,6 +44,20 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 			if(!$scope.artist){
 				$scope.error = "L'artiste est obligatoire."
 				return false;
+			}
+
+			//check for each rumors
+			for(var i = 0; i < $scope.rumors.length; i++){
+				var rumor = $scope.rumors[i];
+				if(!rumor.date){
+					$scope.error = "Toutes les dates des rumeurs sont obligatoires."
+					return false;
+				}
+
+				if(!rumor.percentage){
+					$scope.error = "Toutes les pourcentages des rumeurs sont obligatoires."
+					return false;
+				}
 			}
 
 			return true;
@@ -74,7 +90,7 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 														official: $scope.official
 													})
 						.success(function(data) {
-							$rootScope.$broadcast('toggleAddEdition');
+							$rootScope.$broadcast('toggleAddRumor');
 							$rootScope.$broadcast('refreshFestival');
 							$scope.waiting = false;
 						})
@@ -91,19 +107,47 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 		};
 
 		$scope.selectArtist = function(artist){
-			console.log(artist.name);
-			console.log(artist._id);
 			$scope.artistChoosen = true;
 		};
 
 		$scope.addDate = function(){
-			$scope.rumors.push({date: "", percentage: "", sources: ""});
+			//used dates not displayed
+			var usedDates = [];
+			for(var i = 0; i < $scope.rumors.length; i++){
+				usedDates.push($scope.rumors[i].date);
+			}
+			// dates
+
+			//set the last rumor to disabled
+			if($scope.rumors.length > 0){
+				$scope.rumors[$scope.rumors.length-1].disabled = true;
+			}
+
+			$scope.rumors.push(
+				{
+					listAvailableDates: listAvailableDatesCalculate($scope.$parent.festival.editionInUse.date.start, $scope.$parent.festival.editionInUse.date.end, usedDates),
+					date: "",
+					percentage: 50,
+					sources: "",
+					disabled: false
+				});
 		};
 
-		$scope.listAvailableDates = function(){
-			return ["bla", "bli", "blo"];
+		listAvailableDatesCalculate = function(startDate, endDate, usedDates){
+			//get possibles dates from festival edition dates
+			var listDates = []
+			console.log(usedDates);
+			for (var d = new Date(startDate); d <= new Date(endDate); d.setDate(d.getDate() + 1)) {
+				console.log($filter('date')(d, "dd/MM/yyyy"));
+			    if(usedDates.indexOf($filter('date')(d, "dd/MM/yyyy")) == -1){
+			    	listDates.push(new Date(d));
+			    }
+			}
+
+			return listDates;
 		};
 
 		// load artists
 		$scope.loadArtist();
+		
 	}]);

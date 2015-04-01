@@ -7,7 +7,7 @@ block content
   if admin && loggedIn
    div(id="addFestivalGlobalDiv")
     div.btn-toolbar.btn-toolbar-right
-     a.btn.btn-sm.btn-white(ng-click="toggleAddArtist()", role="bouton") Ajouter un artiste
+     a.btn.btn-sm.btn-white(ng-click="toggleAddArtist()", role="bouton", ng-class="{ disabled : isVisibleAddArtist }") Ajouter un artiste
     div(bn-slide-show="isVisibleAddArtist", id="addArtistForm")
      include ./ajouterartiste.jade
   div-loading(div-loading="waiting")
@@ -19,7 +19,9 @@ block content
    ul.list-group(id="festivalList")
      li.list-group-item-custom.col-xs-12.col-sm-12.col-md-6.col-lg-6(ng-repeat="item in $parent.artists | filter: $parent.filterValue | slice: ($parent.currentPage-1)*$parent.pageSize: $parent.pageSize ")
       div.group-festival.col-xs-12.col-sm-12.col-md-12.col-lg-12
-       div.col-xs-6.col-sm-6.col-md-7.col-lg-6
+       div.col-xs-2.col-sm-2.col-md-3.col-lg-2
+        img.avatar-medium(src="{{item.img}}")
+       div.col-xs-4.col-sm-4.col-md-4.col-lg-4
         a.festival-name(href="/artistes/{{item._id}}/{{ item.name | urlEncode }}") {{item.name}}
        if admin && loggedIn
         div.col-xs-6.col-sm-6.col-md-5.col-lg-6.btn-toolbar

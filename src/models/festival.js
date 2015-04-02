@@ -1,6 +1,8 @@
 var deepPopulate = require('mongoose-deep-populate');
 var mongoose = require('mongoose'), Schema = mongoose.Schema
+
 var Sequences = require('./sequences');
+var Edition = require('./edition');
 
 var sequence_name = 'seq_festival';
 
@@ -15,12 +17,33 @@ var festivalSchema = Schema({
 	facebook: String,
 	twitter: String,
 	instagram: String,
-	editionInUse:  { type: Number, ref: 'Edition' },
+	editionInUse:  { type: Number, ref: 'Edition', default: null},
 	editions : [{ type: Number, ref: 'Edition' }]
 });
 
 //deep populate
 festivalSchema.plugin(deepPopulate, {});
+
+// remove festival, so remove all editions
+festivalSchema.pre('remove', function (next) {
+	console.log("Remove festival -- Pre remove -- Début");
+	
+	// remove edition from festival
+	Edition.find({ festival: this._id }, function(err, editions){
+		if(err || !editions){
+			console.log("Remove festival -- Pre remove -- Error on find editions");
+		}else{
+			// iterate on editions (must be have one)
+			for(var i=0; i < editions.length; i++){
+				editions[i].remove();
+			}
+		}
+		
+	});
+
+	next();
+    console.log("Remove festival -- Pre remove -- Fin");
+});
 
 // Generate id
 festivalSchema.pre('save', function (next) {

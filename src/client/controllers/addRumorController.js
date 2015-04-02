@@ -1,4 +1,4 @@
-fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$http', '$filter',
+fuckingRumorsApp.controller('AddRumorController', ['$rootScope', '$scope', '$http', '$filter',
 	function ($rootScope, $scope, $http, $filter) {
 
 		$scope.waiting = true;
@@ -154,12 +154,6 @@ fuckingRumorsApp.controller('addRumorController', ['$rootScope', '$scope', '$htt
 
 			return listDates;
 		};
-
-		$scope.greaterThan = function(prop, val){
-		    return function(item){
-		      return item[prop] > val;
-		    }
-		}
 
 		// load artists
 		$scope.loadArtist();

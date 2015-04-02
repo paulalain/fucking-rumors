@@ -1,5 +1,10 @@
 fuckingRumorsApp.filter('urlEncode', function() {
 	return function(input) {
-  		return encodeURIComponent(input.replace(new RegExp(' ', 'g'), '-'));
+		if(!!input){
+			return encodeURIComponent(input.replace(new RegExp(' ', 'g'), '-'));
+		}else{
+			return "";
+		}
+  		
   	}
 });

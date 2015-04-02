@@ -1,4 +1,4 @@
-fuckingRumorsApp.controller('addEditionController', ['$rootScope', '$scope', '$http', 
+fuckingRumorsApp.controller('AddEditionController', ['$rootScope', '$scope', '$http', 
 	function ($rootScope, $scope, $http) {
 
 		$scope.waiting = false;

@@ -1,7 +1,7 @@
 extends ../layout/layout
 
 block content
- div(id="festivalDiv", ng-controller="festivalController")
+ div(id="festivalDiv", ng-controller="FestivalController")
   div-loading(div-loading="waiting")
    div.page-header
     h1 {{festival.name}} 
@@ -39,8 +39,10 @@ block content
     label Filtrer par pourcentage
      input(ng-model="filterPercentage", type="number", value="0")
    div.row
+    div.no-result(ng-hide="(festival.editionInUse.rumors | filter : { official: filterOnOfficial ? true : false} | percentageFilter: filterPercentage).length")
+     span Aucun artiste.
     ul.list-group(id="artistList")
-     li.list-group-item-custom.col-xs-12.col-sm-12.col-md-6.col-lg-6(ng-repeat="item in festival.editionInUse.rumors | filter : { official: filterOnOfficial ? true : false} | filter : greaterThan('rumors.percentage', filterPercentage)")
+     li.list-group-item-custom.col-xs-12.col-sm-12.col-md-6.col-lg-6(ng-repeat="item in festival.editionInUse.rumors | filter : { official: filterOnOfficial ? true : false} | percentageFilter: filterPercentage")
       div.group-artist.col-xs-12.col-sm-12.col-md-12.col-lg-12
        div.col-xs-2.col-sm-2.col-md-2.col-lg-2
         img.avatar-medium(src="{{item.artist.img}}")

@@ -20,7 +20,7 @@ nav.navbar(id="navbar-menu")
     li(class=(page == 'artiste') ? 'active' : '')
      a(href='/artistes') Les artistes
    if !loggedIn
-    form.navbar-form.navbar-right(ng-controller="connexionController", noValidate)
+    form.navbar-form.navbar-right(ng-controller="ConnexionController", noValidate)
      div.form-group
       input.input-sm.form-control(ng-model="login", autocomplete="off", type="text", placeholder="Pseudo", required)
       input.input-sm.form-control(ng-model="password", autocomplete="off", type="password", placeholder="Mot de passe", required)

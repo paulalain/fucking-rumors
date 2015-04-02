@@ -1,4 +1,4 @@
-fuckingRumorsApp.controller('connexionController', ['$scope', '$http', '$window',
+fuckingRumorsApp.controller('ConnexionController', ['$scope', '$http', '$window',
     function ($scope, $http, $window) {
 	    // function login
 	    $scope.doLogin = function(){

@@ -2,7 +2,7 @@ extends layout/layout
 
 block content
  div.row
-  div.col-md-3.col-xs-12(ng-controller="signupController", id="signupFormDiv")
+  div.col-md-3.col-xs-12(ng-controller="SignupController", id="signupFormDiv")
    h3 Nouveau ? Inscrivez-vous maintenant
    div.alert.alert-danger(ng-show="displayError" id="errorSignupDiv", role="alert")
     span.glyphicon.glyphicon-exclamation-sign(aria-hidden="true")

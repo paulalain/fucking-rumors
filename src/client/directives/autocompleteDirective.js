@@ -1,8 +1,8 @@
 /* --- Made by justgoscha and licensed under MIT license --- */
 
-var app = angular.module('autocomplete', []);
+var appAutoComplete = angular.module('autocompleteDirective', []);
 
-app.directive('autocomplete', function() {
+appAutoComplete.directive('autocomplete', function() {
   var index = -1;
 
   return {
@@ -251,6 +251,7 @@ app.directive('autocomplete', function() {
             ng-required="{{ autocompleteRequired }}" />\
           <ul ng-show="completing && (suggestions | filter:searchFilter).length > 0">\
             <li\
+              suggestion\
               ng-repeat="suggestion in suggestions | filter:searchFilter | orderBy:\'toString()\' track by $index"\
               index="{{ $index }}"\
               val="{{ suggestion.name }}"\
@@ -262,7 +263,7 @@ app.directive('autocomplete', function() {
   };
 });
 
-app.filter('highlight', ['$sce', function ($sce) {
+appAutoComplete.filter('highlight', ['$sce', function ($sce) {
   return function (input, searchParam) {
     if (typeof input === 'function') return '';
     if (searchParam) {
@@ -279,7 +280,7 @@ app.filter('highlight', ['$sce', function ($sce) {
   };
 }]);
 
-app.directive('suggestion', function(){
+appAutoComplete.directive('suggestion', function(){
   return {
     restrict: 'A',
     require: '^autocomplete', // ^look for controller on parents element

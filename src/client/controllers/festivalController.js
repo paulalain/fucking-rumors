@@ -1,4 +1,4 @@
-fuckingRumorsApp.controller('festivalController', ['$rootScope', '$scope', '$http', 
+fuckingRumorsApp.controller('FestivalController', ['$rootScope', '$scope', '$http', 
 	function ($rootScope, $scope, $http) {
 		$scope.id = "";
 		$scope.festival = "";
@@ -81,6 +81,13 @@ fuckingRumorsApp.controller('festivalController', ['$rootScope', '$scope', '$htt
 		$scope.goToPage = function(page){
 			$scope.currentPage = parseInt(page);
 		};
+
+		$scope.greaterThan = function(prop, val){
+		    return function(item){
+		    	console.log(val);
+		      return item[prop] > val;
+		    }
+		}
 
 		// get the list when page is loaded
 		if(urlSplitted.length > 1 && urlSplitted[2]){

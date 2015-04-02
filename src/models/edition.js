@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'), Schema = mongoose.Schema
 var Sequences = require('./sequences');
+var Rumor = require('./rumor');
+var Festival = require('./festival');
 
 var sequence_name = 'seq_editions';
 
@@ -13,6 +15,29 @@ var editionSchema = Schema({
 	},
 	rumors: [{ type: Number, ref: 'Rumor' }]
 });
+
+// remove edition, so remove all rumors & delete reference in festival
+editionSchema.pre('remove', function (next) {
+	console.log("Remove edition -- Pre remove -- Début");
+	
+	// remove edition from festval
+	Festival.update({ _id: this.festival },
+					{ $pull: {editions: this._id} }, 
+ 					{ multi: true }).exec();
+
+	// remove edition in use from festival
+	Festival.update(
+        { _id: this.festival, editionInUse: this._id }, 
+        { editionInUse : null}, 
+        { multi: true }).exec();
+		       
+	// remove rumor linked to this edition
+    Rumor.remove( { edition: this._id } ).exec();
+
+    next();
+    console.log("Remove edition -- Pre remove -- Fin");
+});
+
 
 // Generate id
 editionSchema.pre('save', function (next) {

@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'), Schema = mongoose.Schema
 var Sequences = require('./sequences');
+var Artist = require('./artist');
+var Edition = require('./edition');
 
 var sequence_name = 'seq_rumor';
 
@@ -8,11 +10,31 @@ var rumorSchema = Schema({
 	artist: { type: Number, ref: 'Artist', required: true }, 
 	edition: { type: Number, ref: 'Edition', required: true },
 	rumors: [{
-		percentage: String,
+		percentage: Number,
 		date: Date,
 		sources: { type: String }
 	}],
 	official: {type: Boolean, required: true }
+});
+
+//remove rumors of this artist on remove artist
+rumorSchema.pre('remove', function (next) {
+	console.log("Remove rumor -- Pre remove -- Début");
+	
+	// remove rumor from artist
+	Artist.update(
+        { _id: this.artist }, 
+        { $pull: {rumors: this._id} }, 
+        { multi: true }).exec();
+	
+	// remove rumor from edition
+	Edition.update(
+        { _id: this.edition }, 
+        { $pull: {rumors: this._id} }, 
+        { multi: true }).exec();
+	
+	next();
+    console.log("Remove rumor -- Pre remove -- Fin");
 });
 
 // Generate id

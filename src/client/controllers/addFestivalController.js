@@ -1,4 +1,4 @@
-fuckingRumorsApp.controller('addFestivalController', ['$rootScope', '$scope', '$http', 
+fuckingRumorsApp.controller('AddFestivalController', ['$rootScope', '$scope', '$http', 
 	function ($rootScope, $scope, $http) {
 
 		$scope.waiting = false;

@@ -51,10 +51,6 @@ routerFestival.get('/supprimer/:id', commons.requireRole('moderateur'), function
 			console.log("Route /festival/supprimer/id -- Erreur -- Fin");
 			res.status(404).send({ error : "Le festival demandée est introuvable." });
 		}else{
-			//todo
-			// remove all editions
-			// remove all rumors
-			// remove all artists rumors
 			festival.remove(function(err, next){
 				console.log("Route /festival/supprimer/id -- Fin");
 				res.status(201).send();

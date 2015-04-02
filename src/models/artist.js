@@ -1,6 +1,10 @@
 var deepPopulate = require('mongoose-deep-populate');
-var mongoose = require('mongoose'), Schema = mongoose.Schema
+var mongoose = require('mongoose');
+
+var Schema = mongoose.Schema;
+
 var Sequences = require('./sequences');
+var Rumor = require('./rumor');
 
 var sequence_name = 'seq_artist';
 
@@ -17,6 +21,17 @@ var artistSchema = Schema({
 
 //deep populate
 artistSchema.plugin(deepPopulate, {});
+
+//remove rumors of this artist on remove artist
+artistSchema.pre('remove', function (next) {
+	console.log("Remove artist -- Pre remove -- Début");
+
+	//remove rumors
+	Rumor.remove({ _id: { $in: this.rumors } }).exec();
+
+	next();
+    console.log("Remove artist -- Pre remove -- Fin");
+});
 
 // Generate id
 artistSchema.pre('save', function (next) {
@@ -128,5 +143,4 @@ artistSchema.statics.createArtist = function (name, website, facebook, instagram
 };
 
 var Artist = mongoose.model('Artist', artistSchema);
-
 module.exports = Artist;

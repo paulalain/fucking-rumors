@@ -1,4 +1,4 @@
-fuckingRumorsApp.controller('festivalListController', ['$rootScope', '$scope', '$http', 
+fuckingRumorsApp.controller('FestivalListController', ['$rootScope', '$scope', '$http', 
 	function ($rootScope, $scope, $http) {
 		$scope.festivals = [];
 		$scope.waiting = true;

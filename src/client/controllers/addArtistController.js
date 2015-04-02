@@ -1,4 +1,4 @@
-fuckingRumorsApp.controller('addArtistController', ['$rootScope', '$scope', '$http', 
+fuckingRumorsApp.controller('AddArtistController', ['$rootScope', '$scope', '$http', 
 	function ($rootScope, $scope, $http) {
 
 		$scope.waiting = false;

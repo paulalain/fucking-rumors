@@ -10,7 +10,7 @@
  * @element EA
  *
  */
-angular.module('brantwills.paging', []).directive('paging', function () {
+angular.module('brantwillsPaging', []).directive('paging', function () {
 
     // Assign null-able scope values from settings
     function setScopeValues(scope, attrs) {

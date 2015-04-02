@@ -1,4 +1,4 @@
-fuckingRumorsApp.controller('signupController', ['$scope', '$http', '$window',
+fuckingRumorsApp.controller('SignupController', ['$scope', '$http', '$window',
     function ($scope, $http, $window) {
 	   
 	    // function validate

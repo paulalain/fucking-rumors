@@ -1,4 +1,4 @@
-fuckingRumorsApp.controller('artistsListController', ['$rootScope', '$scope', '$http', 
+fuckingRumorsApp.controller('ArtistsListController', ['$rootScope', '$scope', '$http', 
 	function ($rootScope, $scope, $http) {
 		$scope.artists = [];
 		$scope.waiting = true;

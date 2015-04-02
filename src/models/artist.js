@@ -2,9 +2,7 @@ var deepPopulate = require('mongoose-deep-populate');
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
-
 var Sequences = require('./sequences');
-var Rumor = require('./rumor');
 
 var sequence_name = 'seq_artist';
 
@@ -22,13 +20,22 @@ var artistSchema = Schema({
 //deep populate
 artistSchema.plugin(deepPopulate, {});
 
-//remove rumors of this artist on remove artist
 artistSchema.pre('remove', function (next) {
 	console.log("Remove artist -- Pre remove -- Début");
 
-	//remove rumors
-	Rumor.remove({ _id: { $in: this.rumors } }).exec();
+	var Rumor = require('./rumor');
 
+	// remove rumors linked to this artist
+	Rumor.find( { artist: this._id }, function(err, rumors){
+		if(err || !rumors){
+			console.log("Remove edition -- Pre remove -- Error on find rumors");
+		}else{
+			// iterate on rumors (must be have one)
+			for(var i=0; i < rumors.length; i++){
+				rumors[i].remove();
+			}
+		}
+	});
 	next();
     console.log("Remove artist -- Pre remove -- Fin");
 });

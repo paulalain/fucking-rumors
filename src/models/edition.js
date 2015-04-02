@@ -1,7 +1,6 @@
 var mongoose = require('mongoose'), Schema = mongoose.Schema
 var Sequences = require('./sequences');
-var Rumor = require('./rumor');
-var Festival = require('./festival');
+
 
 var sequence_name = 'seq_editions';
 
@@ -20,19 +19,31 @@ var editionSchema = Schema({
 editionSchema.pre('remove', function (next) {
 	console.log("Remove edition -- Pre remove -- Début");
 	
-	// remove edition from festval
+	var Festival = require('./festival');
+	
+	// remove editions from festival
 	Festival.update({ _id: this.festival },
 					{ $pull: {editions: this._id} }, 
  					{ multi: true }).exec();
 
 	// remove edition in use from festival
-	Festival.update(
-        { _id: this.festival, editionInUse: this._id }, 
-        { editionInUse : null}, 
-        { multi: true }).exec();
-		       
+	Festival.update( { _id: this.festival, editionInUse: this._id }, 
+	        { editionInUse : null}, 
+	        { multi: true }).exec();
+	
+	var Rumor = require('./rumor');   
+
 	// remove rumor linked to this edition
-    Rumor.remove( { edition: this._id } ).exec();
+	Rumor.find( { edition: this._id }, function(err, rumors){
+		if(err || !rumors){
+			console.log("Remove edition -- Pre remove -- Error on find rumors");
+		}else{
+			// iterate on rumors (must be have one)
+			for(var i=0; i < rumors.length; i++){
+				rumors[i].remove();
+			}
+		}
+	});
 
     next();
     console.log("Remove edition -- Pre remove -- Fin");

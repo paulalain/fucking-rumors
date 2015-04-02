@@ -2,7 +2,6 @@ var deepPopulate = require('mongoose-deep-populate');
 var mongoose = require('mongoose'), Schema = mongoose.Schema
 
 var Sequences = require('./sequences');
-var Edition = require('./edition');
 
 var sequence_name = 'seq_festival';
 
@@ -28,6 +27,8 @@ festivalSchema.plugin(deepPopulate, {});
 festivalSchema.pre('remove', function (next) {
 	console.log("Remove festival -- Pre remove -- Début");
 	
+	var Edition = require('./edition');
+
 	// remove edition from festival
 	Edition.find({ festival: this._id }, function(err, editions){
 		if(err || !editions){
@@ -38,7 +39,6 @@ festivalSchema.pre('remove', function (next) {
 				editions[i].remove();
 			}
 		}
-		
 	});
 
 	next();

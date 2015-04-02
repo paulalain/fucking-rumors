@@ -1,7 +1,5 @@
 var mongoose = require('mongoose'), Schema = mongoose.Schema
 var Sequences = require('./sequences');
-var Artist = require('./artist');
-var Edition = require('./edition');
 
 var sequence_name = 'seq_rumor';
 
@@ -17,22 +15,26 @@ var rumorSchema = Schema({
 	official: {type: Boolean, required: true }
 });
 
-//remove rumors of this artist on remove artist
+//remove rumors of this artist
 rumorSchema.pre('remove', function (next) {
 	console.log("Remove rumor -- Pre remove -- Début");
 	
-	// remove rumor from artist
+	var Artist = require('./artist');
+
+	// remove rumors from artist
 	Artist.update(
         { _id: this.artist }, 
         { $pull: {rumors: this._id} }, 
         { multi: true }).exec();
 	
-	// remove rumor from edition
+	var Edition = require('./edition');
+
+	// remove rumors from edition
 	Edition.update(
         { _id: this.edition }, 
         { $pull: {rumors: this._id} }, 
         { multi: true }).exec();
-	
+
 	next();
     console.log("Remove rumor -- Pre remove -- Fin");
 });

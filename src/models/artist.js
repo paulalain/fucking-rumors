@@ -22,7 +22,8 @@ artistSchema.plugin(deepPopulate, {});
 
 artistSchema.pre('remove', function (next) {
 	console.log("Remove artist -- Pre remove -- Début");
-
+	console.log("Remove artist -- " + this._id);
+	
 	var Rumor = require('./rumor');
 
 	// remove rumors linked to this artist

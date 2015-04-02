@@ -40,7 +40,7 @@ festivalSchema.pre('remove', function (next) {
 			}
 		}
 	});
-
+	
 	next();
     console.log("Remove festival -- Pre remove -- Fin");
 });

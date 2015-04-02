@@ -18,6 +18,7 @@ var rumorSchema = Schema({
 //remove rumors of this artist
 rumorSchema.pre('remove', function (next) {
 	console.log("Remove rumor -- Pre remove -- Début");
+	console.log("Remove rumor -- " + this._id);
 	
 	var Artist = require('./artist');
 

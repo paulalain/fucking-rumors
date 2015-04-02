@@ -31,13 +31,14 @@ block content
      if (loggedIn)
       div(bn-slide-show="isVisibleAddRumor", id="addRumorForm")
        include ../rumors/addRumor.jade
-   div.row
-    label Filtrer les annonces officielles
-     input(ng-model="filterOnOfficial", type="checkbox")
+   div.row.form-horizontal.form-group(id="filters")
+    label 
+     input.checkbox.fix-checkbox(ng-model="filterOnOfficial", type="checkbox")
+     span Filtrer les annonces officielles
     label Filtrer par jour
      input(ng-model="filterDay", type="text")
     label Filtrer par pourcentage
-     input(ng-model="filterPercentage", type="number", value="0")
+     input(ng-model="filterPercentage", type="number", value="0", min="0", max="100")
    div.row
     div.no-result(ng-hide="(festival.editionInUse.rumors | filter : { official: filterOnOfficial ? true : false} | percentageFilter: filterPercentage).length")
      span Aucun artiste.

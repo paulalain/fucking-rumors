@@ -17,10 +17,10 @@ block content
       div.input-group-addon Rechercher
       input.form-control(type="text", placeholder="Nom du festival, date, lieux, artistes...", ng-model="$parent.filterValue")
    div.no-result(ng-hide="($parent.festivals | filter: $parent.filterValue | slice: ($parent.currentPage-1)*$parent.pageSize: $parent.pageSize).length")
-    span Aucun festival
+    span Aucun festival.
    ul.list-group(id="festivalList")
      li.list-group-item-custom.col-xs-12.col-sm-12.col-md-6.col-lg-6(ng-repeat="item in $parent.festivals | filter: $parent.filterValue | slice: ($parent.currentPage-1)*$parent.pageSize: $parent.pageSize ")
-      div.group-festival.col-xs-12.col-sm-12.col-md-12.col-lg-12
+      div.group-festival.col-xs-12.col-sm-12.col-md-12.col-lg-12(ng-mouseover="hover[item._id]=true", ng-mouseleave="hover[item._id]=false")
        div.col-xs-6.col-sm-6.col-md-7.col-lg-6
         a.festival-name(href="/festival/{{item._id}}/{{ item.name | urlEncode }}") {{item.name}}
         br
@@ -28,7 +28,7 @@ block content
         br
         span A {{item.location.city}} ({{item.location.country}})
        if admin && loggedIn
-        div.col-xs-6.col-sm-6.col-md-5.col-lg-6.btn-toolbar
+        div.col-xs-6.col-sm-6.col-md-5.col-lg-6.btn-toolbar(ng-show="!!hover[item._id]")
          a.btn.btn-danger.btn-sm.pull-right(role="button" ng-click="deleteFestival(item._id)") Supprimer
          a.btn.btn-primary.btn-sm.pull-right(role="button" ng-click="updateFestival(item._id)") Modifier
    div.col-xs-12.col-sm-12.col-md-12.col-lg-12

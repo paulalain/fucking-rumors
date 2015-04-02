@@ -1,4 +1,10 @@
 body{
+	
+	.no-result{
+		text-align: center;
+		font-size: 18px;
+		margin: 50px
+	}
 
 	div#addFestivalGlobalDiv{
 		margin-top: 10px;
@@ -72,6 +78,15 @@ body{
 
 		.excellent{
 			color: green;
+		}
+	}
+
+	div#filters{
+		text-align: center;
+
+		label{
+			margin: 10px;
+			margin-left: 20px;
 		}
 	}
 }

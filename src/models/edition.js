@@ -18,9 +18,10 @@ var editionSchema = Schema({
 // remove edition, so remove all rumors & delete reference in festival
 editionSchema.pre('remove', function (next) {
 	console.log("Remove edition -- Pre remove -- Début");
+	console.log("Remove edition -- " + this._id);
 	
 	var Festival = require('./festival');
-	
+
 	// remove editions from festival
 	Festival.update({ _id: this.festival },
 					{ $pull: {editions: this._id} }, 
@@ -31,7 +32,7 @@ editionSchema.pre('remove', function (next) {
 	        { editionInUse : null}, 
 	        { multi: true }).exec();
 	
-	var Rumor = require('./rumor');   
+	var Rumor = require('./rumor');
 
 	// remove rumor linked to this edition
 	Rumor.find( { edition: this._id }, function(err, rumors){

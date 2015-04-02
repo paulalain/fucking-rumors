@@ -17,14 +17,14 @@ block content
       div.input-group-addon Rechercher
       input.form-control(type="text", placeholder="Nom de l'artiste", ng-model="$parent.filterValue")
    ul.list-group(id="festivalList")
-     li.list-group-item-custom.col-xs-12.col-sm-12.col-md-6.col-lg-6(ng-repeat="item in $parent.artists | filter: $parent.filterValue | slice: ($parent.currentPage-1)*$parent.pageSize: $parent.pageSize ")
-      div.group-festival.col-xs-12.col-sm-12.col-md-12.col-lg-12
+     li.list-group-item-custom.col-xs-12.col-sm-12.col-md-6.col-lg-6(ng-repeat="item in $parent.artists | filter: $parent.filterValue | slice: ($parent.currentPage-1)*$parent.pageSize: $parent.pageSize")
+      div.group-festival.col-xs-12.col-sm-12.col-md-12.col-lg-12(ng-mouseover="hover[item._id]=true", ng-mouseleave="hover[item._id]=false")
        div.col-xs-2.col-sm-2.col-md-3.col-lg-2
         img.avatar-medium(src="{{item.img}}")
        div.col-xs-4.col-sm-4.col-md-4.col-lg-4
         a.festival-name(href="/artistes/{{item._id}}/{{ item.name | urlEncode }}") {{item.name}}
        if admin && loggedIn
-        div.col-xs-6.col-sm-6.col-md-5.col-lg-6.btn-toolbar
+        div.col-xs-6.col-sm-6.col-md-5.col-lg-6.btn-toolbar(ng-show="!!(hover[item._id])")
          a.btn.btn-danger.btn-sm.pull-right(role="button" ng-click="deleteArtist(item._id)") Supprimer
          a.btn.btn-primary.btn-sm.pull-right(role="button" ng-click="updateArtiste(item._id)") Modifier
    div.col-xs-12.col-sm-12.col-md-12.col-lg-12

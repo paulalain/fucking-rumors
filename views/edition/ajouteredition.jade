@@ -7,10 +7,6 @@ form.form-horizontal(ng-controller="AddEditionController", autocomplete="off", n
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputYear") Libellé édition
    input.form-control(type="text", ng-model="inputYear", name="inputYear", id="inputYear", placeholder="e.g. 2015", required)
-  div.col-xs-12.col-sm-6.col-md-6.col-lg-6.form-inline
-   label
-    input.checkbox(type="checkbox", ng-model="inputInUse",  name="inputInUse", id="inputInUse") 
-    span Edition en cours 
  div.row.form-group
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputDateStart") Date de début
@@ -18,6 +14,11 @@ form.form-horizontal(ng-controller="AddEditionController", autocomplete="off", n
   div.col-xs-12.col-sm-6.col-md-6.col-lg-6
    label(for="inputDateEnd") Date de fin
    input.form-control(type="date", ng-model="inputDateEnd", name="inputDateEnd", id="inputDateEnd", placeholder="e.g. 16/08/2015", required)
+ div.row
+  div.col-xs-12.col-sm-6.col-md-6.col-lg-6.form-inline
+   label
+    input.checkbox(type="checkbox", ng-model="inputInUse",  name="inputInUse", id="inputInUse") 
+    span Edition en cours 
  div.row.form-group
   div.col-xs-12.col-sm-12.col-md-12.col-lg-12.btn-toolbar
    a.btn.btn-default.btn-sm.pull-right(ng-click="toggleAddEdition()", role="button") Annuler

@@ -257,7 +257,7 @@ appAutoComplete.directive('autocomplete', function() {
               val="{{ suggestion.name }}"\
               ng-class="{ active: ($index === selectedIndex) }"\
               ng-click="select(suggestion)"\
-              ng-bind-html="suggestion"><img class="avatar-small" src="{{suggestion.img}}" /> <span>{{suggestion.name}}</span></li>\
+              ng-bind-html="suggestion"><img class="avatar-small" src="/img/artists/{{suggestion.img}}" /> <span>{{suggestion.name}}</span></li>\
           </ul>\
         </div>'
   };

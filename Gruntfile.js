@@ -35,6 +35,7 @@ module.exports = function(grunt) {
                     'node_modules/bootstrap/dist/js/bootstrap.min.js',
                     'node_modules/angular/angular.min.js',
                     'node_modules/angular/angular-route.min.js',
+                    'node_modules/ng-flow/dist/ng-flow-standalone.min.js',
                     'src/client/app.js',
                     'src/client/controllers/*.js',
                     'src/client/directives/*.js',

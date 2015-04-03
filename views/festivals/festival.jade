@@ -46,7 +46,7 @@ block content
      li.list-group-item-custom.col-xs-12.col-sm-12.col-md-6.col-lg-6(ng-repeat="item in festival.editionInUse.rumors | filter : { official: filterOnOfficial ? true : false} | percentageFilter: filterPercentage")
       div.group-artist.col-xs-12.col-sm-12.col-md-12.col-lg-12
        div.col-xs-2.col-sm-2.col-md-2.col-lg-2
-        img.avatar-medium(src="{{item.artist.img}}")
+        img.avatar-medium(src="/img/artists/{{item.artist.img}}")
        div.col-xs-10.col-sm-10.col-md-10.col-lg-10
         a.artist-name(href="/artistes/id/{{item.artist._id}}/{{item.artist.name | urlEncode }}") {{item.artist.name}}
         div.date-list

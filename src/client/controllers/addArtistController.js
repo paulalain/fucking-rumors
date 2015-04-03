@@ -12,6 +12,7 @@ fuckingRumorsApp.controller('AddArtistController', ['$rootScope', '$scope', '$ht
 			$scope.facebook = false;
 			$scope.twitter = false;
 			$scope.instagram = false;
+			$scope.img = "";
 
 			$scope.displayError = false;
 			$scope.error = "";
@@ -24,6 +25,11 @@ fuckingRumorsApp.controller('AddArtistController', ['$rootScope', '$scope', '$ht
 		$scope.validateFields = function(){
 			if(!$scope.name){
 				$scope.error = "Le nom de l'artiste est obligatoire."
+				return false;
+			}
+
+			if(!$scope.img){
+				$scope.error = "Veuillez uploader une image pour l'artiste."
 				return false;
 			}
 
@@ -59,4 +65,26 @@ fuckingRumorsApp.controller('AddArtistController', ['$rootScope', '$scope', '$ht
 				}
 			}
 		};
+
+		$scope.$on('flow::fileSuccess', function (event, $flow, flowFile) {
+			console.log(flowFile);
+			console.log($flow);
+			$scope.img = flowFile.name;
+		});
+
+		   function generateID() {
+		    var d = new Date().getTime();
+		    var uuid = 'xxxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+		        var r = (d + Math.random()*16)%16 | 0;
+		        d = Math.floor(d/16);
+		        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+		    });
+		    return uuid;
+		};
+
+		$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+			console.log(flowFile);
+			console.log($flow);
+			flowFile.name = generateID() + flowFile.name;
+		});
 	}]);

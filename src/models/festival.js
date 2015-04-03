@@ -26,6 +26,7 @@ festivalSchema.plugin(deepPopulate, {});
 // remove festival, so remove all editions
 festivalSchema.pre('remove', function (next) {
 	console.log("Remove festival -- Pre remove -- Début");
+	console.log("Remove festival -- " + this._id);
 	
 	var Edition = require('./edition');
 
@@ -40,7 +41,7 @@ festivalSchema.pre('remove', function (next) {
 			}
 		}
 	});
-	
+
 	next();
     console.log("Remove festival -- Pre remove -- Fin");
 });

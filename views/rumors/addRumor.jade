@@ -17,14 +17,17 @@ form.form-horizontal(ng-controller="AddRumorController", autocomplete="off", nov
    table.table.table-striped(ng-id="artist", ng-show="artistChoosen")
     tr
      th Date
+     th Festival
      th Lieu
      th %
      th Officiel
-    tr(ng-repeat="rumorsCalendar in artist.rumors")
-     td xxx
-     td {{rumorsCalendar.edition.festival.location.city}} ({{rumorsCalendar.edition.festival.location.country}})
-     td yy
-     td X
+    tr(ng-repeat="rumor in calendarDates | orderBy:'date'")
+     td {{rumor.date | date : "dd/MM/yyyy"}}
+     td {{rumor.edition.festival.name}}
+     td {{rumor.edition.festival.location.city}} ({{rumor.edition.festival.location.country}})
+     td
+      span.percentage(ng-class="{bad: (rumor.percentage < 20), quitebad: (rumor.percentage >=20 && rumor.percentage < 50), good: (rumor.percentage >=50 && rumor.percentage < 70), verygood: (rumor.percentage >=70 && rumor.percentage < 90), excellent: (rumor.percentage >= 90)}") {{rumor.percentage}} %
+     td {{!!rumor.official ? 'Oui' : 'Non'}}
     tr.no-result(ng-hide="(artist.rumors).length")
      td(colspan="4") Aucune date de prévue
  div.row.form-group(ng-show="artistChoosen", ng-repeat="rumor in rumors")

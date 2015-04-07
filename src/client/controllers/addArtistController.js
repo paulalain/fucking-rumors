@@ -67,8 +67,6 @@ fuckingRumorsApp.controller('AddArtistController', ['$rootScope', '$scope', '$ht
 		};
 
 		$scope.$on('flow::fileSuccess', function (event, $flow, flowFile) {
-			console.log(flowFile);
-			console.log($flow);
 			$scope.img = flowFile.name;
 		});
 

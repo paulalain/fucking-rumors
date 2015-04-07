@@ -11,6 +11,7 @@ fuckingRumorsApp.controller('AddRumorController', ['$rootScope', '$scope', '$htt
 		$scope.rumors = [];
 		$scope.official = false;
 		$scope.listAvailableDates = [];
+		$scope.calendarDates = [];
 
 		$scope.loadArtist = function(){
 			$http.get('/artistes/list')
@@ -33,6 +34,7 @@ fuckingRumorsApp.controller('AddRumorController', ['$rootScope', '$scope', '$htt
 			$scope.artistChoosen = false;
 			$scope.displayError = false;
 			$scope.listAvailableDates = [];
+			$scope.calendarDates = [];
 			$scope.error = "";
 		};
 
@@ -64,7 +66,7 @@ fuckingRumorsApp.controller('AddRumorController', ['$rootScope', '$scope', '$htt
 		};
 
 		$scope.updateListArtists = function(typed){
-			if(typed && typed != ""){
+			if(typed && typed != "" && typed != null){
 				$http.get('/artistes/search/' + typed)
 				.success(function(data) {
 					$scope.listArtists = data;
@@ -118,6 +120,8 @@ fuckingRumorsApp.controller('AddRumorController', ['$rootScope', '$scope', '$htt
 
 		$scope.selectArtist = function(artist){
 			$scope.artistChoosen = true;
+			$scope.artist = artist;
+			$scope.calendarDates = $scope.calendarRumors();
 		};
 
 		$scope.addDate = function(){
@@ -154,6 +158,33 @@ fuckingRumorsApp.controller('AddRumorController', ['$rootScope', '$scope', '$htt
 
 			return listDates;
 		};
+
+		$scope.calendarRumors = function(){
+			var rumors = [];
+			var dateStart = new Date($scope.$parent.festival.editionInUse.date.start);
+			dateStart.setDate(dateStart.getDate() - 10);
+			var dateEnd = new Date($scope.$parent.festival.editionInUse.date.end);
+			dateEnd.setDate(dateEnd.getDate() + 10);
+
+			if(!!$scope.artist){
+				for(var i=0;i<$scope.artist.rumors.length;i++){
+					var rumor = $scope.artist.rumors[i];
+					for(var j=0;j<rumor.rumors.length;j++){
+						//get date only if date is ten days before or after festival
+						if(new Date(rumor.rumors[j].date) > dateStart && new Date(rumor.rumors[j].date) < dateEnd){
+							var rumorToAdd = rumor.rumors[j];
+							rumorToAdd.festival = rumor.festival;
+							rumorToAdd.edition = rumor.edition;
+							rumorToAdd.official = rumor.official;
+							rumors.push(rumorToAdd);
+						}
+						
+					}
+				}
+			}
+
+			return rumors;
+		}
 
 		// load artists
 		$scope.loadArtist();

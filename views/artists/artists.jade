@@ -23,6 +23,8 @@ block content
         img.avatar-medium(src="/img/artists/{{item.img}}")
        div.col-xs-4.col-sm-4.col-md-4.col-lg-4
         a.festival-name(href="/artistes/{{item._id}}/{{ item.name | urlEncode }}") {{item.name}}
+        br
+        span XX rumeurs
        if admin && loggedIn
         div.col-xs-6.col-sm-6.col-md-5.col-lg-6.btn-toolbar(ng-show="!!(hover[item._id])")
          a.btn.btn-danger.btn-sm.pull-right(role="button" ng-click="deleteArtist(item._id)") Supprimer

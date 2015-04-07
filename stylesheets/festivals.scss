@@ -55,30 +55,6 @@ body{
 			font-style: italic;
 			margin-right: 10px;
 		}
-
-		.percentage{
-			font-weight: bold;
-		}
-
-		.bad{
-			color: red;
-		}
-
-		.quitebad{
-			color: orange;
-		} 
-
-		.good{
-			color: black;
-		}
-
-		.verygood{
-			color: blue;
-		}
-
-		.excellent{
-			color: green;
-		}
 	}
 
 	div#filters{
@@ -89,4 +65,29 @@ body{
 			margin-left: 20px;
 		}
 	}
+
+	.percentage{
+		font-weight: bold;
+	}
+
+	.bad{
+		color: red;
+	}
+
+	.quitebad{
+		color: orange;
+	} 
+
+	.good{
+		color: black;
+	}
+
+	.verygood{
+		color: blue;
+	}
+
+	.excellent{
+		color: green;
+	}
+
 }

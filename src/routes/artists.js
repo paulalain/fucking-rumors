@@ -24,6 +24,8 @@ routerArtists.get('/list', function(req, res, next) {
 
 	Artist.find({})
 		.deepPopulate('rumors rumors.edition rumors.edition.festival rumors.rumors')
+		.sort({'name': 1})
+		.sort({'rumors.rumors.date': 1})
 		.exec(function(err, artists){
 		if(err || !artists){
 			console.log("Route /artistes -- Erreur -- Fin");
@@ -57,6 +59,8 @@ routerArtists.get('/search/:name', function(req, res, next) {
 	var r = new RegExp(req.params.name, 'i');
 	Artist.find({ name:  { $regex:r }})
 		.deepPopulate('rumors rumors.edition rumors.edition.festival rumors.rumors')
+		.sort({'name': 1})
+		.sort({'rumors.rumors.date': 1})
 		.exec(function(err, artists){
 			if(err || !artists){
 				console.log("Route /artistes/search/name -- Erreur -- Fin");

@@ -7,3 +7,10 @@ Page accueil
  Créer api tumblr
 Page liste artistes
 Page artistes
+
+Identification
+ Ajouter BCrypt
+ Facebook (Passport)
+ 
+User
+ Manage notifications

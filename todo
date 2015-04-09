@@ -1,16 +1,41 @@
-Dev
-Logger
-Test U API
+Fonctions
+__________
 
 Page accueil
+ Design
+ Explications sites
  Créer tumblr
  Créer api tumblr
+ 
 Page liste artistes
-Page artistes
+ Nombres de rumeurs
+ Bouton abonnement
+ Pagination
+ Filtres
+ 
+Page artiste
+ Agenda des festivals
+ 
+Page festival
+ Boutons accessibles uniquement si édition est définie
+ Ajouter rumeur, ne plus griser
+ Modifier une rumeur
+ Modifier un festival
+ Ajouter étoile pour rumeur officielle
+ Filtres
+ Ajouter bouton abonnement au festival
 
 Identification
  Ajouter BCrypt
- Facebook (Passport)
+ Connexion Facebook (Passport)
  
 User
+ Modifier compte
+ Gérer ses rumeurs N
  Manage notifications
+ 
+ Dev
+ ___________
+ Logger
+ Tests U
+ Créer et configurer serveur heroku

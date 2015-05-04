@@ -51,28 +51,37 @@ subscriptionSchema.pre('save', function (next) {
 });
 
 subscriptionSchema.statics.getSubscriptionByIdUser = function (idUser) {
-	console.log("getSubscriptionByIdUser -- Début méthode");
+	console.log("getSubscriptionByIdUser -- Début méthode -- ");
 
 	return new Promise(function (resolve, reject) {
 		Subscription.find({ user: idUser })
-		.exec(function(err, festival){
-			if(err || !festival){
-				console.log("getSubscriptionByIdUser -- Reject -- Fin méthode");
-				console.log(err);
-				reject(new Error("L'abonnement n'est pas connu."))
+		.exec(function(err, subscription){
+			if(err || !subscription || subscription.length == 0){
+				Subscription.createSubscription(idUser)
+				.then(function(subscription){
+					console.log("getSubscriptionByIdUser -- Resolve 1 -- Fin méthode");
+					resolve(subscription);
+				})
+				.catch(function(err){
+					console.log("getSubscriptionByIdUser -- Reject -- Fin méthode");
+					reject(new Error(err.message));
+				});
 			}else{
-				console.log("getSubscriptionByIdUser -- Resolve -- Fin méthode");
-				resolve(festival);
+				console.log("getSubscriptionByIdUser -- Resolve 2 -- Fin méthode" + subscription);
+				resolve(subscription);
 			}
 		});
 	});
 };
 
 subscriptionSchema.statics.createSubscription = function(idUser){
-	var subscription = new Subscription({
-		  user: idUser
-		});
+	console.log("createSubscription -- Début méthode");
 
+	var subscription = new Subscription({
+		user: idUser
+	});
+
+	return new Promise(function (resolve, reject) {
 		subscription.save(function (err, subscription) {
 			if (err) {
 				console.log("createSubscription -- Erreur -- Fin méthode");
@@ -83,30 +92,66 @@ subscriptionSchema.statics.createSubscription = function(idUser){
 				resolve(subscription);
 			}
 		});
+	});
 }
 
 subscriptionSchema.statics.addFestivalSubscription = function(idUser, idFestival){
 	console.log("addFestivalSubscription -- Début méthode");
 
-	//TODO
-	Subscription.getSubscriptionByIdUser(idUser)
-	.then(function(subscription){
-			console.log("Route /festival/modifier  -- Fin");
-			res.status(201).send();
+	return new Promise(function (resolve, reject) {
+
+		Subscription.getSubscriptionByIdUser(idUser)
+		.then(function(subscription){
+			if(subscription){
+				subscription.festivals.push(idFestival);
+				subscription.save(function (err, subscription) {
+					if (err) {
+						console.log("addFestivalSubscription -- Erreur -- Fin méthode");
+						console.log(err);
+						reject(new Error(err.message));
+					}else{
+						console.log("addFestivalSubscription -- Fin méthode");
+						resolve(subscription);
+					}
+				});
+			}else{
+				reject(new Error("Impossible de créer un abonnement."));
+			}
 		})
 		.catch(function(err){
-			console.log("Route /festival/modifier/ --  Erreur -- Fin");
-				res.status(400).send({ error: err.message });
+			reject(new Error("Erreur technique, impossible de créer un abonnement."));
 		});
-
-	// check if subscriptions exist for the user
-	// else create one
+	});
 }
 
 subscriptionSchema.statics.addArtistSubscription = function(idUser, idArtist){
-	console.log("addFestivalSubscription -- Début méthode");
+	console.log("addArtistSubscription -- Début méthode");
 
-	//TODO
+	
+	return new Promise(function (resolve, reject) {
+
+		Subscription.getSubscriptionByIdUser(idUser)
+		.then(function(subscription){
+			if(subscription){
+				subscription.artists.push(idArtist);
+				subscription.save(function (err, subscription) {
+					if (err) {
+						console.log("addArtistSubscription -- Erreur -- Fin méthode");
+						console.log(err);
+						reject(new Error(err.message));
+					}else{
+						console.log("addArtistSubscription -- Fin méthode");
+						resolve(subscription);
+					}
+				});
+			}else{
+				reject(new Error("Impossible de créer un abonnement."));
+			}
+		})
+		.catch(function(err){
+			reject(new Error("Erreur technique, impossible de créer un abonnement."));
+		});
+	});
 }
 
 subscriptionSchema.statics.deleteFestivalSubscription = function(idUser, idFestival){

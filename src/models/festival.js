@@ -42,6 +42,22 @@ festivalSchema.pre('remove', function (next) {
 		}
 	});
 
+	var Subscription = require('./subscription');
+
+	// remove subscriptions
+	Subscription.find({ festivals.id: this._id }, function(err, editions){
+		if(err || !editions){
+			console.log("Remove subscription -- Pre remove -- Error on find editions");
+		}else{
+			// iterate on editions (must be have one)
+			for(var i=0; i < subscription.length; i++){
+				Subscription.update({ _id: subscription[i]._id },
+					{ $pull: { festivals: { id: this._id } } }, 
+ 					{ multi: true }).exec();
+			}
+		}
+	});
+
 	next();
     console.log("Remove festival -- Pre remove -- Fin");
 });

@@ -1,26 +1,28 @@
 extends layout/layout
 
 block content
- div.row
+ div(id="festivalDiv", ng-controller="FestivalController")
+  div.page-header(id="welcomeText")
+   h1 Bienvenue sur Fucking Rumors Baby
   div.col-md-3.col-xs-12(ng-controller="SignupController", id="signupFormDiv")
-   h3 Nouveau ? Inscrivez-vous maintenant
-   div.alert.alert-danger(ng-show="displayError" id="errorSignupDiv", role="alert")
-    span.glyphicon.glyphicon-exclamation-sign(aria-hidden="true")
-    span.sr-only Error :
-    span(ng-bind="error")
-   form.form-horizontal(id="signupForm", autocomplete="off", novalidate)
-    div.form-group
-      input.form-control(ng-model="pseudo", type="text", placeholder="Pseudo")
-    div.form-group
-      input.form-control(ng-model="mail", type="email", placeholder="Email")
-    div.form-group
-      input.form-control(ng-model="password", type="password", placeholder="Mot de passe")
-    div.form-group
-      input.form-control(ng-model="passwordConfirmation", type="password", placeholder="Confirmer mot de passe")
-    div.form-group
-     btn-loading(btn-loading="waiting", btn-label-loading="Chargement...", btn-class-loading="btn btn-lg btn-block btn-default", ng-click="doSignup()") S'inscrire
-  div.col-md-9.col-xs-12(id="welcomeText")
-   div.page-header
-    h1 Bienvenue sur Fucking Rumors Baby
+    h3 Nouveau ? Inscrivez-vous sans plus attendre !
+    div.alert.alert-danger(ng-show="displayError" id="errorSignupDiv", role="alert")
+     span.glyphicon.glyphicon-exclamation-sign(aria-hidden="true")
+     span.sr-only Error :
+     span(ng-bind="error")
+    form.form-horizontal(id="signupForm", autocomplete="off", novalidate)
+     div.form-group
+       input.form-control(ng-model="pseudo", type="text", placeholder="Pseudo")
+     div.form-group
+       input.form-control(ng-model="mail", type="email", placeholder="Email")
+     div.form-group
+       input.form-control(ng-model="password", type="password", placeholder="Mot de passe")
+     div.form-group
+       input.form-control(ng-model="passwordConfirmation", type="password", placeholder="Confirmer mot de passe")
+     div.form-group
+      btn-loading(btn-loading="waiting", btn-label-loading="Chargement...", btn-class-loading="btn btn-lg btn-block btn-default", ng-click="doSignup()") S'inscrire
+  div.col-md-9.col-xs-12(ng-controller="SignupController", id="signupFormDiv")
    p Suivre l'actualité des festivals, les rumeurs, les annonces blabla Suivre l'actualité des festivals, les rumeurs, les annonces blablaSuivre l'actualité des festivals, les rumeurs, les annonces blablaSuivre l'actualité des festivals, les rumeurs, les annonces blablaSuivre l'actualité des festivals, les rumeurs, les annonces blablaSuivre l'actualité des festivals, les rumeurs, les annonces blablaSuivre l'actualité des festivals, les rumeurs, les annonces blablaSuivre l'actualité des festivals, les rumeurs, les annonces blabla
+   p En vous inscrivant vous allez pouvoir suivre des festivals, des artistes et être au courant toute l'actualité.
    a.btn.btn-primary.btn-lg(href="/festivals", role="button") Voir la liste des festivals
+   

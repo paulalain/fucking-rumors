@@ -1,6 +1,8 @@
 fuckingRumorsApp.controller('SignupController', ['$scope', '$http', '$window',
     function ($scope, $http, $window) {
 	   
+	    $scope.waiting = false;
+
 	    // function validate
 	    $scope.validation = function(){
 	   		if(!$scope.pseudo){

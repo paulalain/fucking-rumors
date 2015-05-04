@@ -12,16 +12,8 @@ var typeArtist = 1;
 var subscriptionSchema = Schema({
 	_id: Number,
 	user: {type: Number, ref: 'User' },
-	festivals: [{
-		id: {type: Number, ref: 'Festival'},
-		percentageMin: Number,
-		official: Boolean
-	}],
-	artists: [{
-		id: {type: Number, ref: 'Artist'},
-		percentageMin: Number,
-		official: Boolean
-	}]
+	festivals: [{type: Number, ref: 'Festival'}],
+	artists: [{type: Number, ref: 'Artist'}]
 });
 
 //deep populate
@@ -93,7 +85,7 @@ subscriptionSchema.statics.createSubscription = function(idUser){
 		});
 }
 
-subscriptionSchema.statics.addModifyFestivalSubscription = function(idUser, idFestival, percentage, official){
+subscriptionSchema.statics.addFestivalSubscription = function(idUser, idFestival){
 	console.log("addFestivalSubscription -- Début méthode");
 
 	//TODO
@@ -111,7 +103,7 @@ subscriptionSchema.statics.addModifyFestivalSubscription = function(idUser, idFe
 	// else create one
 }
 
-subscriptionSchema.statics.addModifyArtistSubscription = function(idUser, idArtist, percentage, official){
+subscriptionSchema.statics.addArtistSubscription = function(idUser, idArtist){
 	console.log("addFestivalSubscription -- Début méthode");
 
 	//TODO
@@ -124,7 +116,7 @@ subscriptionSchema.statics.deleteFestivalSubscription = function(idUser, idFesti
 		Subscription.getSubscriptionByIdUser(idUser)
 		.then(function(subscription){
 				Subscription.update({ _id : subscription._id}, 
-										{ $pull: { festivals: { id: idFestival } } },
+										{ $pull: { festivals: idFestival } },
 										{ multi: true }).exec();
 				resolve(subscription);	
 		})

@@ -87,6 +87,23 @@ artistSchema.pre('save', function (next) {
 	}
 });
 
+artistSchema.statics.findByIdArtist = function (idArtist) {
+	console.log("findByIdArtist -- Début méthode");
+
+	return new Promise(function (resolve, reject) {
+		Artist.findById(idArtist)
+		.exec(function(err, artist){
+			if(err || !artist){
+				console.log("findByIdArtist -- Reject -- Fin méthode");
+				console.log(err);
+				reject(new Error("L'artiste n'est pas connu."))
+			}else{
+				console.log("findByIdArtist -- Resolve -- Fin méthode");
+				resolve(artist);
+			}
+		});
+	});
+};
 
 artistSchema.statics.checkArtistValues = function (name) {
 	console.log("checkArtistValues -- Début méthode");

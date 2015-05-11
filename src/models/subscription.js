@@ -67,8 +67,8 @@ subscriptionSchema.statics.getSubscriptionByIdUser = function (idUser) {
 					reject(new Error(err.message));
 				});
 			}else{
-				console.log("getSubscriptionByIdUser -- Resolve 2 -- Fin méthode" + subscription);
-				resolve(subscription);
+				console.log("getSubscriptionByIdUser -- Resolve 2 -- Fin méthode");
+				resolve(subscription[0]);
 			}
 		});
 	});
@@ -99,7 +99,6 @@ subscriptionSchema.statics.addFestivalSubscription = function(idUser, idFestival
 	console.log("addFestivalSubscription -- Début méthode");
 
 	return new Promise(function (resolve, reject) {
-
 		Subscription.getSubscriptionByIdUser(idUser)
 		.then(function(subscription){
 			if(subscription){
@@ -127,14 +126,14 @@ subscriptionSchema.statics.addFestivalSubscription = function(idUser, idFestival
 subscriptionSchema.statics.addArtistSubscription = function(idUser, idArtist){
 	console.log("addArtistSubscription -- Début méthode");
 
-	
 	return new Promise(function (resolve, reject) {
-
 		Subscription.getSubscriptionByIdUser(idUser)
 		.then(function(subscription){
 			if(subscription){
 				subscription.artists.push(idArtist);
+				
 				subscription.save(function (err, subscription) {
+					console.log("test5");
 					if (err) {
 						console.log("addArtistSubscription -- Erreur -- Fin méthode");
 						console.log(err);
@@ -149,6 +148,7 @@ subscriptionSchema.statics.addArtistSubscription = function(idUser, idArtist){
 			}
 		})
 		.catch(function(err){
+			console.log(err);
 			reject(new Error("Erreur technique, impossible de créer un abonnement."));
 		});
 	});
@@ -183,6 +183,7 @@ subscriptionSchema.statics.deleteArtistSubscription = function(idUser, idArtist)
 				resolve(subscription);	
 		})
 		.catch(function(err){
+			console.log(err);
 			reject(new Error("Aucun abonnement pour cet utilisateur."))
 		});
 	});

@@ -52,4 +52,18 @@ routerSubscription.get('/subscribeArtist/:idArtist', commons.requireRole('user')
 	});
 });
 
+/* GET Delete Festival Subscription */
+routerSubscription.get('/unSubscribeFestival/:idFestival', commons.requireRole('user'), function(req, res, next) {
+	console.log("Route /subscriptions/unSubscribeFestival -- Début");
+
+	//TODO
+});
+
+/* GET Delete Artist Subscription */
+routerSubscription.get('/unSubscribeArtist/:idArtist', commons.requireRole('user'), function(req, res, next) {
+	console.log("Route /subscriptions/unSubscribeArtist -- Début");
+
+	//TODO
+});
+
 module.exports = routerSubscription;

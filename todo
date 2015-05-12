@@ -1,7 +1,7 @@
 US-001 : Gestion des abonnements
 ________________________________
 
-	US-001-01 : back-End gestion des abonnements
+	US-001-01 : back-End gestion des abonnements : DONE
 	____________________________________________
 
 	 Modele abonnement pour abonnement artiste ou festival.
@@ -12,6 +12,8 @@ ________________________________
 	_____________________________________________
 
 	 Rajouter étoile pour s'abonner/se désabonner d'un festival ou d'un artiste.
+	 Design : image + tooltip
+	 Angular : controler
 
 
 	US-001-03 : back-End gestion de la liste des abonnements
@@ -68,25 +70,27 @@ ________________________________
 US-006 : Modifier le compte utilisateur
 ________________________________
 
- Page accueil
+//TODO
+
+US-007 : Page accueil & design
+______________________________
+
  Design
  Explications sites
  Créer tumblr
  Créer api tumblr
  
-US-007 : Notifications
+US-008 : Notifications
 ________________________________
 
 //TODO
 
 
-US-008 : Identification
+US-009 : Identification
 ________________________________
 
  Ajouter BCrypt
  Connexion Facebook (Passport)
-
-
 
  Dev
  ___________

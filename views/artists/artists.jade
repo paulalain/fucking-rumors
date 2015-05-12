@@ -26,8 +26,12 @@ block content
         br
         span XX rumeurs
        if admin && loggedIn
-        div.col-xs-6.col-sm-6.col-md-5.col-lg-6.btn-toolbar(ng-show="!!(hover[item._id])")
+        div.col-xs-5.col-sm-5.col-md-4.col-lg-5.btn-toolbar(ng-show="!!(hover[item._id])")
          a.btn.btn-danger.btn-sm.pull-right(role="button" ng-click="deleteArtist(item._id)") Supprimer
          a.btn.btn-primary.btn-sm.pull-right(role="button" ng-click="updateArtiste(item._id)") Modifier
+       if loggedIn
+        div.col-xs-1.col-sm-1.col-md-1.col-lg-1.btn-toolbar
+         a.pull-right.glyphicon.glyphicon-star-empty(role="button" ng-click="subscribeArtist(item._id)" ng-show="!item.subscription") 
+         a.pull-right.glyphicon.glyphicon-star(role="button" ng-click="unSubscribeArtist(item._id)" ng-show="item.subscription") 
    div.col-xs-12.col-sm-12.col-md-12.col-lg-12
     paging.small(page="$parent.currentPage", page-size="$parent.pageSize", total="$parent.total", scroll-top="true", hide-if-empty="true", show-prev-next="false", paging-action="goToPage(page)")

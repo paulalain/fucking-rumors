@@ -163,6 +163,7 @@ subscriptionSchema.statics.deleteFestivalSubscription = function(idUser, idFesti
 				Subscription.update({ _id : subscription._id}, 
 										{ $pull: { festivals: idFestival } },
 										{ multi: true }).exec();
+				console.log("deleteFestivalSubscription -- Fin méthode");
 				resolve(subscription);	
 		})
 		.catch(function(err){
@@ -178,8 +179,9 @@ subscriptionSchema.statics.deleteArtistSubscription = function(idUser, idArtist)
 		Subscription.getSubscriptionByIdUser(idUser)
 		.then(function(subscription){
 				Subscription.update({ _id : subscription._id}, 
-										{ $pull: { artists: { id: idFestival } } },
+										{ $pull: { artists: idArtist } },
 										{ multi: true }).exec();
+				console.log("deleteArtistSubscription -- Fin méthode");
 				resolve(subscription);	
 		})
 		.catch(function(err){

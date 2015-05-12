@@ -25,14 +25,33 @@ fuckingRumorsApp.controller('ArtistsListController', ['$rootScope', '$scope', '$
         	$scope.toggleAddArtist();
 		});
 
-
 		$scope.refresh = function(){
 			$scope.waiting = true;
+
+			// get artist list
 			$http.get('/artistes/list')
 				.success(function(data) {
 					$scope.artists = data;
-					$scope.waiting = false;
 					$scope.total = $scope.artists.length;
+
+					// get artist list subscriptions
+					$http.get('/subscriptions/artistsSubscriptions')
+						.success(function(data) {
+							for(var i=0; i < $scope.artists.length; i++){
+								console.log(data);
+								if(data.indexOf($scope.artists[i]._id) != -1){
+									$scope.artists[i].subscription = true;
+									console.log($scope.artists[i].name + " true");
+								}else{
+									$scope.artists[i].subscription = false;
+									console.log($scope.artists[i].name + " false");
+								}
+							}
+							$scope.waiting = false;
+						})
+						.error(function(data) {
+							$scope.waiting = false;
+						});
 			});
 		};
 
@@ -55,6 +74,32 @@ fuckingRumorsApp.controller('ArtistsListController', ['$rootScope', '$scope', '$
 
 		$scope.goToPage = function(page){
 			$scope.currentPage = parseInt(page);
+		};
+
+		$scope.subscribeArtist = function(id){
+			if(id){
+				$http.get('/subscriptions/subscribeArtist/' + id)
+					.success(function(data) {
+						$scope.setSubscriptionValue(true, id);
+					});
+			}
+		};
+
+		$scope.unSubscribeArtist = function(id){
+			if(id){
+				$http.get('/subscriptions/unSubscribeArtist/' + id)
+					.success(function(data) {
+						$scope.setSubscriptionValue(false, id);
+					});
+			}
+		};
+
+		$scope.setSubscriptionValue = function(value, idArtist){
+			for(var i=0; i < $scope.artists.length; i++){
+				if($scope.artists[i]._id == idArtist){
+					$scope.artists[i].subscription = value;
+				}
+			}
 		};
 
 		// get the list when page is loaded

@@ -39,13 +39,13 @@ artistSchema.pre('remove', function (next) {
 	});
 
 	// remove subscriptions
-	Subscription.find({ festivals: this._id }, function(err, editions){
+	Subscription.find({ festivals: this._id }, function(err, subscriptions){
 		if(err || !editions){
-			console.log("Remove subscription -- Pre remove -- Error on find editions");
+			console.log("Remove subscription -- Pre remove -- Error on find subscriptions");
 		}else{
 			// iterate on editions (must be have one)
-			for(var i=0; i < subscription.length; i++){
-				Subscription.update({ _id: subscription[i]._id },
+			for(var i=0; i < subscriptions.length; i++){
+				Subscription.update({ _id: subscriptions[i]._id },
 					{ $pull: { artists: this._id } }, 
  					{ multi: true }).exec();
 			}

@@ -45,13 +45,13 @@ festivalSchema.pre('remove', function (next) {
 	var Subscription = require('./subscription');
 
 	// remove subscriptions
-	Subscription.find({ festivals: this._id }, function(err, editions){
-		if(err || !editions){
-			console.log("Remove subscription -- Pre remove -- Error on find editions");
+	Subscription.find({ festivals: this._id }, function(err, subscriptions){
+		if(err || !subscriptions){
+			console.log("Remove subscription -- Pre remove -- Error on find subscriptions");
 		}else{
-			// iterate on editions (must be have one)
-			for(var i=0; i < subscription.length; i++){
-				Subscription.update({ _id: subscription[i]._id },
+			// iterate on subscriptions (must be have one)
+			for(var i=0; i < subscriptions.length; i++){
+				Subscription.update({ _id: subscriptions[i]._id },
 					{ $pull: { festivals: this._id } }, 
  					{ multi: true }).exec();
 			}
